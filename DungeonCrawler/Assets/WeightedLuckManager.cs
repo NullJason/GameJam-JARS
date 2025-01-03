@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/* Example of how to use this wRng Manager in another monobehavior:
+/* Example of how to use this wRng Manager in a monobehavior script:
 
 using UnityEngine;
 
@@ -14,49 +14,48 @@ public class Toy : MonoBehaviour
         WeightedLuckManager.Instance.Append("Toy", "Doll", 35);
         WeightedLuckManager.Instance.Append("Toy", "Puzzle", 25);
 
-        // Get a random toy
+        // get + print a random toy
         Debug.Log("Random Toy: " + WeightedLuckManager.Instance.Get("Toy"));
     }
 }
 
 */
 
-public class WeightedLuckManager : MonoBehaviour
+
+public class WeightedLuckManager
 {
-    // Singleton instance
-    public static WeightedLuckManager Instance;
-
-    // Dictionary to store multiple luck tables, each identified by a category.
-    private Dictionary<string, LuckTable> luckTables = new Dictionary<string, LuckTable>();
-
-    private void Awake()
+    // Singleton instance!
+    private static WeightedLuckManager _instance;
+    public static WeightedLuckManager Instance
     {
-        // Ensure there's only one manager
-        if (Instance == null)
+        get
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject); // Keep this manager alive across scenes
-        }
-        else
-        {
-            Destroy(gameObject);
+            if (_instance == null)
+            {
+                _instance = new WeightedLuckManager();
+            }
+            return _instance;
         }
     }
 
-    // Add or update a value in a specific luck table
+    // dict to store multiple luck tables, each identified by a string category.
+    private Dictionary<string, LuckTable> luckTables = new Dictionary<string, LuckTable>();
+
+    // prevent external instantiation. Init other stuff here.
+    private WeightedLuckManager() {}
+
+    // Add/update a value in a specific luck table
     public void Append(string category, string key, float value)
     {
         if (!luckTables.ContainsKey(category))
         {
-            // Create a new luck table if it doesn't exist for this category
             luckTables[category] = new LuckTable();
         }
 
-        // Add or update the key in the corresponding table
         luckTables[category].Append(key, value);
     }
 
-    // Get a random key from a specific luck table
+    // Get a random key from a luck table
     public string Get(string category)
     {
         if (luckTables.ContainsKey(category))
@@ -68,7 +67,15 @@ public class WeightedLuckManager : MonoBehaviour
         return null;
     }
 
-    // Prints a specific luck table for debugging.
+    // clears a category's table
+    public void Clear(string category){
+        if(luckTables.ContainsKey(category)){
+            luckTables[category].Clear(); return;
+        }
+        Debug.Log("failed to clear or table is empty.");
+    }
+
+    // Prints a specific luck table for debugging use.
     public void PrintTable(string category)
     {
         if (luckTables.ContainsKey(category))
@@ -82,7 +89,7 @@ public class WeightedLuckManager : MonoBehaviour
         }
     }
 
-    // private class to represent a single luck table
+    // class to represent a single luck table
     private class LuckTable
     {
         private Dictionary<string, float> table = new Dictionary<string, float>();
@@ -92,17 +99,15 @@ public class WeightedLuckManager : MonoBehaviour
         {
             if (table.ContainsKey(key))
             {
-                // Update existing key
-                totalWeight -= table[key]; // Subtract old weight
-                table[key] = value; // Update weight
+                totalWeight -= table[key];
+                table[key] = value; 
             }
             else
             {
-                // Add new key
                 table[key] = value;
             }
 
-            totalWeight += value; // Add new weight
+            totalWeight += value; 
         }
 
         public string Get()
@@ -128,8 +133,10 @@ public class WeightedLuckManager : MonoBehaviour
             Debug.LogError("Weighted selection failed!");
             return null;
         }
-        
-        // internal print debugger.
+        public void Clear(){
+            table.Clear();
+        }
+        // Internal print debugger
         public void PrintTable()
         {
             foreach (var entry in table)
