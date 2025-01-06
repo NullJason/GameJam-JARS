@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 568920358739766493}
   - component: {fileID: 4825818227154791243}
   - component: {fileID: 5931732868963494926}
-  - component: {fileID: 6480424431078772522}
   - component: {fileID: 3442012244835406220}
   - component: {fileID: 5478244057640413319}
   - component: {fileID: 6332607620428433372}
@@ -31,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5880885470170332015}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.203, y: 0.12300001, z: 0}
   m_LocalScale: {x: 0.042956382, y: 0.10075783, z: 0.1155793}
   m_ConstrainProportionsScale: 0
@@ -125,8 +124,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 19019915
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
@@ -183,18 +182,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6480424431078772522
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5880885470170332015}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5000c68357580d94ca040a9567d03f61, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &3442012244835406220
 MonoBehaviour:
   m_ObjectHideFlags: 0

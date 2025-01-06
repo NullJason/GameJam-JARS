@@ -16,9 +16,17 @@ public class InitiateGame : MonoBehaviour
     Transform Particle2; // the particles you see after pressing start button.
     GameObject MapFolder; // folder containing mapdata/structure.
     GameObject CurrentMap = null;
-    static int EnemyCount = 4; // could customize eneemy count and other stats for each level using a dictionary instead once we have the details.
-    static int EnemySpawnRate = 5; // ESR in seconds.
-    bool GameStarted = false; // mark game started
+    List<int> PathWays = new List<int>();
+    int NumOfStages = 3;
+    int MinRooms = 6;
+    int MaxRooms = 8;
+    int RoomsCleared = 0; // current stage rooms cleared
+    int StagesCleared = 0; // current stages cleared;
+    int NumOfRoomsInStage; // current num of rooms in this stage of the current map
+    static int EnemyCount = 4;
+    static int EnemySpawnRate = 5;
+    bool GameStarted = false; 
+
 
     // bool PlayerAtExit = false; // if we implement level/stage clear exits.
     
@@ -80,6 +88,8 @@ public class InitiateGame : MonoBehaviour
     }
     // Get a random map and add to playground.
     void CreateNewMap(){
+        StagesCleared = 0;
+        RoomsCleared = 0;
         string mapName = WeightedLuckManager.Instance.Get("Map"); if (mapName == null){return;}
         GameObject MapClone = Instantiate(MapFolder.transform.Find(mapName).gameObject);
         Transform SpawnPointsFolder = MapClone.transform.Find("SpawnPoints");
@@ -124,6 +134,15 @@ public class InitiateGame : MonoBehaviour
         // start spawning entities.
         StartDelayedEntitySpawner(EnemyQueue, SpawnPoints);
     }
+    void CreateNextRoom(){
+        RoomsCleared += 1;
+    }
+    void CreateNextStage(){
+        NumOfRoomsInStage = Random.Range(MinRooms,MaxRooms);
+        RoomsCleared = 0;
+        StagesCleared += 1;
+        
+    }
     void StartDelayedEntitySpawner(Queue<GameObject> queue, Queue<Vector3> sp){
         StartCoroutine(DelayedSpawnEntity(queue, sp));
     }
@@ -156,7 +175,11 @@ public class InitiateGame : MonoBehaviour
     // check when to create a new map. currently checks when there are no enemies on playground.
     void CheckClearStatus(){
         if(PlayGroundEnemies.transform.childCount == 0){
-           CreateNewMap();
+            // half implemented. commented out for push to github the layering order thing to fix visibility for entity.
+        //    if(NumOfRoomsInStage >= RoomsCleared) {CreateNextStage();}
+        //    else if(NumOfStages >= StagesCleared) {CreateNewMap();}
+        //    else{CreateNextRoom();}
+        CreateNewMap();
            Debug.Log("this should only print ONCE per clear.");
         }
     }
@@ -167,3 +190,6 @@ public class InitiateGame : MonoBehaviour
     }
     
 }
+// private class LevelPath{
+    // ignore this for now
+// }
