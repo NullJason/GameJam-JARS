@@ -20,10 +20,6 @@ PrefabInstance:
       propertyPath: despawnTimer
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: -1506741908487765444, guid: e4d34c760e3f03f44a36aaeeeff642ed, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3927333413327840180, guid: e4d34c760e3f03f44a36aaeeeff642ed, type: 3}
       propertyPath: invincibilityFrameCount
       value: 10
