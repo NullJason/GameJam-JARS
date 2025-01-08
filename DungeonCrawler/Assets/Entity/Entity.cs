@@ -36,7 +36,7 @@ public abstract class Entity : MonoBehaviour
     }
     health += amount;
     if(health <= 0){
-      Debug.LogWarning("  Killing player...");
+      if(info) Debug.LogWarning("  Killing player or enemy...");
       Die();
     }
   }
@@ -58,8 +58,12 @@ public abstract class Entity : MonoBehaviour
   }
 
   //TODO: Implement weapons dropping?
-  private protected void Die(){
+  private protected virtual void Die(){
     //currentWeapon.Drop();
     Destroy(gameObject);
+  }
+  private protected void Attack(Vector3 direction){
+    float angle = (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
+    currentWeapon.TryAttack(Quaternion.Euler(new Vector3(0, 0, angle)));
   }
 }

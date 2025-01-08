@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5931732868963494926}
   - component: {fileID: 3442012244835406220}
   - component: {fileID: 5478244057640413319}
-  - component: {fileID: 6332607620428433372}
+  - component: {fileID: 1542496442164544481}
   m_Layer: 0
   m_Name: EnemyType1
   m_TagString: Enemy
@@ -128,7 +128,7 @@ SpriteRenderer:
   m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.9184808, b: 0.9025157, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -261,7 +261,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &6332607620428433372
+--- !u!114 &1542496442164544481
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -270,8 +270,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5880885470170332015}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e1386e5439b0ae84e817a594abb28b0d, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b80ec30132c78a4faee7f2a006fb8b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 40
   currentWeapon: {fileID: 0}
+  speed: 0
+  range: 0
+  reload: -1
+  maxChaseDistance: 0

@@ -14,14 +14,11 @@ public class Weapon : MonoBehaviour
   {
     cooldown = cooldownReset;
   }
-  void Update(){
+  void FixedUpdate(){
     if(cooldown > 0) cooldown--;
-//Placeholder attack functionality. In the actual game, attacking should be run through the associated Entity calling TryAttack().
-//    if(Input.GetButtonDown("Fire1")) for(int i = 0; i < 5; i++) SummonProjectile();
   }
   //Feel free to override! This is just a default implementation.
   public virtual bool TryAttack(Quaternion rotation){
-    Debug.Log("=D");
     if(cooldown == 0){
       cooldown = cooldownReset;
       SummonProjectile(rotation);
@@ -46,4 +43,7 @@ public class Weapon : MonoBehaviour
   }
   //TODO: Two weapons are compared based on their names.
   //private void Equals()
+  public int ResetTime(){
+    return cooldownReset;
+  }
 }

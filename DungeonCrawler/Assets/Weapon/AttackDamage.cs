@@ -11,7 +11,7 @@ public class AttackDamage : MonoBehaviour
   [SerializeField] private bool despawnImmediatelyOnContact = true; //Whether the attack will disappear after hitting something it damages.
   [SerializeField] private int invincibilityFrameCount = 5; //How many frames an entity will be immune to damage after being hit by this attack.
 
-  void OnCollisionEnter2D(Collision2D col){
+  void OnTriggerEnter2D(Collider2D col){
     Debug.Log("Hit!");
     if((col.gameObject.tag == "Player" && hitPlayer) || (col.gameObject.tag == "Enemy" && hitEnemy)){
       Debug.Log("=D");

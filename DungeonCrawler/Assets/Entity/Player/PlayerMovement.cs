@@ -2,10 +2,14 @@ using UnityEngine;
 
 public class PlayerMovement : Entity
 {
+  public static PlayerMovement mainPlayer;
   private protected float moveSpeed = 5f; // move speed
 
   private Vector2 movement;
 
+  void Start(){
+    if(mainPlayer == null) mainPlayer = this;
+  }
   void Update(){
     // simple movement
     movement.x = Input.GetAxisRaw("Horizontal"); // A/D or Left/Right
@@ -36,9 +40,7 @@ public class PlayerMovement : Entity
   {
       Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
       Vector3 relativeMousePosition = mousePos - new Vector3(transform.position.x, transform.position.y, 0);
-      float angle = (Mathf.Atan2(relativeMousePosition.y, relativeMousePosition.x) * Mathf.Rad2Deg);
-      currentWeapon.TryAttack(Quaternion.Euler(new Vector3(0, 0, angle)));
-      Debug.Log("Attack triggered!");
+      Attack(relativeMousePosition);
   }
 
   void Dash()
