@@ -35,7 +35,7 @@ public abstract class Entity : MonoBehaviour
       if(IsInvincible()) Debug.LogWarning("  Health is being changed during invincibility! Was this intended?");
     }
     health += amount;
-    if(health <= 0){
+    if(health <= 0 && health - amount > 0){ //If it becomes dead after this hit, but not if it would already be dead before this hit! This is to prevent Die() from being called multiple times per hit.
       if(info) Debug.LogWarning("  Killing player or enemy...");
       Die();
     }
@@ -65,5 +65,19 @@ public abstract class Entity : MonoBehaviour
   private protected void Attack(Vector3 direction){
     float angle = (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
     currentWeapon.TryAttack(Quaternion.Euler(new Vector3(0, 0, angle)));
+  }
+  public void SetWeapon(Weapon weapon){
+    currentWeapon = weapon;
+  }
+  //Like SetWeapon, but only works if it doesn't already have a weapon. Returns true if it wasn't holding a weapon and now it is.
+  public bool InitializeWeapon(Weapon weapon){
+    if(currentWeapon != null) return false;
+    if(weapon == null){
+      Debug.LogWarning("Weapon was set from null to null. Was this intended?");
+      SetWeapon(weapon);
+      return false;
+    }
+    SetWeapon(weapon);
+    return true;
   }
 }

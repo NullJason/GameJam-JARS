@@ -48,4 +48,10 @@ public class PlayerMovement : Entity
       // Placeholder for dash functionality
       Debug.Log("Dash triggered!");
   }
+
+  private protected override void Die(){
+    gameObject.SetActive(false);
+    //TODO: Add Die Screen Transition Here!
+    //Code for setting up the death screen should be here! --Stephen
+  }
 }

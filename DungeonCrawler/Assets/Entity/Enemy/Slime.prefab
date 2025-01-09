@@ -86,24 +86,40 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8247685148117634943, guid: d911a1acfee35934495f445c2bcb11e6, type: 3}
+    - {fileID: 6911961662762339747, guid: d911a1acfee35934495f445c2bcb11e6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5578507420420912791, guid: d911a1acfee35934495f445c2bcb11e6, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8443213166497922173}
+    - targetCorrespondingSourceObject: {fileID: 6577887977281828662, guid: d911a1acfee35934495f445c2bcb11e6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6793333968186811860}
   m_SourcePrefab: {fileID: 100100000, guid: d911a1acfee35934495f445c2bcb11e6, type: 3}
---- !u!114 &570571076263216690 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6725805577499952118, guid: d911a1acfee35934495f445c2bcb11e6, type: 3}
+--- !u!1 &140901955517281010 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6577887977281828662, guid: d911a1acfee35934495f445c2bcb11e6, type: 3}
   m_PrefabInstance: {fileID: 6538610757896095172}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1717869434130953043}
+--- !u!114 &6793333968186811860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140901955517281010}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5c7d22a6633f64d46a6137a7bfa0a65f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  wielder: {fileID: 0}
+  cooldownReset: 0
+  projectile: {fileID: 6705690385963228155, guid: a43097100a3f76e45b622bfaf252b334, type: 3}
+  level: 0
+  droppable: 0
+  howMany: 1
 --- !u!1 &1717869434130953043 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5578507420420912791, guid: d911a1acfee35934495f445c2bcb11e6, type: 3}
@@ -122,6 +138,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
-  currentWeapon: {fileID: 570571076263216690}
+  currentWeapon: {fileID: 6793333968186811860}
   speed: 0.04
   range: 10

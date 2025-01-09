@@ -7,6 +7,8 @@ public class Weapon : MonoBehaviour
   [SerializeField] private protected GameObject projectile; //The GameObject of the attack that this Weapon summons.
   [SerializeField] private protected int level; //The weapon's level will change the damage of the Attack created slightly. TODO!
   [SerializeField] private bool droppable; //Whether an enemy carrying this weapon can drop it.
+  [SerializeField] private string name = "Placeholder Weapon";
+  [SerializeField] private string description = "Hello!";
   private protected int cooldown;
 
   // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -39,11 +41,17 @@ public class Weapon : MonoBehaviour
     SummonProjectile(transform.rotation);
   }
   private protected void SetUpHittability(AttackDamage damager){
-    damager.SetUpHittables(gameObject.tag != "Player", gameObject.tag != "Enemy");
+    damager.SetUpHittables(transform.parent.tag != "Player", transform.parent.tag != "Enemy");
   }
   //TODO: Two weapons are compared based on their names.
   //private void Equals()
   public int ResetTime(){
     return cooldownReset;
+  }
+  public string GetName(){
+    return name;
+  }
+  public string GetInfo(){
+    return description;
   }
 }

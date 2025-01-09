@@ -84,8 +84,39 @@ PrefabInstance:
       propertyPath: reload
       value: 90
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 8247685148117634943, guid: d911a1acfee35934495f445c2bcb11e6, type: 3}
+      propertyPath: currentWeapon
+      value: 
+      objectReference: {fileID: 6820646619919820511}
+    m_RemovedComponents:
+    - {fileID: 6911961662762339747, guid: d911a1acfee35934495f445c2bcb11e6, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6577887977281828662, guid: d911a1acfee35934495f445c2bcb11e6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6820646619919820511}
   m_SourcePrefab: {fileID: 100100000, guid: d911a1acfee35934495f445c2bcb11e6, type: 3}
+--- !u!1 &6798757737428082278 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6577887977281828662, guid: d911a1acfee35934495f445c2bcb11e6, type: 3}
+  m_PrefabInstance: {fileID: 365724401001621840}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6820646619919820511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6798757737428082278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c7d22a6633f64d46a6137a7bfa0a65f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  wielder: {fileID: 0}
+  cooldownReset: 10
+  projectile: {fileID: 3786526489721862606, guid: 994238ae31f41a7479bbced9156abaf0, type: 3}
+  level: 0
+  droppable: 0
+  howMany: 2

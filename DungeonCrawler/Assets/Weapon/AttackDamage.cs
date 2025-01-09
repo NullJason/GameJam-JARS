@@ -12,9 +12,7 @@ public class AttackDamage : MonoBehaviour
   [SerializeField] private int invincibilityFrameCount = 5; //How many frames an entity will be immune to damage after being hit by this attack.
 
   void OnTriggerEnter2D(Collider2D col){
-    Debug.Log("Hit!");
     if((col.gameObject.tag == "Player" && hitPlayer) || (col.gameObject.tag == "Enemy" && hitEnemy)){
-      Debug.Log("=D");
       GameObject hit = col.gameObject;
       Entity data = hit.GetComponent<Entity>();
       OnHit(data);
