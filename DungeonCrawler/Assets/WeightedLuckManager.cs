@@ -24,7 +24,7 @@ public class Toy : MonoBehaviour
 
 public class WeightedLuckManager
 {
-    // Singleton instance!
+    // C# Singleton instance!
     private static WeightedLuckManager _instance;
     public static WeightedLuckManager Instance
     {
@@ -65,6 +65,27 @@ public class WeightedLuckManager
 
         Debug.LogWarning($"Category '{category}' does not exist!");
         return null;
+    }
+
+    public List<string> GetWithoutReplacement(string category, int iterations){
+        if (iterations <= 0) return null;
+        List<string> RemovedKeys = new List<string>();
+        float[] RemovedValues = new float[iterations];
+        for(int i = 0; i < iterations; i++){
+            RemovedKeys.Add(Get(category));
+            RemovedValues[i] = luckTables[category].GetWeight(RemovedKeys[i]);
+            Remove(category, RemovedKeys[i]);
+        }
+        for(int i = 0; i < iterations; i++){
+            Append(category, RemovedKeys[i], RemovedValues[i]);
+        }
+        return RemovedKeys;
+    }
+
+    public bool Remove(string category, string LTkey){
+        if(luckTables.ContainsKey(category)){
+            return luckTables[category].Remove(LTkey);
+        } return false;
     }
 
     // clears a category's table
@@ -133,8 +154,18 @@ public class WeightedLuckManager
             Debug.LogError("Weighted selection failed!");
             return null;
         }
+        public float GetWeight(string key){
+            return table[key];
+        }
+        public bool Remove(string key){
+            if(table.ContainsKey(key)){
+                totalWeight -= table[key];
+                return table.Remove(key);
+            } return false;
+        }
         public void Clear(){
             table.Clear();
+            totalWeight = 0;
         }
         // Internal print debugger
         public void PrintTable()
