@@ -40,6 +40,9 @@ public abstract class Entity : MonoBehaviour
       Die();
     }
   }
+  public int GetHealth(){
+    return health;
+  }
   //Does damage and triggers invincibility frames, regardless of whether the object is still invincible or not.
   public void ForceHit(int damage, int invincibility){
     AddHealth(-damage, false);

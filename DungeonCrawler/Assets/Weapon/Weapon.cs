@@ -28,7 +28,7 @@ public class Weapon : MonoBehaviour
     }
     return false;
   }
-  private protected void SummonProjectile(Quaternion rotation){
+  private protected GameObject SummonProjectile(Quaternion rotation){
     GameObject projectile = Instantiate(this.projectile, transform.position, new Quaternion(0, 0, 0, 0));
     AttackMove attackMove = projectile.GetComponent<AttackMove>();
     AttackDamage attackDamage = projectile.GetComponent<AttackDamage>();
@@ -36,9 +36,10 @@ public class Weapon : MonoBehaviour
     else Debug.LogWarning("Cannot set direction of projectile \"" + projectile.name + "\" because it has no AttackMove script attached to it!");
     if(attackDamage != null) SetUpHittability(attackDamage);
     else Debug.LogWarning("Cannot set projectile \"" + projectile.name + "\" to hit the proper tags because it has no AttackDamage script attached to it!");
+    return projectile;
   }
-  private protected void SummonProjectile(){
-    SummonProjectile(transform.rotation);
+  private protected GameObject SummonProjectile(){
+    return SummonProjectile(transform.rotation);
   }
   private protected void SetUpHittability(AttackDamage damager){
     damager.SetUpHittables(transform.parent.tag != "Player", transform.parent.tag != "Enemy");
