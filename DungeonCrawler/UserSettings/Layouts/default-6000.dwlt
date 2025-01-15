@@ -121,8 +121,8 @@ MonoBehaviour:
     y: 413.6
     width: 1162.4
     height: 303.19998
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 101, y: 126}
+  m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 12}
@@ -345,7 +345,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 14.800018}
     m_SelectedIDs: d2ec0000
     m_LastClickedID: 60626
-    m_ExpandedIDs: 00000000d2ec0000d4ed0000b8ff000000ca9a3b
+    m_ExpandedIDs: 00000000beb30000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -374,7 +374,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 
+    m_ExpandedIDs: 00000000beb30000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -453,8 +453,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Inspector\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 1162.4
-    y: 79.200005
+    x: 1163.4
+    y: 24
     width: 372.59998
     height: 690.8
   m_SerializedDataModeController:
@@ -503,7 +503,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 79.200005
+    y: 24
     width: 304.6
     height: 387.6
   m_SerializedDataModeController:
@@ -520,7 +520,7 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: d2030100
+      m_SelectedIDs: 
       m_LastClickedID: 0
       m_ExpandedIDs: b8c4feff7e1effffe622fffff4ffffff92100100ac1001000a11010028110100521101005a11010060110100801101009a110100c41101001c1201003a1201003e1201006a12010096120100a6120100b0120100b8120100
       m_RenameOverlay:
@@ -1218,8 +1218,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Game\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 305.6
-    y: 79.200005
+    x: 306.6
+    y: 24
     width: 854.80005
     height: 387.6
   m_SerializedDataModeController:
@@ -1320,7 +1320,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 492.80002
+    y: 437.6
     width: 1161.4
     height: 277.19998
   m_SerializedDataModeController:

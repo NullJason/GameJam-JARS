@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -56,6 +55,7 @@ public class MapManager : MonoBehaviour
     static int EnemySpawnRate = 5;
     bool BossDefeated = false;
     bool BossSpawned = false; // prevent boss spawning multiple times.
+    GameObject BossRoom = null;
     public bool GameStarted = false;
     public void UpdateProgressText(){
         MapProgressText.text = "Map: "+CurrentMap.name.Replace("(Clone)", "").Trim()+"\nFloor: "+(StagesCleared+1)+"\nRoomsCleared: "+RoomsCleared;
@@ -148,6 +148,8 @@ public class MapManager : MonoBehaviour
                 NewPath.transform.position = new Vector3(0,0);
                 NewPath.transform.SetParent(PlayGroundStageExit, true);
                 NewPath.SetActive(true);
+
+                BossRoom = RoomClone;
             }
         }
 
@@ -347,6 +349,10 @@ public class MapManager : MonoBehaviour
         CurrentMap.SetActive(true);
         PathWays[CurrentMap].SetActive(true);
         UpdateProgressText();
+
+        if(BossRoom != null && CurrentMap.Equals(BossRoom)){
+            PlayGroundStageExit.gameObject.SetActive(true);
+        }else{PlayGroundStageExit.gameObject.SetActive(false);}
     }
 
     // Util for other scripts.
