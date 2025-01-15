@@ -1,0 +1,45 @@
+ConcreteClass
+*AbstractClass
+
+- A *PlayingFieldObject represents anything that should be updated when the game
+	is playing, but not when the game is paused.
+	- An *Entity is a *PlayingFieldObject that has health, movement (abstract),
+		and usually weapons (can sometimes be null).
+		- The PlayerMovement is the *Entity that represents the player's movement.
+		- An *Enemy is another kind of *Entity. It has an abstract
+			EnemyStateMachine, which contains EnemyStates, linked together by
+			EnemyStateTransitions. For a brief explanation on how to create a concrete
+			subclass, see the example class ShittyEnemy.
+			- A *BossEnemy is a special *Enemy that initiates a bosslock, the state of
+				being unable to swap weapons using the weapon swap menu UI. A
+				*BossEnemy's Start() will prompt the user to select a weapon for the
+				boss fight, after which they will be unable to swap their weapons until
+				the boss is destroyed. 
+	- A Weapon is a subclass of *PlayingFieldObject. It represents a weapon that
+		an entity can use. It knows when it can attack, and it knows how to attack.
+		However, it never attacks on its own. Rather, an *Entity must call
+		weapon.TryAttack(quaternion); After this, the Weapon will decide whether it
+		can attack (or if it's still reloading or something). If it can attack, it
+		will summon a projectile in the proper direction (this can be overwritten in
+		child classes). Note that much of the behaviour is actually delegated to the
+		*AttackMove script attached to the projectile summoned, rather than decided
+		by the Weapon that summoned it.
+		- ShotgunWeapon is a subclass of weapon that I have personally found
+			particularly useful. It summons a set number of copies of the same attack.
+			This pairs well with attacks that use the ShotgunAttack.
+	- An *AttackMove is a *PlayingFieldObject that controls how a projectile
+		behaves once it has been summoned. It controls things how long it takes for
+		the Attack to despawn.
+		- ShotgunAttackMove is an *AttackMove that turns slightly by a random amount
+			before moving straight. It's very versatile. Note that to get an
+			*AttackMove that just goes straight, one simply uses an ShotgunAttackMove
+			where wobbleRange (which controls the maximum turn possible) has been set
+			to zero.
+
+- A WeaponPickup is an entirely unrelated class, bearing no relation to Weapon
+	or *AttackMove. A prefab with a WeaponPickup will give the player a weapon
+	if they touch the prefab.
+
+
+- Classes related to the Weapon Swap Menu UI, such as WeaponUiManager and
+	WeaponUiTab have been moved to the new UI folder.

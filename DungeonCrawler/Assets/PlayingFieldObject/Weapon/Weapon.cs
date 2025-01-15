@@ -1,6 +1,6 @@
 using UnityEngine;
 //Represents a weapon that can be used by an Entity.
-public class Weapon : MonoBehaviour
+public class Weapon : PlayingFieldObject
 {
   [SerializeField] private protected GameObject wielder;
   [SerializeField] private protected int cooldownReset = 10;
@@ -16,7 +16,7 @@ public class Weapon : MonoBehaviour
   {
     cooldown = cooldownReset;
   }
-  void FixedUpdate(){
+  private protected override void GameFixedUpdate(){
     if(cooldown > 0) cooldown--;
   }
   //Feel free to override! This is just a default implementation.

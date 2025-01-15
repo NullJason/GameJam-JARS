@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public abstract class Enemy : Entity
 {
-  void Start(){
+  private protected virtual void Start(){
     machine = GetStateMachine();
   }
   private protected EnemyStateMachine machine;

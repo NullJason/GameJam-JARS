@@ -13,10 +13,12 @@ public class WeaponUiManager : MonoBehaviour
   private protected RectTransform scrollScreen;
   private protected RectTransform infoPanelText;
   private protected RectTransform infoPanelTitle;
+  private protected RectTransform bosslockText;
   private protected WeaponUiTab holding;
   private protected WeaponUiTab mostRecent;
   private const int SIZE_OF_ONE_ENTRY = 30;
   public static WeaponUiManager main;
+  private protected bool bossLock; //Whether you can open the menu to switch weapons. Locks when you enter the boss chamber, and unlocks once you defeat the boss.
   // Start is called once before the first execution of Update after the MonoBehaviour is created
   void Start()
   {
@@ -25,6 +27,7 @@ public class WeaponUiManager : MonoBehaviour
     infoPanelText = ui.GetChild(0).Find("Info Panel").Find("Description").GetComponent<RectTransform>();
     infoPanelTitle = infoPanelText.transform.parent.Find("Title").GetComponent<RectTransform>();
     selectWeaponButton = infoPanelText.transform.parent.Find("Button").GetComponent<Button>();
+    bosslockText = infoPanelText.transform.parent.Find("Bosslock Display panel").GetChild(0).GetComponent<RectTransform>();
     selectWeaponButton.onClick.AddListener(HoldWeapon);
     Switch();
     Switch();//For some reason, adding weapons to the UI display doesn't like to work until it's shown at least once.
@@ -33,11 +36,36 @@ public class WeaponUiManager : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-    if(Input.GetKeyDown(KeyCode.Return)) Switch();
+    if(!bossLock){
+      if(Input.GetKeyDown(KeyCode.Return)) Switch();
+    }
+    else if(ui.gameObject.activeSelf && Input.GetKeyDown(KeyCode.Return)) Switch();
+  }
+  //Returns true if BossLock was false and now true.
+  public bool BossLock(string name){
+    bool result = !bossLock;
+    bossLock = true;
+    DisplayBossScreen(name);
+    bosslockText.parent.gameObject.SetActive(true);
+    bosslockText.gameObject.GetComponent<TMP_Text>().SetText(name);
+    return result;
+  }
+  private protected void DisplayBossScreen(string name){
+    if(!ui.gameObject.activeSelf) Switch();
+
+  }
+  //Returns true if BossLock was true and now false.
+  public bool BossUnlock(){
+    bool result = bossLock;
+    bossLock = false;
+    bosslockText.parent.gameObject.SetActive(false);
+    return result;
   }
   //Swaps whether or not the screen is to be showed or not.
   private protected bool Switch(){
     ui.gameObject.SetActive(!ui.gameObject.activeSelf);
+    if(ui.gameObject.activeSelf) PlayingFieldObject.Pause();
+    else PlayingFieldObject.Unpause();
     return ui.gameObject.activeSelf;
   }
   //Adds an entry for a new weapon onto the menu.

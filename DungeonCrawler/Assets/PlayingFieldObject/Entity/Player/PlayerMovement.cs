@@ -10,7 +10,7 @@ public class PlayerMovement : Entity
   void Start(){
     if(mainPlayer == null) mainPlayer = this;
   }
-  void Update(){
+  private protected override void GameUpdate(){
     // simple movement
     movement.x = Input.GetAxisRaw("Horizontal"); // A/D or Left/Right
     movement.y = Input.GetAxisRaw("Vertical");   // W/S or Up/Down

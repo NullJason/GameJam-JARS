@@ -1,13 +1,13 @@
 using UnityEngine;
 //An Entity represents a thing that has weapons, stats, and movement, i.e. an enemy or the player.
-public abstract class Entity : MonoBehaviour
+public abstract class Entity : PlayingFieldObject
 {
   private const int INITIAL_HEALTH = 100;
   [SerializeField] private int health = INITIAL_HEALTH;
   private int invincibilityFrames = 0;
   [SerializeField] private protected Weapon currentWeapon;
   abstract private protected void Behave();//Controls movement and firing.
-  void FixedUpdate(){
+  private protected override void GameFixedUpdate(){
     Behave();
     if(invincibilityFrames > 0) invincibilityFrames--;
   }

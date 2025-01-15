@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GolemEnemy : Enemy
+public class GolemEnemy : BossEnemy
 {
   [SerializeField] private Weapon swingWeapon;
   [SerializeField] private Weapon stompWeapon;

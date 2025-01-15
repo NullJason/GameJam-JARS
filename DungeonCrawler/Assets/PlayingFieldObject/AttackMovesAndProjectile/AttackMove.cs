@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class AttackMove : MonoBehaviour
+public abstract class AttackMove : PlayingFieldObject
 {
   [SerializeField] private GameObject secondary; //The secondary projectile that should be summoned when SecondaryProjectile() is called.
   [SerializeField] private int despawnTimer;
@@ -10,7 +10,7 @@ public abstract class AttackMove : MonoBehaviour
   {
     SetUp();
   }
-  void FixedUpdate(){
+  private protected override void GameFixedUpdate(){
     RunDespawn();
     Move();
   }

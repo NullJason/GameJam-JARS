@@ -5,8 +5,8 @@ using UnityEngine;
 public class AttackDamage : MonoBehaviour
 {
   //TODO: Replace bool hitPlayer and bool hitEnemy with String tagToBeHit? This would allow an AttackDamage to hit GameObjects of any tag, but would also only allow it to hit that one particular tag.
-  private bool hitPlayer = false; //Represents whether this attack will damage the player. Should be set by the Weapon that summons this attack.
-  private bool hitEnemy = true; //Represents whether this attack will damage enemies. Should be set by the Weapon that summons this attack.
+  [SerializeField] private bool hitPlayer = false; //Represents whether this attack will damage the player. Should be set by the Weapon that summons this attack.
+  [SerializeField] private bool hitEnemy = true; //Represents whether this attack will damage enemies. Should be set by the Weapon that summons this attack.
   [SerializeField] private int damage = 1; //TODO: Should this be a float?
   [SerializeField] private bool despawnImmediatelyOnContact = true; //Whether the attack will disappear after hitting something it damages.
   [SerializeField] private int invincibilityFrameCount = 5; //How many frames an entity will be immune to damage after being hit by this attack.

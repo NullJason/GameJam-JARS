@@ -106,6 +106,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 25
   currentWeapon: {fileID: 0}
+  name: Boss GOLEM has appeared!\n\nSelect a weapon carefully! You can only take
+    one weapon with you to confront a boss!
   swingWeapon: {fileID: 7952774109732680286}
   stompWeapon: {fileID: 1320657954171313560}
   speed: 0.02
