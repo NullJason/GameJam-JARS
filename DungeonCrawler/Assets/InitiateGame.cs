@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class InitiateGame : MonoBehaviour
@@ -27,18 +28,9 @@ public class InitiateGame : MonoBehaviour
         Particle2 = StartBackground.transform.Find("StartParticle");
         GameStartDelay = Particle2.GetComponent<ParticleSystem>().main.duration;
 
-        
-        // int childCount = MapFolder.transform.childCount;
-        // string[] MapNames = new string[childCount];
-        // for (int i = 0; i < childCount; i++)
-        // {
-        //     MapNames[i] = MapFolder.transform.GetChild(i).name;
-        // }
-        // foreach (string map in MapNames){
-        //     // Add maps to the luck table
-        //     Debug.Log(map);
-        //     WeightedLuckManager.Instance.Append("Map", map, 10); 
-        // }
+        GameObject obbg = Instantiate(Resources.Load<GameObject>("MapResource/OutOfBoundsBg"));
+        obbg.transform.SetParent(PlayGround.transform);
+        obbg.SetActive(true);
 
         // add map names to randomizer
         foreach(Transform room in MapFolder.transform){
