@@ -69,8 +69,8 @@ MonoBehaviour:
     y: 0
     width: 646.4
     height: 716.8
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 76}
+  m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 13}
   m_Panes:
   - {fileID: 13}
@@ -301,7 +301,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 503.2
+    y: 448
     width: 888.6
     height: 266.8
   m_SerializedDataModeController:
@@ -345,7 +345,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 70b40000
     m_LastClickedID: 46192
-    m_ExpandedIDs: 000000008ab2000076b4000000ca9a3b
+    m_ExpandedIDs: 00000000e0b40000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -374,7 +374,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000008ab20000
+    m_ExpandedIDs: 00000000e0b40000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -453,8 +453,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Inspector\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 889.60004
-    y: 79.200005
+    x: 890.6
+    y: 24
     width: 645.4
     height: 690.8
   m_SerializedDataModeController:
@@ -503,7 +503,7 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 79.200005
+    y: 24
     width: 255
     height: 398
   m_SerializedDataModeController:
@@ -520,7 +520,7 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 12b70000
+      m_SelectedIDs: 
       m_LastClickedID: 0
       m_ExpandedIDs: e8f8fffff8f8ffff2af9ffff3cf9ffff2eb0000040b0000068b000009eb00000d2b0000016b1000030b1000040b10000bab10000
       m_RenameOverlay:
@@ -568,8 +568,8 @@ MonoBehaviour:
     m_TextWithWhitespace: "Scene\u200B"
   m_Pos:
     serializedVersion: 2
-    x: 256
-    y: 79.200005
+    x: 257
+    y: 24
     width: 631.6
     height: 398
   m_SerializedDataModeController:
@@ -1112,7 +1112,7 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: -7.8323083, y: 3.308729, z: -0.01429678}
+    m_Target: {x: 3.2415352, y: 0.3018365, z: 0.018008562}
     speed: 2
     m_Value: {x: -7.8323083, y: 3.308729, z: -0.01429678}
   m_RenderMode: 0
@@ -1164,7 +1164,7 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 14.112642
+    m_Target: 10.8819275
     speed: 2
     m_Value: 14.112642
   m_Ortho:

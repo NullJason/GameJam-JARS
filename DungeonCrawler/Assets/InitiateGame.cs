@@ -12,6 +12,7 @@ public class InitiateGame : MonoBehaviour
     Transform Particle1; // the particles you see on the start menu.
     Transform Particle2; // the particles you see after pressing start button.
     GameObject MapFolder; // folder containing mapdata/structure.
+    private bool GameStarting = false;
 
     void Start()
     {
@@ -53,7 +54,8 @@ public class InitiateGame : MonoBehaviour
         StartButton.onClick.AddListener(DoDelayedStartAction);
     }
     void DoDelayedStartAction(){
-        if (MapManager.Instance.GameStarted) return;
+        if (GameStarting || MapManager.Instance.GameStarted) return;
+        GameStarting = true;
         Particle1.gameObject.SetActive(false);
         Particle2.gameObject.SetActive(true);
         StartCoroutine(DelayedStartAction(GameStartDelay));
