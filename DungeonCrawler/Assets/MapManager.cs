@@ -58,10 +58,10 @@ public class MapManager : MonoBehaviour
     bool BossSpawned = false; // prevent boss spawning multiple times.
     public bool GameStarted = false;
     public void UpdateProgressText(){
-        MapProgressText.text = "Map: "+CurrentMap.name.Replace("(Clone)", "").Trim()+"\nFloor: "+(StagesCleared+1)+"\nRoom: "+RoomsCleared;
+        MapProgressText.text = "Map: "+CurrentMap.name.Replace("(Clone)", "").Trim()+"\nFloor: "+(StagesCleared+1)+"\nRoomsCleared: "+RoomsCleared;
     }
     string ProcessMapStatus(){
-        if (CurrentMap == null) return WeightedLuckManager.Instance.Get("Map");
+        if (CurrentMap == null) {return WeightedLuckManager.Instance.Get("Map");}
         // 1: Stage cleared, 2: Map Cleared, 3: Room cleared.
         if(NumOfRoomsInStage <= RoomsCleared || BossSpawned) {
             // TODO.. set Random stage within map.
@@ -70,12 +70,7 @@ public class MapManager : MonoBehaviour
             StagesCleared += 1;
             TotalRoomsGenerated = 0;
             BossSpawned = false;
-            // remove every room from previous stage.
-            foreach(GameObject obj in PathWays.Keys){
-                Destroy(obj);
-            }
-            PathWays.Clear();
-            UpdateProgressText();
+            DestroyStage();
             // TODO.. set new stage type?
             CurrentMap = null;
             return WeightedLuckManager.Instance.Get("Map"); //CurrentMap.name.Replace("(Clone)", "").Trim(); // should also return same as room clear
@@ -83,23 +78,27 @@ public class MapManager : MonoBehaviour
         else if(NumOfStages <= StagesCleared) { // gonna have to put increased difficulty number for each map cleared.
             StagesCleared = 0;
             RoomsCleared = 0;
-            UpdateProgressText();
             return WeightedLuckManager.Instance.Get("Map");
         }
         else{
             RoomsCleared += 1;
-            UpdateProgressText();
             return CurrentMap.name.Replace("(Clone)", "").Trim(); // TODO.. return a random room from a selected stage within the map.
         }
+    }
+    void DestroyStage(){
+        // destroy every room from previous stage.
+        foreach(GameObject obj in PathWays.Keys){
+            Destroy(obj);
+        }
+        // destroy the path objects and refereneces.
+        foreach(LevelPath path in PathWays.Values){
+            path.Destroy();
+        }
+        PathWays.Clear(); // clear the references.
     }
     // Get a random room and add to playground. 
     public void CreateNextArea(){
         string RoomName = ProcessMapStatus(); if (RoomName == null){return;}
-        // Debug.Log("NEW ROOM: "+RoomName);
-        // Debug.Log("mapfolder");
-        // foreach(Transform a in MapFolder.transform){
-        //     Debug.Log(a.name);
-        // }
         GameObject RoomClone = Instantiate(MapFolder.transform.Find(RoomName).gameObject); // when going thro exit, returns null error
         Transform SpawnPointsFolder = RoomClone.transform.Find("SpawnPoints");
         Transform PathPositions = RoomClone.transform.Find("PathPos");
@@ -203,9 +202,9 @@ public class MapManager : MonoBehaviour
             EnemyClone.SetActive(false);
         }
 
-        // clear table to prevent conflicts with other rooms.
+        // clear table to prevent randomizer conflicts with other rooms.
         WeightedLuckManager.Instance.Clear("Entity");
-        WeightedLuckManager.Instance.Clear("MapPath"); // just in case.
+        WeightedLuckManager.Instance.Clear("MapPath"); 
         
         EnemyFolder.gameObject.SetActive(false);
         BossFolder.gameObject.SetActive(false);
@@ -225,7 +224,7 @@ public class MapManager : MonoBehaviour
     }
     IEnumerator DelayedSpawnEntity(Queue<GameObject> queue, Queue<Vector3> sp){
         while(sp.Count>0){
-            WeightedLuckManager.Instance.Append("EntitySpawnPos",sp.Dequeue().ToString(), 1); // each spawn pos has even chance.
+            WeightedLuckManager.Instance.Append("EntitySpawnPos",sp.Dequeue().ToString(), 1);
         }
         
         while(queue.Count>0){
@@ -245,11 +244,10 @@ public class MapManager : MonoBehaviour
         return new Vector3(x, y, z);
     }
     void SpawnEnemy(GameObject entity, Vector3 spawn){
-        // entity.transform.localScale = new Vector3(1,1); already set keep world transform.
         entity.transform.position = spawn;
         entity.SetActive(true);
     }
-    // check when to create a new map. currently checks when there are no enemies on playground, triggered when player at exit.
+    // clear condition.
     bool CheckClearStatus(){
         if(PlayGroundEnemies.transform.childCount == 0){
             return true;
@@ -348,6 +346,7 @@ public class MapManager : MonoBehaviour
         if(PreviousRoom != null) {PreviousRoom.SetActive(false); PathWays[PreviousRoom].SetActive(false);}
         CurrentMap.SetActive(true);
         PathWays[CurrentMap].SetActive(true);
+        UpdateProgressText();
     }
 
     // Util for other scripts.
@@ -360,9 +359,10 @@ public class MapManager : MonoBehaviour
 }
 class LevelPath{
     // these should all point to another room if not null. Basically linked list in each directions.
-    private Dictionary<string, GameObject> DirToPath = new Dictionary<string, GameObject>();
-    private Dictionary<string, GameObject> DirToPathObj = new Dictionary<string, GameObject>();
+    private Dictionary<string, GameObject> DirToPath = new Dictionary<string, GameObject>(); // key = direction, value = room.
+    private Dictionary<string, GameObject> DirToPathObj = new Dictionary<string, GameObject>(); // key = dir, value = pathObj.
     private string Entrance = null;
+    private int RoomNumber;
     public LevelPath(){
         DirToPath.Add("Left", null);
         DirToPath.Add("Up", null);
@@ -379,6 +379,13 @@ class LevelPath{
     }
     public GameObject Get(string dir){
         return DirToPath[dir];
+    }
+    public void Destroy(){
+        foreach(GameObject pathObj in DirToPathObj.Values){
+            GameObject.Destroy(pathObj);
+        }
+        DirToPath.Clear();
+        DirToPathObj.Clear();
     }
     public void AddPathObj(string dir, GameObject path){
         DirToPathObj[dir] = path;

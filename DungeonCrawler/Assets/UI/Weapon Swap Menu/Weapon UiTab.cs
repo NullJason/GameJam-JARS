@@ -8,7 +8,9 @@ public class WeaponUiTab : MonoBehaviour
   void Start(){
     Button button = GetComponent<Button>();
     button.onClick.AddListener(ViewCurrentWeapon);
-    gameObject.GetComponent<TMP_Text>().SetText(weapon.GetName());
+    TMP_Text TmpText = gameObject.GetComponent<TMP_Text>();
+    TmpText.SetText(weapon.GetName());
+    TmpText.color = Color.black;
     Debug.Log(gameObject.GetComponent<TMP_Text>());
   }
   public void SetWeapon(Weapon weapon){
