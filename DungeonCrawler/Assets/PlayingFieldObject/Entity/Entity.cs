@@ -60,10 +60,12 @@ public abstract class Entity : PlayingFieldObject
     return invincibilityFrames > 0;
   }
 
-  //TODO: Implement weapons dropping?
   private protected virtual void Die(){
-    //currentWeapon.Drop();
+    DropWeapons();
     Destroy(gameObject);
+  }
+  private protected virtual void DropWeapons(){
+    currentWeapon.TryDrop();
   }
   private protected void Attack(Vector3 direction){
     float angle = (Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);

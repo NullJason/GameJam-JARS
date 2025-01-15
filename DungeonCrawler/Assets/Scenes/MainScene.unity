@@ -375,7 +375,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &110429018
 Transform:
   m_ObjectHideFlags: 0
@@ -700,6 +700,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6342783098211118453, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+    - {fileID: 5539786309467860757, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -5856,6 +5857,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6342783098211118453, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+    - {fileID: 5539786309467860757, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -5874,6 +5876,10 @@ PrefabInstance:
     - target: {fileID: 3038660092381797627, guid: 91f7ebae9dabb494dbb14ce540d9c2a1, type: 3}
       propertyPath: m_Name
       value: Skeleking Boss
+      objectReference: {fileID: 0}
+    - target: {fileID: 3038660092381797627, guid: 91f7ebae9dabb494dbb14ce540d9c2a1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8024498920402027762, guid: 91f7ebae9dabb494dbb14ce540d9c2a1, type: 3}
       propertyPath: m_LocalScale.x
@@ -5936,6 +5942,88 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91f7ebae9dabb494dbb14ce540d9c2a1, type: 3}
+--- !u!1001 &393309074
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 169341545766140897, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1520620922756997594, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_Name
+      value: Weapon Pickup (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695762769291463428, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695762769291463428, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695762769291463428, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695762769291463428, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695762769291463428, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695762769291463428, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695762769291463428, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695762769291463428, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695762769291463428, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695762769291463428, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4785004507413598808, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_Color.g
+      value: 0.2738142
+      objectReference: {fileID: 0}
+    - target: {fileID: 4785004507413598808, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4785004507413598808, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4785004507413598808, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 19019915
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6342783098211118453, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+    - {fileID: 5539786309467860757, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6675308119953430496, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1322453790}
+  m_SourcePrefab: {fileID: 100100000, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
 --- !u!4 &408500342 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4060163788624921950, guid: 8c565c8cac2cea746b27b5d027e77099, type: 3}
@@ -6203,16 +6291,16 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 450569084}
   m_LocalRotation: {x: 0, y: -0.008726465, z: 0, w: 0.999962}
-  m_LocalPosition: {x: 0, y: 0, z: -0.392676}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1847517611}
   m_LocalEulerAnglesHint: {x: 0, y: -1, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 2.5, y: -2.5}
-  m_SizeDelta: {x: 45, y: 25}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 5, y: -5}
+  m_SizeDelta: {x: -10, y: -10}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &450569086
 MonoBehaviour:
@@ -7065,6 +7153,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6342783098211118453, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+    - {fileID: 5539786309467860757, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -7504,6 +7593,88 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4777647019425173927, guid: f78d8d66a4b31394097881f3dbaa8601, type: 3}
   m_PrefabInstance: {fileID: 748056832}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &752125292
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 169341545766140897, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1520620922756997594, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_Name
+      value: Weapon Pickup (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695762769291463428, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695762769291463428, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695762769291463428, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695762769291463428, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695762769291463428, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695762769291463428, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695762769291463428, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695762769291463428, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695762769291463428, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695762769291463428, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4785004507413598808, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_Color.g
+      value: 0.2738142
+      objectReference: {fileID: 0}
+    - target: {fileID: 4785004507413598808, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4785004507413598808, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4785004507413598808, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 19019915
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6342783098211118453, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+    - {fileID: 5539786309467860757, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6675308119953430496, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1544179866}
+  m_SourcePrefab: {fileID: 100100000, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
 --- !u!4 &757680562 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8024498920402027762, guid: 91f7ebae9dabb494dbb14ce540d9c2a1, type: 3}
@@ -8025,13 +8196,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c7d22a6633f64d46a6137a7bfa0a65f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drop: {fileID: 0}
   wielder: {fileID: 0}
   cooldownReset: 3
   projectile: {fileID: 7712597021161017898, guid: 99841c453d82d5548b252be906f710ca, type: 3}
-  level: 9
+  level: 0
   droppable: 0
   name: Very Cannon
   description: Boom!
+  levelUpFramedrop: 4
   howMany: 5
 --- !u!1 &886124595
 GameObject:
@@ -8240,7 +8413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.69803923, g: 0.69803923, b: 0.69803923, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -8587,7 +8760,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 5}
-  m_SizeDelta: {x: -4, y: 25}
+  m_SizeDelta: {x: -10, y: 50}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &1017258701
 MonoBehaviour:
@@ -14180,7 +14353,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 30}
+  m_SizeDelta: {x: 0, y: 60}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1312579264
 MonoBehaviour:
@@ -14229,8 +14402,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 16
-  m_fontSizeBase: 16
+  m_fontSize: 32
+  m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -14343,6 +14516,36 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1254569012834308685, guid: 1ccddd099a0b9de4b9bf034086b7cc95, type: 3}
   m_PrefabInstance: {fileID: 1316555121}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1322453788 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6675308119953430496, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+  m_PrefabInstance: {fileID: 393309074}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1322453790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322453788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c7d22a6633f64d46a6137a7bfa0a65f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drop: {fileID: 0}
+  wielder: {fileID: 0}
+  cooldownReset: 30
+  projectile: {fileID: 5830507494121201925, guid: e4d34c760e3f03f44a36aaeeeff642ed, type: 3}
+  level: 0
+  droppable: 0
+  name: Blunderbuss
+  description: '"They hanged Brennan at the crossroads, in chains he hung and driedn\
+    But still they say that, in the night, some do see him riden\n They see him with
+    his blunderbuss, all in the midnight chill\nAlong, along the King''s highway
+    rides Willie Brennan still!" \n\n\n\n\n\n\n\n\n\n source: https://www.lyricsondemand.com/c/clancybrotherslyrics/brennanonthemoorlyrics.html'
+  levelUpFramedrop: 4
+  howMany: 5
 --- !u!1001 &1366851535
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19256,6 +19459,88 @@ ParticleSystem:
         m_PostInfinity: 2
         m_RotationOrder: 4
     vectorLabel1_3: W
+--- !u!1001 &1381465813
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 169341545766140897, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1520620922756997594, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_Name
+      value: Weapon Pickup (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695762769291463428, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -1.89
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695762769291463428, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695762769291463428, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695762769291463428, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695762769291463428, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695762769291463428, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695762769291463428, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695762769291463428, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695762769291463428, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4695762769291463428, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4785004507413598808, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_Color.g
+      value: 0.2738142
+      objectReference: {fileID: 0}
+    - target: {fileID: 4785004507413598808, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4785004507413598808, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_SortingLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4785004507413598808, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 19019915
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 6342783098211118453, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+    - {fileID: 5539786309467860757, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6675308119953430496, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1428379816}
+  m_SourcePrefab: {fileID: 100100000, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
 --- !u!1 &1395746810
 GameObject:
   m_ObjectHideFlags: 0
@@ -19427,6 +19712,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2043938132}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1428379814 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6675308119953430496, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+  m_PrefabInstance: {fileID: 1381465813}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1428379816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1428379814}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c7d22a6633f64d46a6137a7bfa0a65f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drop: {fileID: 0}
+  wielder: {fileID: 0}
+  cooldownReset: 30
+  projectile: {fileID: 5830507494121201925, guid: e4d34c760e3f03f44a36aaeeeff642ed, type: 3}
+  level: 0
+  droppable: 0
+  name: Blunderbuss
+  description: '"They hanged Brennan at the crossroads, in chains he hung and driedn\
+    But still they say that, in the night, some do see him riden\n They see him with
+    his blunderbuss, all in the midnight chill\nAlong, along the King''s highway
+    rides Willie Brennan still!" \n\n\n\n\n\n\n\n\n\n source: https://www.lyricsondemand.com/c/clancybrotherslyrics/brennanonthemoorlyrics.html'
+  levelUpFramedrop: 4
+  howMany: 5
 --- !u!1001 &1439989974
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19438,6 +19753,10 @@ PrefabInstance:
     - target: {fileID: 712801980592181599, guid: 8c565c8cac2cea746b27b5d027e77099, type: 3}
       propertyPath: m_Name
       value: Dungeon Boss Golem
+      objectReference: {fileID: 0}
+    - target: {fileID: 712801980592181599, guid: 8c565c8cac2cea746b27b5d027e77099, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4060163788624921950, guid: 8c565c8cac2cea746b27b5d027e77099, type: 3}
       propertyPath: m_LocalScale.x
@@ -19582,8 +19901,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -19761,6 +20080,36 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1254569012834308685, guid: 1ccddd099a0b9de4b9bf034086b7cc95, type: 3}
   m_PrefabInstance: {fileID: 1495651592}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1544179864 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6675308119953430496, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+  m_PrefabInstance: {fileID: 752125292}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1544179866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1544179864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c7d22a6633f64d46a6137a7bfa0a65f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drop: {fileID: 0}
+  wielder: {fileID: 0}
+  cooldownReset: 30
+  projectile: {fileID: 5830507494121201925, guid: e4d34c760e3f03f44a36aaeeeff642ed, type: 3}
+  level: 0
+  droppable: 0
+  name: Blunderbuss
+  description: '"They hanged Brennan at the crossroads, in chains he hung and driedn\
+    But still they say that, in the night, some do see him riden\n They see him with
+    his blunderbuss, all in the midnight chill\nAlong, along the King''s highway
+    rides Willie Brennan still!" \n\n\n\n\n\n\n\n\n\n source: https://www.lyricsondemand.com/c/clancybrotherslyrics/brennanonthemoorlyrics.html'
+  levelUpFramedrop: 4
+  howMany: 5
 --- !u!1001 &1553689611
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19871,6 +20220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c7d22a6633f64d46a6137a7bfa0a65f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drop: {fileID: 0}
   wielder: {fileID: 0}
   cooldownReset: 10
   projectile: {fileID: 3786526489721862606, guid: 994238ae31f41a7479bbced9156abaf0, type: 3}
@@ -19878,6 +20228,7 @@ MonoBehaviour:
   droppable: 0
   name: Goblin Spears
   description: 'A set of short spears scavenged from a goblin. '
+  levelUpFramedrop: 4
   howMany: 2
 --- !u!1 &1589883340
 GameObject:
@@ -25190,6 +25541,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c7d22a6633f64d46a6137a7bfa0a65f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drop: {fileID: 0}
   wielder: {fileID: 0}
   cooldownReset: 10
   projectile: {fileID: 3786526489721862606, guid: 994238ae31f41a7479bbced9156abaf0, type: 3}
@@ -25197,6 +25549,7 @@ MonoBehaviour:
   droppable: 0
   name: Placeholder Weapon
   description: Hello!
+  levelUpFramedrop: 4
   howMany: 2
 --- !u!114 &1749851041
 MonoBehaviour:
@@ -25414,8 +25767,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 2.5}
-  m_SizeDelta: {x: 0, y: -65}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: -120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1756346319
 MonoBehaviour:
@@ -25464,8 +25817,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 10
-  m_fontSizeBase: 10
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -30820,6 +31173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c7d22a6633f64d46a6137a7bfa0a65f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drop: {fileID: 0}
   wielder: {fileID: 0}
   cooldownReset: 30
   projectile: {fileID: 5830507494121201925, guid: e4d34c760e3f03f44a36aaeeeff642ed, type: 3}
@@ -30830,6 +31184,7 @@ MonoBehaviour:
     But still they say that, in the night, some do see him riden\n They see him with
     his blunderbuss, all in the midnight chill\nAlong, along the King''s highway
     rides Willie Brennan still!" \n\n\n\n\n\n\n\n\n\n source: https://www.lyricsondemand.com/c/clancybrotherslyrics/brennanonthemoorlyrics.html'
+  levelUpFramedrop: 4
   howMany: 5
 --- !u!1 &1847517610
 GameObject:
@@ -30867,7 +31222,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 50, y: 30}
+  m_SizeDelta: {x: 100, y: 60}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1847517612
 MonoBehaviour:
@@ -31522,14 +31877,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe6481b0f5f41114c8eb8784567ab22f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drop: {fileID: 0}
   wielder: {fileID: 0}
   cooldownReset: 35
   projectile: {fileID: 9070211004926364226, guid: bddf548dbcd14a341ae8ca39fd590a4d, type: 3}
   level: 0
   droppable: 0
-  name: 'Spread '
+  name: GOLEM's Spread
   description: This weapon is actually a prototype of the weapon used by the dungeon
-    boss!
+    boss!\n  --Dev Stephen
+  levelUpFramedrop: 4
   spread: 20
   howMany: 5
 --- !u!1 &2124675392
@@ -31599,7 +31956,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 1, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -31616,8 +31973,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12
-  m_fontSizeBase: 12
+  m_fontSize: 36
+  m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -31816,6 +32173,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 6342783098211118453, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
+    - {fileID: 5539786309467860757, guid: 1d36c58d1564d634b8614eac40bb141b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -32209,6 +32567,9 @@ SceneRoots:
   - {fileID: 510080312}
   - {fileID: 519249836}
   - {fileID: 1076281558815109484}
+  - {fileID: 393309074}
+  - {fileID: 1381465813}
+  - {fileID: 752125292}
   - {fileID: 254124083}
   - {fileID: 541069935}
   - {fileID: 1141517866}

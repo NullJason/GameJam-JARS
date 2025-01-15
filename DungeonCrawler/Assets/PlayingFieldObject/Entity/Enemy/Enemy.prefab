@@ -180,6 +180,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 584646551269453470}
     m_Modifications:
+    - target: {fileID: -7699697511809506615, guid: 764a87ac7e6afb34481f9c71888efe44, type: 3}
+      propertyPath: drop
+      value: 
+      objectReference: {fileID: 2253264126138307304, guid: ccabc414bac02404f9e52495f2db6b1d, type: 3}
+    - target: {fileID: -7699697511809506615, guid: 764a87ac7e6afb34481f9c71888efe44, type: 3}
+      propertyPath: droppable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1261094933620709468, guid: 764a87ac7e6afb34481f9c71888efe44, type: 3}
       propertyPath: m_Name
       value: Weapon
