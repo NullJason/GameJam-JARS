@@ -1,0 +1,100 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &103639324669997560
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3927333413327840180, guid: e4d34c760e3f03f44a36aaeeeff642ed, type: 3}
+      propertyPath: damage
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5830507494121201925, guid: e4d34c760e3f03f44a36aaeeeff642ed, type: 3}
+      propertyPath: m_Name
+      value: Infernal Skeleton Shot
+      objectReference: {fileID: 0}
+    - target: {fileID: 6659963840539947922, guid: e4d34c760e3f03f44a36aaeeeff642ed, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6659963840539947922, guid: e4d34c760e3f03f44a36aaeeeff642ed, type: 3}
+      propertyPath: m_Color.g
+      value: 0.8388692
+      objectReference: {fileID: 0}
+    - target: {fileID: 6659963840539947922, guid: e4d34c760e3f03f44a36aaeeeff642ed, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6728509953750569631, guid: e4d34c760e3f03f44a36aaeeeff642ed, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6728509953750569631, guid: e4d34c760e3f03f44a36aaeeeff642ed, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6728509953750569631, guid: e4d34c760e3f03f44a36aaeeeff642ed, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6728509953750569631, guid: e4d34c760e3f03f44a36aaeeeff642ed, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6728509953750569631, guid: e4d34c760e3f03f44a36aaeeeff642ed, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6728509953750569631, guid: e4d34c760e3f03f44a36aaeeeff642ed, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6728509953750569631, guid: e4d34c760e3f03f44a36aaeeeff642ed, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6728509953750569631, guid: e4d34c760e3f03f44a36aaeeeff642ed, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6728509953750569631, guid: e4d34c760e3f03f44a36aaeeeff642ed, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6728509953750569631, guid: e4d34c760e3f03f44a36aaeeeff642ed, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: -2531617330553284419, guid: e4d34c760e3f03f44a36aaeeeff642ed, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5830507494121201925, guid: e4d34c760e3f03f44a36aaeeeff642ed, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -9054230325302747421}
+  m_SourcePrefab: {fileID: 100100000, guid: e4d34c760e3f03f44a36aaeeeff642ed, type: 3}
+--- !u!1 &5880061492483559677 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5830507494121201925, guid: e4d34c760e3f03f44a36aaeeeff642ed, type: 3}
+  m_PrefabInstance: {fileID: 103639324669997560}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-9054230325302747421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5880061492483559677}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a0cb84898bc52443ae2ef32fe9d9818, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  secondary: {fileID: 6148233068362444013, guid: 87dcf93907d9693418449f1b46205f4d, type: 3}
+  despawnTimer: 100
+  wobbleRange: 20
+  speed: 0.025

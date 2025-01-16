@@ -1,0 +1,84 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &7822503772935477436
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2646133857994323834, guid: ca7c0348cad822f4fbc164f7dc145a7e, type: 3}
+      propertyPath: m_Name
+      value: Sniper Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 5328111737706685651, guid: ca7c0348cad822f4fbc164f7dc145a7e, type: 3}
+      propertyPath: name
+      value: Sniper
+      objectReference: {fileID: 0}
+    - target: {fileID: 5328111737706685651, guid: ca7c0348cad822f4fbc164f7dc145a7e, type: 3}
+      propertyPath: projectile
+      value: 
+      objectReference: {fileID: 5852255743448230834, guid: 552381cd5cc83cc4aa994561fda3c904, type: 3}
+    - target: {fileID: 5328111737706685651, guid: ca7c0348cad822f4fbc164f7dc145a7e, type: 3}
+      propertyPath: description
+      value: A sniper rifle found on a skeleton. \n\n"Who gave these skeletons sniper
+        rifles anyway?"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5328111737706685651, guid: ca7c0348cad822f4fbc164f7dc145a7e, type: 3}
+      propertyPath: cooldownReset
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 5328111737706685651, guid: ca7c0348cad822f4fbc164f7dc145a7e, type: 3}
+      propertyPath: levelUpFramedrop
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9211959403495949316, guid: ca7c0348cad822f4fbc164f7dc145a7e, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9211959403495949316, guid: ca7c0348cad822f4fbc164f7dc145a7e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9211959403495949316, guid: ca7c0348cad822f4fbc164f7dc145a7e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9211959403495949316, guid: ca7c0348cad822f4fbc164f7dc145a7e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9211959403495949316, guid: ca7c0348cad822f4fbc164f7dc145a7e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9211959403495949316, guid: ca7c0348cad822f4fbc164f7dc145a7e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9211959403495949316, guid: ca7c0348cad822f4fbc164f7dc145a7e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9211959403495949316, guid: ca7c0348cad822f4fbc164f7dc145a7e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9211959403495949316, guid: ca7c0348cad822f4fbc164f7dc145a7e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9211959403495949316, guid: ca7c0348cad822f4fbc164f7dc145a7e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9211959403495949316, guid: ca7c0348cad822f4fbc164f7dc145a7e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ca7c0348cad822f4fbc164f7dc145a7e, type: 3}

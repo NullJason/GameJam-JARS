@@ -2,11 +2,11 @@ using UnityEngine;
 
 public abstract class AttackMove : PlayingFieldObject
 {
-  [SerializeField] private GameObject secondary; //The secondary projectile that should be summoned when SecondaryProjectile() is called.
-  [SerializeField] private int despawnTimer;
+  [SerializeField] private protected GameObject secondary; //The secondary projectile that should be summoned when SecondaryProjectile() is called.
+  [SerializeField] private protected int despawnTimer;
 
   // Start is called once before the first execution of Update after the MonoBehaviour is created
-  void Start()
+  private protected virtual void Start()
   {
     SetUp();
   }
