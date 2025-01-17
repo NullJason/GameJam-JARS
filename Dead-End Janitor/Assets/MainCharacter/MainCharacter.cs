@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.AI;
 public class Hunter : MonoBehaviour
 {
   //Detection works as follows: the hunter sends out a series of raycasts around it, forming a flattened cone, or arc. If it detects an object in the huntable layer, it will stop searching and start chasing. MinDetectionSize is the smallest size that the hunter can detect (and therefore indirectly, how close the rays must be together and how many there must be).
@@ -10,18 +10,19 @@ public class Hunter : MonoBehaviour
   private Quaternion[] raycastRotations; //Stores the directions of all the raycasts, relative to the player's rotation.
   private int numberOfRays;
   private GameObject target;
+  private NavMeshAgent navigate;
 
   void Start(){
-    visible = LayerMask.GetMask("Visible");
     SetUpDetectionRays();
+    navigate = GetComponent<UnityEngine.AI.NavMeshAgent>();
   }
   void FixedUpdate(){
     DisplayRays();
-    target = null;
     CheckRays(true);
-    Debug.Log(target);
+    Retarget();
   }
   private void SetUpDetectionRays(){
+    visible = LayerMask.GetMask("Visible");
     float arcOfDetection = 2 * Mathf.PI * detectionDistance * detectionSpread / 360; //The length of the arc of the detection cone.
     numberOfRays = (int)Mathf.Ceil(arcOfDetection / minDetectionSize);
     float spreadOfEachRay = detectionSpread / numberOfRays;
@@ -40,7 +41,6 @@ public class Hunter : MonoBehaviour
   }
 
   //Checks the raycasts. Returns whether the target has been set properly, regardless of whether it was set before the calling or not.
-  //TODO!
   private bool CheckRays(bool displayHits){
     float distance = detectionDistance;
     for(int i = 0; i < numberOfRays; i++){
@@ -50,16 +50,19 @@ public class Hunter : MonoBehaviour
     return target != null;
   }
   //Checks a particular ray. Returns the distance to the first hit if it is not a wall. If it detects a wall or doesn't detect anything, returns -1. Updates the target to the object that was hit if not returning -1.
-  private float CheckRay(int whichRay, float closerThan, /*TODO!*/bool display = false){
+  private float CheckRay(int whichRay, float closerThan, bool display = false){
     RaycastHit hit;
     if(Physics.Raycast(transform.position, raycastRotations[whichRay] * transform.forward, out hit, closerThan, visible)){
-      Debug.DrawRay(transform.position, raycastRotations[whichRay] * transform.forward * hit.distance, Color.yellow, 0, false);
+      if(display) Debug.DrawRay(transform.position, raycastRotations[whichRay] * transform.forward * hit.distance, Color.yellow, 0, false);
       if(hit.collider.gameObject.tag != "Wall"){
         target = hit.collider.gameObject;
         return hit.distance;
       }
     }
-    Debug.DrawRay(transform.position, raycastRotations[whichRay] * transform.forward * closerThan, Color.yellow, 0, false);
+    if(display) Debug.DrawRay(transform.position, raycastRotations[whichRay] * transform.forward * closerThan, Color.yellow, 0, false);
     return -1;
+  }
+  private void Retarget(){
+    if(target != null) navigate.destination = target.transform.position;
   }
 }
