@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMovementWithStrafes : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
 	public CharacterController controller;
 	public Transform GroundCheck;
@@ -47,7 +47,7 @@ public class PlayerMovementWithStrafes : MonoBehaviour
 	Vector3 wishdir;
 	Vector3 vec;
 	
-	public Transform playerView;
+	// public Transform playerView;
 
 	public float x;
 	public float z;
@@ -96,15 +96,15 @@ public class PlayerMovementWithStrafes : MonoBehaviour
 			wishJump = true;
 		}
 
-		if (!IsGrounded && Input.GetButtonDown("Jump"))
-		{
-			JumpQueue = true;
-		}
-		if (IsGrounded && JumpQueue)
-		{
-			wishJump = true;
-			JumpQueue = false;
-		}
+		// if (!IsGrounded && Input.GetButtonDown("Jump"))
+		// {
+		// 	JumpQueue = true;
+		// }
+		// if (IsGrounded && JumpQueue)
+		// {
+		// 	wishJump = true;
+		// 	JumpQueue = false;
+		// }
 	}
 
 	// Calculates acceleration

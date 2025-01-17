@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class DirtyObject : MonoBehaviour
@@ -7,7 +5,7 @@ public class DirtyObject : MonoBehaviour
 	// under any dirty obj.
 	[SerializeField] private float MaxHp = 10;
 	private float Hp;
-	private string DirtyLayer = "DirtyLayer";
+	private string DirtyLayer = "Dirty";
 	private Vector3 InitialSize;
 
     void Start()
@@ -24,7 +22,7 @@ public class DirtyObject : MonoBehaviour
     }
 	public void Clean(int Strength){
 		Hp -= Strength;
-		if(Hp <= 0) {Destroy(gameObject); return}
+		if(Hp <= 0) {Destroy(gameObject); return;}
 		transform.localScale = InitialSize * (Hp/MaxHp);
 		
 		RaycastHit hit;
