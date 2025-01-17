@@ -1,15 +1,24 @@
+using System.Collections;
 using UnityEngine;
 
 public class DirtyObject : MonoBehaviour
 {
 	// under any dirty obj.
 	[SerializeField] private float MaxHp = 10;
+	[SerializeField] private int TaskID = -1;
 	private float Hp;
 	private string DirtyLayer = "Dirty";
 	private Vector3 InitialSize;
+	Transform Effects;
+    ParticleSystem Particles;
 
     void Start()
     {
+		Effects = transform.Find("Effects");
+		if(Effects == null) Effects = Instantiate(Resources.Load<GameObject>("Particles/Effects")).transform;
+		Effects.SetParent(transform);
+        Particles = Effects.GetComponent<ParticleSystem>();
+
 		Hp = MaxHp;
 		InitialSize = transform.localScale;
 		
@@ -19,18 +28,59 @@ public class DirtyObject : MonoBehaviour
         {
             gameObject.layer = layerIndex;
 		}
+
+		Tasks.Instance.AddTask(TaskID, gameObject, Hp, 0);
     }
-	public void Clean(int Strength){
+	public void Clean(float Strength){
 		Hp -= Strength;
-		if(Hp <= 0) {Destroy(gameObject); return;}
-		transform.localScale = InitialSize * (Hp/MaxHp);
+		if(Hp <= 0) { Tasks.Instance.Remove(gameObject); Particles.Play(); StartDelayedDestroy(Particles.main.duration); return;}
+
+		Vector3 previousScale = transform.localScale; 
+		
+		if(transform.localScale.magnitude > 1) transform.localScale = InitialSize * (Hp/MaxHp);
+		else return;
 		
 		RaycastHit hit;
 		
+		Vector3 rayDirection = -transform.up; 
+		float rayLength = GetRayLengthForObject(previousScale, transform.rotation);
+		
 		// prevent floating away from wall while scaling.
-		if (Physics.Raycast(transform.position, Vector3.down, out hit, 1f))
+		if (Physics.Raycast(transform.position, rayDirection, out hit, rayLength))
 		{
 			transform.position = hit.point;
 		}
 	}
+	float GetRayLengthForObject(Vector3 objectScale, Quaternion objectRotation)
+	{
+		Vector3 localDown = Vector3.down;
+		Vector3 worldDown = objectRotation * localDown; 
+
+		Bounds bounds = GetObjectBounds(objectScale);
+		float extent = Vector3.Dot(worldDown.normalized, bounds.extents);
+
+		return extent + 0.5f; 
+	}
+	Bounds GetObjectBounds(Vector3 objectScale)
+	{
+		
+		Collider collider = GetComponent<Collider>();
+		if (collider != null)
+		{
+			Bounds bounds = collider.bounds;
+			bounds.size = Vector3.Scale(bounds.size, objectScale); 
+			return bounds;
+		}
+		else
+		{
+			return new Bounds(Vector3.zero, objectScale);
+		}
+	}
+	void StartDelayedDestroy(float time){
+        StartCoroutine(DelayedDestroyObject(time));
+    }
+    IEnumerator DelayedDestroyObject(float time){
+        yield return new WaitForSeconds(time);
+        Destroy(gameObject);
+    }
 }

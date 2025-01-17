@@ -1,0 +1,20 @@
+using UnityEngine;
+
+public class Humanoid : MonoBehaviour
+{
+    [SerializeField] private float MaxHp = 100;
+    private float Hp = 100;
+    private bool Invulnerable = false;
+    private bool Damaged = false;
+    private void Start() {
+        SetHp(MaxHp);
+    }
+    public float GetHp() {return Hp;}
+    public float GetMaxHp() {return MaxHp;}
+    public void SetHp(float num) {float previous = Hp; Hp=num; if(Hp>MaxHp) Hp = MaxHp; if(previous>Hp) Damaged = true;}
+    public bool IsDead(){return Hp <= 0 && !Invulnerable;}
+    public void SetMaxHp(float num) {Hp = MaxHp = num;}
+    public void AddHp(float num) {SetHp(Hp+num);}
+    public void ToggleInvulnerability(){Invulnerable = !Invulnerable;}
+    public bool TookDamage(){bool state = Damaged; Damaged = false; return state;}
+}

@@ -6,8 +6,8 @@ public class CleanerItem : MonoBehaviour
 	// under any item that can clean.
 	
 	// each second, add 5 cleaniness to dirt.
-	[SerializeField] private int Speed = 1;
-	[SerializeField] private int Strength = 5;
+	[SerializeField] private float Speed = 0.1f;
+	[SerializeField] private float Strength = 0.25f;
 	[SerializeField] private Vector3 ToolPositionOffset = new Vector3(1, -0.5f, 1.3f); // Position offset (adjust for bottom-right corner)
 	[SerializeField] private Quaternion ToolRotationOffset = Quaternion.Euler(80, 0, 0); // Position offset (adjust for bottom-right corner)
 	[SerializeField] private GameObject Player = null;
@@ -23,6 +23,7 @@ public class CleanerItem : MonoBehaviour
 		if(Player == null) Player = GameObject.Find("Player");
 		if(PlayerCameraTransform == null && Player) PlayerCameraTransform = Player.transform.Find("PlayerCamera");
 		PlayerCamera = PlayerCameraTransform.GetComponent<Camera>();
+		if(Speed <= 0) Speed = 0.1f; if(Strength <= 0) Strength = 0.25f;
 	}
 
     void Update()

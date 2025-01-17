@@ -385,8 +385,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab280c670a24ba849977de69ca734116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 1
-  Strength: 5
+  Speed: 0
+  Strength: 0
   ToolPositionOffset: {x: 1, y: -0.5, z: 1.3}
   ToolRotationOffset: {x: 0.6427876, y: 0, z: 0, w: 0.76604444}
   Player: {fileID: 0}
