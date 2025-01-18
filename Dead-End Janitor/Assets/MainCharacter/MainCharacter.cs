@@ -7,10 +7,17 @@ public class Hunter : MonoBehaviour
   [SerializeField] private protected float minDetectionSize;
   [SerializeField] private protected float detectionDistance; //How far away an object must be to avoid detection.
   [SerializeField] private protected float detectionSpread; //How many degrees the detection cone should be.
+  [SerializeField] private protected GameObject player; //TODO: Find better way to get this!
+  [SerializeField] private protected float attackDistance = 0.65f; //How close the target must be to start dealing damage.
   private Quaternion[] raycastRotations; //Stores the directions of all the raycasts, relative to the player's rotation.
   private int numberOfRays;
   private GameObject target;
   private NavMeshAgent navigate;
+  private int priority = 0;
+  [SerializeField] private int damageTimerReset;
+  private int damageTimer = 0;
+  [SerializeField] private Transform damageCenter; //Where the chainsaw is, approximately. Mostly, it's so the hunter has to turn around to attack a zombie behind.
+  [SerializeField] private Transform[] patrolPoints;
 
   void Start(){
     SetUpDetectionRays();
@@ -18,11 +25,23 @@ public class Hunter : MonoBehaviour
   }
   void FixedUpdate(){
     DisplayRays();
-    CheckRays(true);
-    Retarget();
+    if(target == null) priority = 0;
+    if(priority < 4){
+//      CheckContact(); //Instead of checking for zombies in contact here, it is now checked in OnTriggerEnter() .
+      if(priority < 3){
+        CheckRayPlayer();
+        if(priority < 2){
+          CheckRays(true);
+          if(priority < 1){
+//            FindNextWaypoint();
+          }
+        }
+      }
+    }
+    PursueTarget();
   }
   private void SetUpDetectionRays(){
-    visible = LayerMask.GetMask("Visible");
+    visible = LayerMask.GetMask("Visible");//TODO: Remove magic numbers!
     float arcOfDetection = 2 * Mathf.PI * detectionDistance * detectionSpread / 360; //The length of the arc of the detection cone.
     numberOfRays = (int)Mathf.Ceil(arcOfDetection / minDetectionSize);
     float spreadOfEachRay = detectionSpread / numberOfRays;
@@ -31,6 +50,7 @@ public class Hunter : MonoBehaviour
       raycastRotations[i] = Quaternion.Euler(0, spreadOfEachRay * (i + 0.5f) - detectionSpread / 2, 0);
     }
   }
+  //For debugging purposes. Shows field of view rays.
   private void DisplayRays(){
     foreach(Quaternion q in raycastRotations){
       Debug.DrawRay(transform.position, q * transform.forward * detectionDistance, Color.red, 0, false);
@@ -55,14 +75,63 @@ public class Hunter : MonoBehaviour
     if(Physics.Raycast(transform.position, raycastRotations[whichRay] * transform.forward, out hit, closerThan, visible)){
       if(display) Debug.DrawRay(transform.position, raycastRotations[whichRay] * transform.forward * hit.distance, Color.yellow, 0, false);
       if(hit.collider.gameObject.tag != "Wall"){
-        target = hit.collider.gameObject;
+        AssignTarget(hit.collider.gameObject, 2);
         return hit.distance;
       }
     }
     if(display) Debug.DrawRay(transform.position, raycastRotations[whichRay] * transform.forward * closerThan, Color.yellow, 0, false);
     return -1;
   }
-  private void Retarget(){
-    if(target != null) navigate.destination = target.transform.position;
+  //Returns true if close enough to attack the target.
+  private bool PursueTarget(){
+    if(target != null){
+      if((damageCenter.transform.position - target.transform.position).sqrMagnitude < attackDistance * attackDistance){
+        navigate.destination = transform.position;
+        if(priority == 1){
+          AssignTarget(target.GetComponent<Waypoint>().GetNext(), 1);
+        }
+        else TryDealDamage(target, 1);
+        return true;
+      }
+      navigate.destination = target.transform.position;
+    }
+    else AssignTarget(Waypoint.GetNew(), 1);
+    return false;
+  }
+  private void AssignTarget(GameObject target, int priority){
+    this.target = target;
+    this.priority = priority;
+  }
+  //Checks whether a raycast from the Hunter to the Player would be within the cone, and then checks whether such a raycast would actually hit the player.
+  private bool CheckRayPlayer(){
+    Vector2 directionToPlayer2D = new Vector2(player.transform.position.x - transform.position.x, player.transform.position.z - transform.position.z);
+    Vector3 directionToPlayer = new Vector3(directionToPlayer2D.x, 0, directionToPlayer2D.y).normalized;
+    Vector2 directionFacing2D = new Vector2(transform.forward.x, transform.forward.z);
+    if(!(Vector2.Angle(directionToPlayer2D, directionFacing2D) < detectionSpread / 2) || (directionToPlayer2D.sqrMagnitude > detectionDistance * detectionDistance)) return false;
+    RaycastHit hit;
+    Physics.Raycast(transform.position, directionToPlayer, out hit, detectionDistance, visible);
+    if(hit.collider == null) return false;
+    if(hit.collider.gameObject.Equals(player)){
+      AssignTarget(player, 4);
+      return true;
+    }
+    return false;
+  }
+
+  private protected void OnTriggerEnter(Collider col){
+    Debug.Log("=D");
+    if(priority < 4 && col.gameObject.layer == LayerMask.NameToLayer("Visible") && col.GetComponent<Collider>().gameObject.tag != "Wall") {AssignTarget(col.GetComponent<Collider>().gameObject, 4); Debug.Log("=D");}
+  }
+
+  private protected bool TryDealDamage(GameObject target, int damage = 1){
+    if(damageTimer == 0){
+      damageTimer = damageTimerReset;
+      Humanoid h = target.GetComponent<Humanoid>();
+      if(h == null)Debug.LogWarning("target \'" + target.name + "\' does not have a Humanoid component, and so cannot be damaged!");
+      target.GetComponent<Humanoid>().AddHp(-damage);
+      return true;
+    }
+    damageTimer-=1;
+    return false;
   }
 }
