@@ -34,8 +34,9 @@ public class Tasks : MonoBehaviour
         if (TID < 0) return;
         string TaskName = TaskTitles[TID];
         string TaskDescription = TaskDescriptions[TID];
-        TaskProgress tp = new TaskProgress(progress, condition, TaskName, TaskDescription);
+        TaskProgress tp = new TaskProgress(progress, condition);
         TaskObjects.Add(TaskObject, tp);
+        // set ui text here;
     }
     public void UpdateTask(GameObject TaskObj, float Progress){
         TaskObjects[TaskObj].SetProgress(Progress);
@@ -47,11 +48,9 @@ public class Tasks : MonoBehaviour
     }
 }
 class TaskProgress{
-    private string TaskName;
-    private string TaskDescription;
     private float Progress;
     private float Condition;
-    public TaskProgress(float current, float max, string name, string desc){ Progress = current; Condition = max; TaskName = name; TaskDescription = desc; }
+    public TaskProgress(float current, float max){ Progress = current; Condition = max; }
     public float GetProgress() {return Progress;}
     public void SetProgress(float p) { Progress = p; }
     public float GetMax() {return Condition;}
