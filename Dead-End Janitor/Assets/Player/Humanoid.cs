@@ -4,10 +4,14 @@ public class Humanoid : MonoBehaviour
 {
     [SerializeField] private float MaxHp = 100;
     private float Hp = 100;
+    Transform HumanoidTransform;
+    Vector3 PreviousPosition;
     private bool Invulnerable = false;
     private bool Damaged = false;
     private void Start() {
         SetHp(MaxHp);
+        HumanoidTransform = transform;
+        PreviousPosition = transform.position;
     }
     public float GetHp() {return Hp;}
     public float GetMaxHp() {return MaxHp;}
@@ -17,4 +21,5 @@ public class Humanoid : MonoBehaviour
     public void AddHp(float num) {SetHp(Hp+num);}
     public void ToggleInvulnerability(){Invulnerable = !Invulnerable;}
     public bool TookDamage(){bool state = Damaged; Damaged = false; return state;}
+    public bool HasMoved(){ if(PreviousPosition.Equals(HumanoidTransform.position)) return false; PreviousPosition = HumanoidTransform.position; return true; }
 }

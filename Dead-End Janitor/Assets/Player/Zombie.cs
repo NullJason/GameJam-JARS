@@ -5,10 +5,12 @@ public class Zombie : Humanoid
 {
     Transform Effects;
     ParticleSystem Particles;
+    public bool DeathProcessed = false;
     void Start()
     {
         Effects = transform.Find("Effects");
         Particles = Effects.GetComponent<ParticleSystem>();
+        Particles.Stop(true);
     }
 
     // Update is called once per frame
@@ -23,6 +25,8 @@ public class Zombie : Humanoid
     }
     void UponDeath(){
         Debug.Log(gameObject.name + " Has Died and left a big mess.");
+        if(DeathProcessed) return;
+        DeathProcessed = true;
         if(Particles.isPlaying) Particles.Stop();
         var mainModule = Particles.main;
         mainModule.startSize = 0.5f;

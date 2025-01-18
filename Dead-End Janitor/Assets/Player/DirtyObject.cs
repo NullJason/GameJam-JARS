@@ -11,6 +11,8 @@ public class DirtyObject : MonoBehaviour
 	private Vector3 InitialSize;
 	Transform Effects;
     ParticleSystem Particles;
+	public bool CleanProcessed = false;
+
 
     void Start()
     {
@@ -18,6 +20,8 @@ public class DirtyObject : MonoBehaviour
 		if(Effects == null) Effects = Instantiate(Resources.Load<GameObject>("Particles/Effects")).transform;
 		Effects.SetParent(transform);
         Particles = Effects.GetComponent<ParticleSystem>();
+
+		Particles.Stop(true);
 
 		Hp = MaxHp;
 		InitialSize = transform.localScale;
@@ -29,11 +33,12 @@ public class DirtyObject : MonoBehaviour
             gameObject.layer = layerIndex;
 		}
 
-		Tasks.Instance.AddTask(TaskID, gameObject, Hp, 0);
+		Tasks.Instance.AddTask(TaskID, gameObject, Hp, MaxHp);
     }
 	public void Clean(float Strength){
 		Hp -= Strength;
-		if(Hp <= 0) { Tasks.Instance.Remove(gameObject); Particles.Play(); StartDelayedDestroy(Particles.main.duration); return;}
+		if(Hp <= 0) { if(CleanProcessed) return; CleanProcessed = true; Tasks.Instance.CompleteTask(gameObject); Particles.Play(); StartDelayedDestroy(Particles.main.duration); return;}
+		Tasks.Instance.UpdateTask(gameObject, Hp);
 
 		Vector3 previousScale = transform.localScale; 
 		

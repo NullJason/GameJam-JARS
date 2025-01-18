@@ -16,5 +16,4 @@ public class Player : Humanoid
     }
     void UponDeath(){}
     void OnHit(){}
-
 }
