@@ -1,11 +1,13 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class DirtyObject : MonoBehaviour
 {
 	// under any dirty obj.
+	[SerializeField] private List<bool> DirtType = new List<bool>(){true, true}; // 1 = liquid, 2 = solid.
 	[SerializeField] private float MaxHp = 10;
-	[SerializeField] private int TaskID = -1;
+	[SerializeField] private int TaskID = 1;
 	private float Hp;
 	private string DirtyLayer = "Dirty";
 	private Vector3 InitialSize;
@@ -13,7 +15,7 @@ public class DirtyObject : MonoBehaviour
     ParticleSystem Particles;
 	public bool CleanProcessed = false;
 
-
+	public bool IsDirtType(int index){return DirtType[index];}
     void Start()
     {
 		Effects = transform.Find("Effects");
@@ -33,6 +35,7 @@ public class DirtyObject : MonoBehaviour
             gameObject.layer = layerIndex;
 		}
 
+		if(TaskID < 1) TaskID = 1;
 		Tasks.Instance.AddTask(TaskID, gameObject, Hp, MaxHp);
     }
 	public void Clean(float Strength){

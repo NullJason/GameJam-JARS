@@ -73,6 +73,10 @@ public class Tasks : MonoBehaviour
             TIDToButton.Add(TID, button.GetComponent<RectTransform>());
             button.GetComponent<Button>().onClick.AddListener(() => ShowTask(TaskObject));
             button.SetActive(true);
+        }else{
+            GameObject button = TIDToButton[TID].gameObject;
+            TMP_Text txt = button.transform.GetChild(0).GetComponent<TMP_Text>();
+            txt.SetText(TaskName+": "+TIDCount[TID]);
         }
         RefreshTasks();
     }
@@ -88,7 +92,6 @@ public class Tasks : MonoBehaviour
         TaskDesc.SetText(TaskDescriptions[TID]);
     }
     public void UpdateTask(GameObject TaskObj, float Progress){
-        Debug.Log("setting progress to "+Progress);
         TaskObjects[TaskObj].SetProgress(Progress);
         UpdateTaskInfoUI(TaskObj);
     }
@@ -96,6 +99,10 @@ public class Tasks : MonoBehaviour
         int TID = TaskObjects[TaskObj].GetTID();
         TIDCount[TID] -= 1;
         if(TIDCount[TID] == 0) {TIDCount.Remove(TID); Destroy(TIDToButton[TID].gameObject); TIDToButton.Remove(TID);}
+        else { string TaskName = TaskTitles[TID];
+        GameObject button = TIDToButton[TID].gameObject;
+        TMP_Text txt = button.transform.GetChild(0).GetComponent<TMP_Text>();
+        txt.SetText(TaskName+": "+TIDCount[TID]); }
         TaskObjects.Remove(TaskObj);
         TaskInfo.gameObject.SetActive(false);
         RefreshTasks();
