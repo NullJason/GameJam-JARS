@@ -20,6 +20,7 @@ public class Hunter : MonoBehaviour
   [SerializeField] private Transform[] patrolPoints;
 
   void Start(){
+    if(GameplayManager.hunter == null) GameplayManager.hunter = this.gameObject;
     SetUpDetectionRays();
     navigate = GetComponent<UnityEngine.AI.NavMeshAgent>();
   }
@@ -27,7 +28,7 @@ public class Hunter : MonoBehaviour
     DisplayRays();
     if(target == null) priority = 0;
     if(priority < 4){
-//      CheckContact(); //Instead of checking for zombies in contact here, it is now checked in OnTriggerEnter() .
+//      CheckContact(); //Instead of checking for zombies in contact here, it is now checked in OnTriggerStay() .
       if(priority < 3){
         CheckRayPlayer();
         if(priority < 2){
@@ -118,7 +119,7 @@ public class Hunter : MonoBehaviour
     return false;
   }
 
-  private protected void OnTriggerEnter(Collider col){
+  private protected void OnTriggerStay(Collider col){
     Debug.Log("=D");
     if(priority < 4 && col.gameObject.layer == LayerMask.NameToLayer("Visible") && col.GetComponent<Collider>().gameObject.tag != "Wall") {AssignTarget(col.GetComponent<Collider>().gameObject, 4); Debug.Log("=D");}
   }

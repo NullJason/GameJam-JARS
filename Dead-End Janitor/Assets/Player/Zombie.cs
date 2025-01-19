@@ -1,13 +1,16 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Zombie : Humanoid
 {
     Transform Effects;
     ParticleSystem Particles;
     public bool DeathProcessed = false;
+    [SerializeField] private NavMeshAgent agent;
     void Start()
     {
+        if(agent == null) agent = GetComponent<NavMeshAgent>();
         Effects = transform.Find("Effects");
         Particles = Effects.GetComponent<ParticleSystem>();
         Particles.Stop(true);
@@ -16,6 +19,7 @@ public class Zombie : Humanoid
     // Update is called once per frame
     void Update()
     {
+        agent.SetDestination(GameplayManager.hunter.transform.position);
         if(IsDead()){
             UponDeath();
         }

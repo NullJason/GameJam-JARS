@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public abstract class ButtonFunctionality : MonoBehaviour
 {
-  [SerializeField] private Button button;
+  [SerializeField] private protected Button button;
   private protected virtual void Start()
   {
     if(button == null) button = GetComponent<Button>();
