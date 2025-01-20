@@ -4993,7 +4993,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d3d1bc37ff0219a4b9d502e5bc546514, type: 2}
+  - {fileID: 2100000, guid: ea2f7e1e5fab62d48b4c7bbb20a34335, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5053,9 +5053,8 @@ MonoBehaviour:
   MaxHp: 3
   DeathProcessed: 0
   agent: {fileID: 0}
-  howManyToDropPerHit: 0
-  blood: {fileID: 73047060371896910, guid: 83fae03d3a2619c488146f28e95a1e13, type: 3}
-  solid: {fileID: 2213945673806683682, guid: 20cf86fa9aad23348849d74d46352129, type: 3}
+  blood: {fileID: 3402228600729002760, guid: 11662b633581e37448c664a7973b8f61, type: 3}
+  solid: {fileID: 5456286162160285225, guid: b8a408c7da713b24c90ee99a05e1154c, type: 3}
 --- !u!54 &4286423654345293195
 Rigidbody:
   m_ObjectHideFlags: 0
