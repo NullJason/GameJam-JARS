@@ -16,9 +16,9 @@ public class ConnectToCleaner : MonoBehaviour
     private void OnCollisionExit(Collision other) {
         CleanerItemScript.ConnectCleanerCollision(other);
     }
-    private void OnEnable(){
+    private void OnDisable(){
       Debug.Log("=D");
-      transform.localRotation = Quaternion.Euler(-89.921f, 0, 0);
-      transform.localPosition = new Vector3(4.30742233f, 2.57828106f, 4.50259023e-07f);
+      transform.localRotation = rotation;
+      transform.localPosition = position;
     }
 }
