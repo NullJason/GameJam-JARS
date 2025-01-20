@@ -4995,6 +4995,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: mophead
       objectReference: {fileID: 0}
+    - target: {fileID: 8513859187771203891, guid: d31f702624d72c04aba350674fab7f8f, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

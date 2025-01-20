@@ -51,7 +51,8 @@ public class Zombie : Humanoid
     void OnHit(){
         Debug.Log(gameObject.name + " :" + GetHp() + ": " + "OUCH! >:(");
         Particles.Play();
-        Instantiate(blood, transform.position, transform.rotation);
+//        Instantiate(blood, transform.position - new Vector3(0, transform.localScale.y, 0), transform.rotation); //TODO: Replace this with solids, once we have them!
+        Instantiate(blood, transform.position - new Vector3(0, transform.localScale.y, 0), transform.rotation);
     }
     void StartDelayedDestroy(float time){
         StartCoroutine(DelayedDestroyObject(time));

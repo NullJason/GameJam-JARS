@@ -37,6 +37,7 @@ public class DirtyObject : MonoBehaviour
 
 		if(TaskID < 1) TaskID = 1;
 		Tasks.Instance.AddTask(TaskID, gameObject, Hp, MaxHp);
+		GameplayManager.main.AddToCleanOnScreen();
     }
 	public void Clean(float Strength){
 		Hp -= Strength;
