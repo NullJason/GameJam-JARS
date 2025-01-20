@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 	public CharacterController controller;
 	public Transform GroundCheck;
 	public LayerMask GroundMask;
+	public bool LungeEnabled = false;
 
 	private float wishspeed2;
 	private float gravity = -20f;
@@ -40,6 +41,7 @@ public class PlayerMovement : MonoBehaviour
 
 	public bool JumpQueue = false;
 	public bool wishJump = false;
+	public int Stamina = 3;
 
 	public Vector3 moveDirection;
 	public Vector3 moveDirectionNorm;
@@ -87,13 +89,21 @@ public class PlayerMovement : MonoBehaviour
 		x = Input.GetAxis("Horizontal");
 		z = Input.GetAxis("Vertical");
 	}
-
+	void DoDelayedGainStamina(){
+		StartCoroutine(DelayedStaminaGain());
+	}
+	IEnumerator DelayedStaminaGain(){
+		yield return new WaitForSeconds(1);
+		Stamina+=1;
+	}
 	// Queue next jump
 	void QueueJump()
 	{
-		if (Input.GetButtonDown("Jump") && IsGrounded)
+		if (LungeEnabled && Input.GetButtonDown("Jump") && IsGrounded && Stamina > 0)
 		{
 			wishJump = true;
+			DoDelayedGainStamina();
+			Stamina-=1;
 		}
 
 		// if (!IsGrounded && Input.GetButtonDown("Jump"))
