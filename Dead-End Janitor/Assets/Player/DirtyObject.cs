@@ -27,9 +27,9 @@ public class DirtyObject : MonoBehaviour
 
 		Hp = MaxHp;
 		InitialSize = transform.localScale;
-		
+
         int layerIndex = LayerMask.NameToLayer(DirtyLayer);
-        
+
         if (layerIndex != -1)
         {
             gameObject.layer = layerIndex;
@@ -43,16 +43,16 @@ public class DirtyObject : MonoBehaviour
 		if(Hp <= 0) { if(CleanProcessed) return; CleanProcessed = true; Tasks.Instance.CompleteTask(gameObject); Particles.Play(); StartDelayedDestroy(Particles.main.duration); return;}
 		Tasks.Instance.UpdateTask(gameObject, Hp);
 
-		Vector3 previousScale = transform.localScale; 
-		
+		Vector3 previousScale = transform.localScale;
+
 		if(transform.localScale.magnitude > 1) transform.localScale = InitialSize * (Hp/MaxHp);
 		else return;
-		
+
 		RaycastHit hit;
-		
-		Vector3 rayDirection = -transform.up; 
+
+		Vector3 rayDirection = -transform.up;
 		float rayLength = GetRayLengthForObject(previousScale, transform.rotation);
-		
+
 		// prevent floating away from wall while scaling.
 		if (Physics.Raycast(transform.position, rayDirection, out hit, rayLength))
 		{
@@ -62,21 +62,21 @@ public class DirtyObject : MonoBehaviour
 	float GetRayLengthForObject(Vector3 objectScale, Quaternion objectRotation)
 	{
 		Vector3 localDown = Vector3.down;
-		Vector3 worldDown = objectRotation * localDown; 
+		Vector3 worldDown = objectRotation * localDown;
 
 		Bounds bounds = GetObjectBounds(objectScale);
 		float extent = Vector3.Dot(worldDown.normalized, bounds.extents);
 
-		return extent + 0.5f; 
+		return extent + 0.5f;
 	}
 	Bounds GetObjectBounds(Vector3 objectScale)
 	{
-		
+
 		Collider collider = GetComponent<Collider>();
 		if (collider != null)
 		{
 			Bounds bounds = collider.bounds;
-			bounds.size = Vector3.Scale(bounds.size, objectScale); 
+			bounds.size = Vector3.Scale(bounds.size, objectScale);
 			return bounds;
 		}
 		else
@@ -86,9 +86,11 @@ public class DirtyObject : MonoBehaviour
 	}
 	void StartDelayedDestroy(float time){
         StartCoroutine(DelayedDestroyObject(time));
+				this.enabled = false;
     }
     IEnumerator DelayedDestroyObject(float time){
         yield return new WaitForSeconds(time);
         Destroy(gameObject);
+				GameplayManager.main.Clean();
     }
 }

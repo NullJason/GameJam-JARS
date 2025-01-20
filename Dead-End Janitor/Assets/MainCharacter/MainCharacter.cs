@@ -113,7 +113,7 @@ public class Hunter : MonoBehaviour
     Physics.Raycast(transform.position, directionToPlayer, out hit, detectionDistance, visible);
     if(hit.collider == null) return false;
     if(hit.collider.gameObject.Equals(player)){
-      AssignTarget(player, 4);
+      AssignTarget(player, 3);
       return true;
     }
     return false;
@@ -121,7 +121,7 @@ public class Hunter : MonoBehaviour
 
   private protected void OnTriggerStay(Collider col){
     Debug.Log("=D");
-    if(priority < 4 && col.gameObject.layer == LayerMask.NameToLayer("Visible") && col.GetComponent<Collider>().gameObject.tag != "Wall") {AssignTarget(col.GetComponent<Collider>().gameObject, 4); Debug.Log("=D");}
+    if(priority < 4 && col.gameObject.layer == LayerMask.NameToLayer("Visible") && col.GetComponent<Collider>().gameObject.tag != "Wall" && !col.gameObject.Equals(player)) {AssignTarget(col.GetComponent<Collider>().gameObject, 4); Debug.Log("=D");}
   }
 
   private protected bool TryDealDamage(GameObject target, int damage = 1){

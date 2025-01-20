@@ -31,10 +31,10 @@ public class GameplayManager : MonoBehaviour
   }
   void Update()
   {
-    Debug.Log("Wave: " + wave + "\nZombies left: "+ howManyLeftInWave + "\n");
+    Debug.Log("Wave: " + wave + "\nZombies left: "+ howManyLeftInWave + "\nActive cleaning objects:" + howManyToClean);
     if(gameIsActive){
       TrySpawn();
-      if(howManyLeftInWave == 0/* && howManyToClean == 0*/){
+      if(howManyLeftInWave == 0 && howManyToClean == 0){
         waveTimer--;
         if(waveTimer == 0) StartNextWave();
       }
@@ -75,6 +75,7 @@ public class GameplayManager : MonoBehaviour
     howManyLeftInWave = 10 + (wave * wave);
     //TODO: Increase player speed?
     waveTimer = waveTimerReset;
+    howManyToClean = zombie.GetComponent<Zombie>().HowManyDroppedTotal() * howManyLeftInWave; //TODO: Remove magic numbers, as well as unreliable formula!
   }
 
   public void LoadGame(){
@@ -97,5 +98,9 @@ public class GameplayManager : MonoBehaviour
 
   public bool SaveExists(){
     return saveHandler.Load().wave != 1; //TODO: Remove magic numbers!
+  }
+  //Meant to be called by a DirtyObject when cleaned.
+  public void Clean(){
+    howManyToClean--;
   }
 }

@@ -8,12 +8,15 @@ public class Zombie : Humanoid
     ParticleSystem Particles;
     public bool DeathProcessed = false;
     [SerializeField] private NavMeshAgent agent;
+    [SerializeField] private GameObject blood;
+    [SerializeField] private GameObject solid;
     void Start()
     {
         if(agent == null) agent = GetComponent<NavMeshAgent>();
         Effects = transform.Find("Effects");
         Particles = Effects.GetComponent<ParticleSystem>();
         Particles.Stop(true);
+//        GameplayManager
     }
 
     // Update is called once per frame
@@ -43,16 +46,22 @@ public class Zombie : Humanoid
         }
         rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
         StartDelayedDestroy(Particles.main.duration);
+        this.enabled = false;
     }
     void OnHit(){
         Debug.Log(gameObject.name + " :" + GetHp() + ": " + "OUCH! >:(");
         Particles.Play();
+        Instantiate(blood, transform.position, transform.rotation);
     }
     void StartDelayedDestroy(float time){
         StartCoroutine(DelayedDestroyObject(time));
     }
     IEnumerator DelayedDestroyObject(float time){
         yield return new WaitForSeconds(time);
+        Instantiate(solid, transform.position, transform.rotation);
         Destroy(gameObject);
+    }
+    public virtual int HowManyDroppedTotal(){
+        return (int)Mathf.Ceil(GetMaxHp()) + 1 + 1;
     }
 }

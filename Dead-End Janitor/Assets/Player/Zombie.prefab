@@ -5053,6 +5053,9 @@ MonoBehaviour:
   MaxHp: 3
   DeathProcessed: 0
   agent: {fileID: 0}
+  howManyToDropPerHit: 0
+  blood: {fileID: 73047060371896910, guid: 83fae03d3a2619c488146f28e95a1e13, type: 3}
+  solid: {fileID: 2213945673806683682, guid: 20cf86fa9aad23348849d74d46352129, type: 3}
 --- !u!54 &4286423654345293195
 Rigidbody:
   m_ObjectHideFlags: 0
