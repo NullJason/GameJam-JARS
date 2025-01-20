@@ -5,7 +5,7 @@ using UnityEngine;
 public class CleanerItem : MonoBehaviour
 {
 	// under any item that can clean.
-	
+
 	// each second, add 5 cleaniness to dirt.
 	[SerializeField] private float Speed = 0.1f;
 	[SerializeField] private float Strength = 0.25f;
@@ -57,7 +57,7 @@ public class CleanerItem : MonoBehaviour
     void DetectLookAt()
     {
 		if(PlayerCamera == null) { Debug.Log("PlayerCamera DNE, Please assign."); return;}
-        
+
 		Ray ray = new Ray(PlayerCamera.transform.position, PlayerCamera.transform.forward);
         RaycastHit hit;
 
@@ -79,7 +79,7 @@ public class CleanerItem : MonoBehaviour
 		for(int i=0; i<DirtType.Count; i++) {if(DirtType[i] && MessScript.IsDirtType(i)) CanClean = true;} if(!CanClean) return;
 		if(!OnCooldown && !ToolInterrupted) {OnCooldown = true; StartCoroutine(CleanUp(mess));}
 	}
-		
+
 	IEnumerator CleanUp(GameObject mess){
 		DirtyObject MessScript = mess.GetComponent<DirtyObject>();
 		yield return new WaitForSecondsRealtime(Speed);
@@ -88,11 +88,13 @@ public class CleanerItem : MonoBehaviour
 		if(Effects != null) Effects.Play();
 	}
 
-	private void OnEnable() {
+
+//Outdated, now that this script's gameobject is a child of PlayerCamera by default. 
+/*	private void OnEnable() {
 		if (PlayerCameraTransform == null) return;
 		transform.SetParent(PlayerCameraTransform);
 		if (isAnimating) return;
-		transform.position = PlayerCameraTransform.position + ToolPositionOffset;
-        transform.rotation = PlayerCameraTransform.rotation * ToolRotationOffset;
-	}
+//		transform.position = PlayerCameraTransform.position + ToolPositionOffset;
+//        transform.rotation = PlayerCameraTransform.rotation * ToolRotationOffset;
+	}*/
 }
