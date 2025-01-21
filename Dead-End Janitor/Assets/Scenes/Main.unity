@@ -984,6 +984,10 @@ PrefabInstance:
       propertyPath: HumanoidBody
       value: 
       objectReference: {fileID: 1259484073}
+    - target: {fileID: 6454352370541652978, guid: 666b88320cb73f843bd8f26690a57c89, type: 3}
+      propertyPath: Strength
+      value: 0.05
+      objectReference: {fileID: 0}
     - target: {fileID: 6819131045589531566, guid: 666b88320cb73f843bd8f26690a57c89, type: 3}
       propertyPath: m_Name
       value: Player
