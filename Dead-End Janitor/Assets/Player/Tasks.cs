@@ -35,13 +35,17 @@ public class Tasks : MonoBehaviour
         TaskButton.gameObject.SetActive(false);
         TaskContainer.gameObject.SetActive(false);
         TaskInfo.gameObject.SetActive(false);
+
+        speechHandler = GameObject.FindFirstObjectByType<SpeechHandler>();
     }
     private Tasks(){}
+    private SpeechHandler speechHandler;
     private Dictionary<int, string> TaskTitles; // TaskID to task title...
     private Dictionary<int, string> TaskDescriptions; // TaskID to task descriptions...
     private Dictionary<GameObject, TaskProgress> TaskObjects = new Dictionary<GameObject, TaskProgress>(); // List of GOs.
     private Dictionary<int, int> TIDCount = new Dictionary<int, int>();
     private Dictionary<int, RectTransform> TIDToButton = new Dictionary<int, RectTransform>();
+    private int PlayerDeathCount = 0;
     private int PreviousNumTasks = 0;
 
     Transform Canvas;
@@ -50,6 +54,7 @@ public class Tasks : MonoBehaviour
     Transform TaskInfo;
     TMP_Text TaskTitle;
     TMP_Text TaskDesc;
+    public SpeechHandler GetSpeechHandler() {return speechHandler;}
     public void RefreshTasks(){
         float currentY = 0f;
         foreach (RectTransform rect in TIDToButton.Values)
@@ -58,6 +63,8 @@ public class Tasks : MonoBehaviour
             currentY -= rect.sizeDelta.y;
         }
     }
+    public void AddPlayerDeath() {PlayerDeathCount+=1;}
+    public int GetPlayerDeathCount() {return PlayerDeathCount;}
     public void AddTask(int TID, GameObject TaskObject, float progress, float condition){
         if (TID < 0) return;
         if(!TIDCount.TryAdd(TID, 1)) TIDCount[TID] += 1;

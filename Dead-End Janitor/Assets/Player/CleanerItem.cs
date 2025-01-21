@@ -40,7 +40,9 @@ public class CleanerItem : MonoBehaviour
     void Update()
     {
 		if(CleanMethod[1]){
+		if(Input.GetMouseButtonDown(0)) if(Effects.main.loop) Effects.Play();
 		if(Input.GetMouseButton(0)) DetectLookAt();
+		if(Input.GetMouseButtonUp(0)) if(Effects.main.loop) Effects.Stop();
 		else{ ToolInterrupted = true; }}
 
 		// Animator animator = GetComponent<Animator>();
@@ -85,7 +87,7 @@ public class CleanerItem : MonoBehaviour
 		yield return new WaitForSecondsRealtime(Speed);
 		if(!ToolInterrupted) MessScript.Clean(Strength);
 		OnCooldown = false;
-		if(Effects != null) Effects.Play();
+		//if(Effects != null) Effects.Play();
 	}
 
 

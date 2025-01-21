@@ -34,6 +34,8 @@ public class SpeechHandler : MonoBehaviour
 
     public class Dialogue
     {
+        public float MinUiAlpha = 0.5f;
+        public float MinTextAlpha = 0.65f;
         private string text;
         private float textSize;
         private string speaker;
@@ -47,11 +49,13 @@ public class SpeechHandler : MonoBehaviour
             this.speaker = speaker;
             this.text = text;
             this.textSize = textSize ?? 20;
-            this.barColor = barColor ?? new Color(0, 0, 0, 85/255); // Transparent by default.
-            this.textColor = textColor ?? Color.black; // Black by default.
+            this.barColor = barColor ?? new Color(0, 0, 0, 85f/255f); // Transparent by default.
+            this.textColor = textColor ?? Color.white; // white by default.
             this.flavor = flavor ?? 0;
             this.autoPlay = autoPlay ?? 0;
             this.animDelay = animDelay ?? 0; if(flavor == 0) this.animDelay = 0; else if(flavor == 1 && animDelay == 0) this.animDelay = 0.1f;
+            if(this.barColor.a < MinUiAlpha) this.barColor = new Color(this.barColor.r, this.barColor.g, this.barColor.b, MinUiAlpha);
+            if(this.textColor.a < MinTextAlpha) this.textColor = new Color(this.textColor.r, this.textColor.g, this.textColor.b, MinTextAlpha);
         }
 
         public string GetText() => text;
@@ -66,10 +70,11 @@ public class SpeechHandler : MonoBehaviour
 
     public void AcceptNew(string speaker, string text, float? textSize = null, Color? barColor = null, Color? textColor = null, int? flavor = null, float? autoPlay = null, float? animDelay = null)
     {
+        Debug.Log("Accepted new dialogue." + barColor.ToString() + textColor.ToString());
         Dialogue newDialogue = new Dialogue(speaker, text, textSize, barColor, textColor, flavor, autoPlay, animDelay);
         dialogueQueue.Enqueue(newDialogue);
     }
-
+    public bool Stopped(){return dialogueQueue.Count == 0 && !IsPlayingAnim && !isAutoPlaying;}
     public void PlayNext()
     {
         if(isAutoPlaying) return;
@@ -89,6 +94,7 @@ public class SpeechHandler : MonoBehaviour
         Dialogue currentDialogue = dialogueQueue.Dequeue();
         TextDisplayDelay = currentDialogue.GetTextDisplayDelay();
         StartCoroutine(FadeInBar(currentDialogue));
+        Debug.Log("Playing dialogue: "+currentDialogue.GetText());
     }
 
     private IEnumerator FadeInBar(Dialogue dialogue)

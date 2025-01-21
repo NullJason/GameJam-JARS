@@ -14,6 +14,7 @@ public class DirtyObject : MonoBehaviour
 	Transform Effects;
     ParticleSystem Particles;
 	public bool CleanProcessed = false;
+	GameplayManager GPM;
 
 	public bool IsDirtType(int index){return DirtType[index];}
     void Start()
@@ -37,7 +38,8 @@ public class DirtyObject : MonoBehaviour
 
 		if(TaskID < 1) TaskID = 1;
 		Tasks.Instance.AddTask(TaskID, gameObject, Hp, MaxHp);
-		GameplayManager.main.AddToCleanOnScreen();
+		GPM = FindFirstObjectByType<GameplayManager>();
+		if(GPM) GPM.AddToCleanOnScreen();
     }
 	public void Clean(float Strength){
 		Hp -= Strength;
@@ -87,11 +89,11 @@ public class DirtyObject : MonoBehaviour
 	}
 	void StartDelayedDestroy(float time){
         StartCoroutine(DelayedDestroyObject(time));
-				this.enabled = false;
+		this.enabled = false;
     }
     IEnumerator DelayedDestroyObject(float time){
         yield return new WaitForSeconds(time);
         Destroy(gameObject);
-				GameplayManager.main.Clean();
+		if(GPM) GPM.Clean();
     }
 }
