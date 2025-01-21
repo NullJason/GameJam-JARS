@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class LoadSaveFileButton : ButtonFunctionality
 {
+  [SerializeField] private protected string sceneName = "Demo Scene";
   private protected override void Start(){
     base.Start();
     if(!GameplayManager.main.SaveExists()){
@@ -11,7 +12,7 @@ public class LoadSaveFileButton : ButtonFunctionality
   }
   private protected override void ButtonDo(){
     GameplayManager.main.LoadGame();
-    SceneManager.LoadScene("Demo Scene");
+    SceneManager.LoadScene(sceneName);
     GameplayManager.main.SetGameActive(true);
     GameplayManager.main.SetUpWave();
   }
