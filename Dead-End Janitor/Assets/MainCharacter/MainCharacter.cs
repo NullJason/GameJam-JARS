@@ -13,7 +13,8 @@ public class Hunter : MonoBehaviour
   private int numberOfRays;
   private GameObject target;
   private NavMeshAgent navigate;
-  private int priority = 0;
+  private PriorityTier priority = 0;
+  private int waypointTimer = -1;
   [SerializeField] private int damageTimerReset;
   private int damageTimer = 0;
   [SerializeField] private Transform damageCenter; //Where the chainsaw is, approximately. Mostly, it's so the hunter has to turn around to attack a zombie behind.
@@ -27,13 +28,13 @@ public class Hunter : MonoBehaviour
   void FixedUpdate(){
     DisplayRays();
     if(target == null) priority = 0;
-    if(priority < 4){
+    if(priority < PriorityTier.ContactZombie){
 //      CheckContact(); //Instead of checking for zombies in contact here, it is now checked in OnTriggerStay() .
-      if(priority < 3){
+      if(priority < PriorityTier.Player){
         CheckRayPlayer();
-        if(priority < 2){
+        if(priority < PriorityTier.SeenZombie){
           CheckRays(true);
-          if(priority < 1){
+          if(priority < PriorityTier.Waypoint){
 //            FindNextWaypoint();
           }
         }
@@ -76,7 +77,7 @@ public class Hunter : MonoBehaviour
     if(Physics.Raycast(transform.position, raycastRotations[whichRay] * transform.forward, out hit, closerThan, visible)){
       if(display) Debug.DrawRay(transform.position, raycastRotations[whichRay] * transform.forward * hit.distance, Color.yellow, 0, false);
       if(hit.collider.gameObject.tag != "Wall"){
-        AssignTarget(hit.collider.gameObject, 2);
+        AssignTarget(hit.collider.gameObject, PriorityTier.SeenZombie);
         return hit.distance;
       }
     }
@@ -88,20 +89,32 @@ public class Hunter : MonoBehaviour
     if(target != null){
       if((damageCenter.transform.position - target.transform.position).sqrMagnitude < attackDistance * attackDistance){
         navigate.destination = transform.position;
-        if(priority == 1){
-          AssignTarget(target.GetComponent<Waypoint>().GetNext(), 1);
+        if(priority == PriorityTier.Waypoint){
+          if(waypointTimer > 0) waypointTimer--;
+          else if(waypointTimer == -1) waypointTimer = target.GetComponent<Waypoint>().GetTime();
+          else if(waypointTimer == 0){
+            AssignTarget(target.GetComponent<Waypoint>().GetNext(), PriorityTier.Waypoint);
+            waypointTimer = -1;
+          }
         }
         else TryDealDamage(target, 1);
         return true;
       }
       navigate.destination = target.transform.position;
     }
-    else AssignTarget(Waypoint.GetNew(), 1);
+    else AssignTarget(Waypoint.GetNew(), PriorityTier.Waypoint);
     return false;
   }
-  private void AssignTarget(GameObject target, int priority){
+  private void AssignTarget(GameObject target, PriorityTier priority){
     this.target = target;
+    SetSpeed(priority);
     this.priority = priority;
+  }
+  private void SetSpeed(PriorityTier priority){
+    if(priority == PriorityTier.ContactZombie) navigate.speed = 2.75f;
+    else if(priority == PriorityTier.Player) navigate.speed = 2.5f;
+    else if(priority == PriorityTier.SeenZombie) navigate.speed = 2f;
+    else if(priority == PriorityTier.Waypoint) navigate.speed = 0.5f;
   }
   //Checks whether a raycast from the Hunter to the Player would be within the cone, and then checks whether such a raycast would actually hit the player.
   private bool CheckRayPlayer(){
@@ -113,7 +126,7 @@ public class Hunter : MonoBehaviour
     Physics.Raycast(transform.position, directionToPlayer, out hit, detectionDistance, visible);
     if(hit.collider == null) return false;
     if(hit.collider.gameObject.Equals(player)){
-      AssignTarget(player, 3);
+      AssignTarget(player, PriorityTier.Player);
       return true;
     }
     return false;
@@ -121,7 +134,7 @@ public class Hunter : MonoBehaviour
 
   private protected void OnTriggerStay(Collider col){
     Debug.Log("=D");
-    if(priority < 4 && col.gameObject.layer == LayerMask.NameToLayer("Visible") && col.GetComponent<Collider>().gameObject.tag != "Wall" && !col.gameObject.Equals(player)) {AssignTarget(col.GetComponent<Collider>().gameObject, 4); Debug.Log("=D");}
+    if(priority < PriorityTier.ContactZombie && col.gameObject.layer == LayerMask.NameToLayer("Visible") && col.GetComponent<Collider>().gameObject.tag != "Wall" && !col.gameObject.Equals(player)) {AssignTarget(col.GetComponent<Collider>().gameObject, PriorityTier.ContactZombie); Debug.Log("=D");}
   }
 
   private protected bool TryDealDamage(GameObject target, int damage = 1){
@@ -134,5 +147,12 @@ public class Hunter : MonoBehaviour
     }
     damageTimer-=1;
     return false;
+  }
+
+  enum PriorityTier{
+    ContactZombie = 4,
+    Player = 3,
+    SeenZombie = 2,
+    Waypoint = 1
   }
 }
