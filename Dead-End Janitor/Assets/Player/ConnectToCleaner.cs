@@ -16,7 +16,7 @@ public class ConnectToCleaner : MonoBehaviour
         if(CleanMethod[0]) CleanerItemScript.ConnectCleanerCollision(other);
     }
     private void OnCollisionStay(Collision other) {
-        if(CleanMethod[1]){ CleanerItemScript.ConnectCleanerCollision(other); Debug.Log("working");}
+        if(CleanMethod[1]) CleanerItemScript.ConnectCleanerCollision(other);
     }
     private void OnCollisionExit(Collision other) {
         if(CleanMethod[0]) CleanerItemScript.ConnectCleanerCollision(other);
