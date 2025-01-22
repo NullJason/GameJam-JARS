@@ -4938,11 +4938,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 781fba124e4662d47bed2d99a10ffe40, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1.21
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 781fba124e4662d47bed2d99a10ffe40, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 11.97
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 781fba124e4662d47bed2d99a10ffe40, type: 3}
       propertyPath: m_LocalRotation.w
@@ -4974,7 +4974,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 781fba124e4662d47bed2d99a10ffe40, type: 3}
       propertyPath: m_Name
-      value: zombie 1
+      value: zombi
       objectReference: {fileID: 0}
     - target: {fileID: 8597865178428971248, guid: 781fba124e4662d47bed2d99a10ffe40, type: 3}
       propertyPath: m_Materials.Array.size
@@ -5055,8 +5055,8 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
-  m_BaseOffset: 1
+  m_Height: 1.6
+  m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!54 &769205805051986671
