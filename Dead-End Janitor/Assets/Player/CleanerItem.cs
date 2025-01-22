@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class CleanerItem : MonoBehaviour
 {
@@ -22,7 +23,19 @@ public class CleanerItem : MonoBehaviour
 	private bool isAnimating = false;
 	[SerializeField] private ParticleSystem Effects;
 	[SerializeField] private List<bool> DirtType = new List<bool>(){true, true}; // 1 = liquid, 2 = solid.
-	[SerializeField] private List<bool> CleanMethod = new List<bool>(){true, true}; // 1 = mop, 2 = vacuum. doesnt rlly matter anymore
+	[SerializeField] private List<bool> CleanMethod = new List<bool>(){true, true}; // 1 = mop, 2 = vacuum.
+	private AudioMixer Mixer;
+	private AudioSource audioSource;
+    private AudioClip Washing_AC;
+	private AudioClip Vacuum_AC;
+	[Range(0f, 1f)]
+	public float Vacuum_Volume = 0.6f;
+	[Range(0f, 1f)]
+	public float Mop_Volume = 1f;
+	private float vacuumloopStart = 2f;
+	private float vacuumloopEnd = 11.5f;
+	private float currentStart = 0;
+	private float currentEnd = 1;
 
 
 	private void Start() {
@@ -35,12 +48,41 @@ public class CleanerItem : MonoBehaviour
         {
             DirtyLayer = 1 << dirtyLayerId;
         }
-	}
+		Mixer = Resources.Load<AudioMixer>("Sounds/MainMixer");
 
+		audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.Stop();
+        Washing_AC = Resources.Load<AudioClip>("Sounds/wash"); 
+		Vacuum_AC = Resources.Load<AudioClip>("Sounds/vacuum"); 
+		audioSource.outputAudioMixerGroup = Mixer.FindMatchingGroups("Master")[0];
+		audioSource.loop = true;
+	}
+	void PlaySoundEnding(){
+		audioSource.loop = false;
+		audioSource.time = currentEnd;
+	}
+	void SetLoopStartEnd(float start = 0, float end = 0){
+		if(end == 0) end = audioSource.clip.length-1;
+		currentStart = start;
+		currentEnd = end;
+	}
     void Update()
     {
-		if(Input.GetMouseButtonDown(0)) if(Effects.main.loop) Effects.Play();
-		if(Input.GetMouseButtonUp(0)) if(Effects.main.loop) Effects.Stop();
+		if (audioSource.isPlaying && audioSource.loop)
+        {
+            if (audioSource.time > currentEnd)
+            {
+                audioSource.time = currentStart;
+            }
+        }
+
+		if(Input.GetMouseButtonDown(0)) if(Effects.main.loop) {
+			Effects.Play(); audioSource.loop = true; Mixer.SetFloat("MainMusicVolume", -20f);
+			if(CleanMethod[1]) {audioSource.clip = Vacuum_AC; SetLoopStartEnd(vacuumloopStart,vacuumloopEnd); audioSource.volume = Vacuum_Volume;}
+			else if(CleanMethod[0]) {audioSource.clip = Washing_AC; SetLoopStartEnd(); audioSource.volume = Mop_Volume;} audioSource.Play();
+		}
+		if(Input.GetMouseButtonUp(0)) if(Effects.main.loop) {Effects.Stop(); PlaySoundEnding(); Mixer.SetFloat("MainMusicVolume", 0f);}
 		if(Input.GetMouseButton(0)) ToolInterrupted = false;
 		else{ ToolInterrupted = true; }
 
@@ -85,8 +127,23 @@ public class CleanerItem : MonoBehaviour
 		yield return new WaitForSecondsRealtime(Speed);
 		if(!ToolInterrupted) MessScript.Clean(Strength);
 		OnCooldown = false;
-		//if(Effects != null) Effects.Play();
 	}
 
+    private IEnumerator FadeMixerGroup(AudioMixer mixer, string parameter = "MainMusicVolume", float target = -20f, float duration = 2f)
+    {
+        float currentTime = 0f;
+        float currentVolume;
+        mixer.GetFloat(parameter, out currentVolume);
+
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime;
+            float newVolume = Mathf.Lerp(currentVolume, target, currentTime / duration);
+            mixer.SetFloat(parameter, newVolume);
+            yield return null;
+        }
+
+        mixer.SetFloat(parameter, target);
+    }
 
 }

@@ -14,6 +14,8 @@ public class DirtyObject : MonoBehaviour
 	Transform Effects;
     ParticleSystem Particles;
 	public bool CleanProcessed = false;
+	private AudioSource audioSource;
+	private AudioClip Bubbles_AC;
 	GameplayManager GPM;
 
 	public bool IsDirtType(int index){return DirtType[index];}
@@ -39,11 +41,20 @@ public class DirtyObject : MonoBehaviour
 		if(TaskID < 1) TaskID = 1;
 		Tasks.Instance.AddTask(TaskID, gameObject, Hp, MaxHp);
 		GPM = FindFirstObjectByType<GameplayManager>();
-		if(GPM) GPM.AddToCleanOnScreen();
+		if(GPM) GPM.AddToCleanOnScreen(); else{Debug.LogError("Dirty Object Cannot Find GameplayManager");}
+
+		audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.Stop();
+		Bubbles_AC = Resources.Load<AudioClip>("Sounds/bubble"); 
     }
 	public void Clean(float Strength){
 		Hp -= Strength;
-		if(Hp <= 0) { if(CleanProcessed) return; CleanProcessed = true; Tasks.Instance.CompleteTask(gameObject); Particles.Play(); StartDelayedDestroy(Particles.main.duration); return;}
+		if(Hp <= 0) { if(CleanProcessed) return; CleanProcessed = true; 
+		if(DirtType[0]) {audioSource.clip = Bubbles_AC; audioSource.Play();} 
+		else if(DirtType[1]){} //vacuum dirt type death noise
+		Tasks.Instance.CompleteTask(gameObject); Particles.Play(); StartDelayedDestroy(Particles.main.duration); return;}
+
 		Tasks.Instance.UpdateTask(gameObject, Hp);
 
 		Vector3 previousScale = transform.localScale;

@@ -18,7 +18,7 @@ public class Tasks : MonoBehaviour
         }
 
         Instance = this; // Set the instance
-        DontDestroyOnLoad(gameObject); // Make persistent across scenes
+        //DontDestroyOnLoad(gameObject); // Make persistent across scenes
 
         // init vars.
         TaskEditor taskEditor = transform.GetComponent<TaskEditor>();

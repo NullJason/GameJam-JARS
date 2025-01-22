@@ -9,6 +9,7 @@ public class Hunter : MonoBehaviour
   [SerializeField] private protected float detectionSpread; //How many degrees the detection cone should be.
   [SerializeField] private protected GameObject player; //TODO: Find better way to get this!
   [SerializeField] private protected float attackDistance = 0.65f; //How close the target must be to start dealing damage.
+  [SerializeField] private protected Vector3 SightOriginOffset = new Vector3(0,0,0);
   private Quaternion[] raycastRotations; //Stores the directions of all the raycasts, relative to the player's rotation.
   private int numberOfRays;
   private GameObject target;
@@ -74,14 +75,14 @@ public class Hunter : MonoBehaviour
   //Checks a particular ray. Returns the distance to the first hit if it is not a wall. If it detects a wall or doesn't detect anything, returns -1. Updates the target to the object that was hit if not returning -1.
   private float CheckRay(int whichRay, float closerThan, bool display = false){
     RaycastHit hit;
-    if(Physics.Raycast(transform.position, raycastRotations[whichRay] * transform.forward, out hit, closerThan, visible)){
-      if(display) Debug.DrawRay(transform.position, raycastRotations[whichRay] * transform.forward * hit.distance, Color.yellow, 0, false);
+    if(Physics.Raycast(transform.position + SightOriginOffset, raycastRotations[whichRay] * transform.forward, out hit, closerThan, visible)){
+      if(display) Debug.DrawRay(transform.position + SightOriginOffset, raycastRotations[whichRay] * transform.forward * hit.distance, Color.yellow, 0, false);
       if(hit.collider.gameObject.tag != "Wall"){
         AssignTarget(hit.collider.gameObject, PriorityTier.SeenZombie);
         return hit.distance;
       }
     }
-    if(display) Debug.DrawRay(transform.position, raycastRotations[whichRay] * transform.forward * closerThan, Color.yellow, 0, false);
+    if(display) Debug.DrawRay(transform.position + SightOriginOffset, raycastRotations[whichRay] * transform.forward * closerThan, Color.yellow, 0, false);
     return -1;
   }
   //Returns true if close enough to attack the target.
