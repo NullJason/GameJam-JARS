@@ -108,6 +108,7 @@ public class GameplayManager : MonoBehaviour
 //    bool tempSfx = sfx;
 //    bool tempMusic = music;
     saveFile = new SaveData();
+    wave = 1;
     saveFile.music = music;
     saveFile.sfx = sfx;
     SaveGame();
