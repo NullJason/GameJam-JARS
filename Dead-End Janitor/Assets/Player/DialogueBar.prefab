@@ -310,6 +310,7 @@ GameObject:
   - component: {fileID: 6929508036526934680}
   - component: {fileID: 5105751734754393903}
   - component: {fileID: 349602000161193110}
+  - component: {fileID: 1726288888791714468}
   m_Layer: 5
   m_Name: DialogueBar
   m_TagString: Untagged
@@ -416,7 +417,25 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8525746256003116400}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1726288888791714468
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8525746256003116400}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e579216836a1f3b4fb5918edeebd30fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DialogueBar: {fileID: 1037921087375582029}
+  BarContainer: {fileID: 4035669793058006225}
+  SpeakerNameTextContainer: {fileID: 722994218435658400}
+  SpeechTextContainer: {fileID: 560079234313097806}
+  TextDisplayDelay: 0.1
+  IsPlayingAnim: 0

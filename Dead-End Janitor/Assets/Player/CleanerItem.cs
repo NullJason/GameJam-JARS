@@ -9,8 +9,8 @@ public class CleanerItem : MonoBehaviour
 	// each second, add 5 cleaniness to dirt.
 	[SerializeField] private float Speed = 0.1f;
 	[SerializeField] private float Strength = 0.25f;
-	[SerializeField] private Vector3 ToolPositionOffset = new Vector3(1, -0.5f, 1.3f); // Position offset (adjust for bottom-right corner)
-	[SerializeField] private Quaternion ToolRotationOffset = Quaternion.Euler(80, 0, 0); // Position offset (adjust for bottom-right corner)
+	//[SerializeField] private Vector3 ToolPositionOffset = new Vector3(1, -0.5f, 1.3f); // Position offset (adjust for bottom-right corner)
+	//[SerializeField] private Quaternion ToolRotationOffset = Quaternion.Euler(80, 0, 0); // Position offset (adjust for bottom-right corner)
 	[SerializeField] private GameObject Player = null;
 	[SerializeField] private Transform PlayerCameraTransform = null;
 	public float detectionRange = 10f;
@@ -22,7 +22,7 @@ public class CleanerItem : MonoBehaviour
 	private bool isAnimating = false;
 	[SerializeField] private ParticleSystem Effects;
 	[SerializeField] private List<bool> DirtType = new List<bool>(){true, true}; // 1 = liquid, 2 = solid.
-	[SerializeField] private List<bool> CleanMethod = new List<bool>(){true, true}; // 1 = collision, 2 = click.
+	[SerializeField] private List<bool> CleanMethod = new List<bool>(){true, true}; // 1 = mop, 2 = vacuum. doesnt rlly matter anymore
 
 
 	private void Start() {
@@ -39,18 +39,16 @@ public class CleanerItem : MonoBehaviour
 
     void Update()
     {
-		if(CleanMethod[1]){
 		if(Input.GetMouseButtonDown(0)) if(Effects.main.loop) Effects.Play();
-		if(Input.GetMouseButton(0)) DetectLookAt();
 		if(Input.GetMouseButtonUp(0)) if(Effects.main.loop) Effects.Stop();
-		else{ ToolInterrupted = true; }}
+		if(Input.GetMouseButton(0)) ToolInterrupted = false;
+		else{ ToolInterrupted = true; }
 
 		// Animator animator = GetComponent<Animator>();
 		// isAnimating = animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f;
     }
 	public void ConnectCleanerCollision(Collision other) {
-		if(CleanMethod[0] && (DirtyLayer.value & (1 << other.gameObject.layer)) != 0) {
-			ToolInterrupted = false;
+		if((DirtyLayer.value & (1 << other.gameObject.layer)) != 0) {
 			TryCleanUp(other.gameObject);
 		}
 
@@ -91,12 +89,4 @@ public class CleanerItem : MonoBehaviour
 	}
 
 
-//Outdated, now that this script's gameobject is a child of PlayerCamera by default. 
-/*	private void OnEnable() {
-		if (PlayerCameraTransform == null) return;
-		transform.SetParent(PlayerCameraTransform);
-		if (isAnimating) return;
-//		transform.position = PlayerCameraTransform.position + ToolPositionOffset;
-//        transform.rotation = PlayerCameraTransform.rotation * ToolRotationOffset;
-	}*/
 }

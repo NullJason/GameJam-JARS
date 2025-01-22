@@ -27,6 +27,7 @@ public class SpeechHandler : MonoBehaviour
             Destroy(gameObject); // Destroy duplicate instances
             return;
         }
+        DontDestroyOnLoad(gameObject);
         Instance = this;
         speakerNameText = SpeakerNameTextContainer.GetComponent<Text>();
         speechText = SpeechTextContainer.GetComponent<Text>();
