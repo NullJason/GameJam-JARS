@@ -21,6 +21,9 @@ public class GameplayManager : MonoBehaviour
   int waveTimer;
   public static GameplayManager main;
   public static GameObject hunter;
+  bool music;
+  bool sfx;
+//  public Settings settings;
   void Awake(){
     if(main == null){
       main = this;
@@ -29,6 +32,7 @@ public class GameplayManager : MonoBehaviour
     spawners = new List<Spawner>();
     saveHandler = new SaveDataHandler(Application.persistentDataPath, "save"); //TODO: Remove magic numbers!
     waveTimer = waveTimerReset;
+    LoadGame();
   }
   void Update()
   {
@@ -40,6 +44,7 @@ public class GameplayManager : MonoBehaviour
         if(waveTimer == 0) StartNextWave();
       }
     }
+    Debug.Log("Sound: \n music=" + music + ", \n sfx=" + sfx);
   }
   void TrySpawn(){
     spawnTimer--;
@@ -81,20 +86,30 @@ public class GameplayManager : MonoBehaviour
   }
 
   public void LoadGame(){
+    Debug.Log("=D");
     saveFile = saveHandler.Load();
     if(saveFile == null) saveFile = new SaveData();
     wave = saveFile.wave;
+    music = saveFile.music;
+    sfx = saveFile.sfx;
+    Debug.Log(saveFile.music);
     //TODO: Set Player's health to saveFile.health!
   }
 
   public void SaveGame(){
 //    saveFile.health = //TODO: Get player's health!
     saveFile.wave = wave;
+    saveFile.music = music;
+    saveFile.sfx = sfx;
     saveHandler.Save(saveFile);
   }
 
   public void ResetSave(){
+//    bool tempSfx = sfx;
+//    bool tempMusic = music;
     saveFile = new SaveData();
+    saveFile.music = music;
+    saveFile.sfx = sfx;
     SaveGame();
   }
 
@@ -109,5 +124,15 @@ public class GameplayManager : MonoBehaviour
 
   public void AddToCleanOnScreen(){
     howManyToCleanOnScreen++;
+  }
+  public bool GetMusic(){
+    return music;
+  }
+  public bool GetSfx(){
+    return sfx;
+  }
+  public void SetSettings(bool music, bool sfx){
+    this.sfx = sfx;
+    this.music = music;
   }
 }
