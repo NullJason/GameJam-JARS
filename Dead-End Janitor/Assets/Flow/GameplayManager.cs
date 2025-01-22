@@ -23,6 +23,7 @@ public class GameplayManager : MonoBehaviour
   public static GameObject hunter;
   bool music;
   bool sfx;
+  float lastKnownPlayerHealth = 100;
 //  public Settings settings;
   void Awake(){
     if(main == null){
@@ -73,7 +74,6 @@ public class GameplayManager : MonoBehaviour
     wave++;
     SetUpWave();
     SaveGame();
-//    Debug.Log("Wave: " + wave);
   }
 
   //Meant to be called at the start of a wave.
@@ -86,18 +86,18 @@ public class GameplayManager : MonoBehaviour
   }
 
   public void LoadGame(){
-    Debug.Log("=D");
     saveFile = saveHandler.Load();
     if(saveFile == null) saveFile = new SaveData();
     wave = saveFile.wave;
     music = saveFile.music;
     sfx = saveFile.sfx;
-    Debug.Log(saveFile.music);
+    lastKnownPlayerHealth = saveFile.health;
     //TODO: Set Player's health to saveFile.health!
   }
 
   public void SaveGame(){
-//    saveFile.health = //TODO: Get player's health!
+    if(hunter != null) saveFile.health = hunter.GetComponent<Hunter>().GetPlayer().GetComponent<Player>().GetHp();
+    else saveFile.health = lastKnownPlayerHealth;
     saveFile.wave = wave;
     saveFile.music = music;
     saveFile.sfx = sfx;
@@ -109,6 +109,7 @@ public class GameplayManager : MonoBehaviour
 //    bool tempMusic = music;
     saveFile = new SaveData();
     wave = 1;
+    lastKnownPlayerHealth = 100;
     saveFile.music = music;
     saveFile.sfx = sfx;
     SaveGame();
@@ -135,5 +136,8 @@ public class GameplayManager : MonoBehaviour
   public void SetSettings(bool music, bool sfx){
     this.sfx = sfx;
     this.music = music;
+  }
+  public float GetLastPlayerHealth(){
+    return lastKnownPlayerHealth;
   }
 }

@@ -7,7 +7,7 @@ public class Player : Humanoid
 
     private AudioSource audioSource;
     private AudioClip audioClip;
-    
+
     Color ZombieTextColor = new Color(0,100f/255f,0,230f/255f);
     Color ZombieBarColor = new Color(0,0,0,85f/255f);
     Color MCTextColor = new Color(200f/255f,25f/255f,50f/255f,230f/255f);
@@ -29,6 +29,7 @@ public class Player : Humanoid
             Debug.LogError("Audio file not found in Resources folder.");
         }
         audioSource.clip = audioClip;
+        SetHp(GameplayManager.main.GetLastPlayerHealth());
     }
     void Update()
     {
@@ -38,7 +39,7 @@ public class Player : Humanoid
         if(TookDamage()){
             OnHit();
         }
-        //if(IsMoving()) 
+        //if(IsMoving())
         if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))OnMove(); else {audioSource.loop = false; audioSource.Stop();}
     }
     void OnMove(){
