@@ -149,6 +149,10 @@ public class Hunter : MonoBehaviour
     return false;
   }
 
+  public Player GetPlayer(){
+    return player.GetComponent<Player>();
+  }
+
   enum PriorityTier{
     ContactZombie = 4,
     Player = 3,
