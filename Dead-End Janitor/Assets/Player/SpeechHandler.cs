@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class SpeechHandler : MonoBehaviour
 {
+    public static SpeechHandler Instance { get; private set; } // Singleton instance
     public Transform DialogueBar; // The rectangular Speech bubble.
     public Transform BarContainer;
     public Transform SpeakerNameTextContainer; // Contains TMP_Text component.
@@ -13,15 +15,21 @@ public class SpeechHandler : MonoBehaviour
     public bool IsPlayingAnim = false; // Detect if animation/flavor is active.
 
     private Queue<Dialogue> dialogueQueue = new Queue<Dialogue>(); // Queue for dialogues.
-    private TMP_Text speakerNameText;
-    private TMP_Text speechText;
+    private Text speakerNameText;
+    private Text speechText;
     private CanvasGroup dialogueBarCanvasGroup;
     private bool isAutoPlaying = false;
 
     private void Awake()
     {
-        speakerNameText = SpeakerNameTextContainer.GetComponent<TMP_Text>();
-        speechText = SpeechTextContainer.GetComponent<TMP_Text>();
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject); // Destroy duplicate instances
+            return;
+        }
+        Instance = this;
+        speakerNameText = SpeakerNameTextContainer.GetComponent<Text>();
+        speechText = SpeechTextContainer.GetComponent<Text>();
         dialogueBarCanvasGroup = DialogueBar.GetComponent<CanvasGroup>();
 
         if (dialogueBarCanvasGroup == null)
@@ -49,8 +57,8 @@ public class SpeechHandler : MonoBehaviour
             this.speaker = speaker;
             this.text = text;
             this.textSize = textSize ?? 20;
-            this.barColor = barColor ?? new Color(0, 0, 0, 85f/255f); // Transparent by default.
-            this.textColor = textColor ?? Color.white; // white by default.
+            this.barColor = new Color(0, 0, 0, 85f/255f); // Transparent by default.
+            this.textColor = Color.white; // white by default.
             this.flavor = flavor ?? 0;
             this.autoPlay = autoPlay ?? 0;
             this.animDelay = animDelay ?? 0; if(flavor == 0) this.animDelay = 0; else if(flavor == 1 && animDelay == 0) this.animDelay = 0.1f;
@@ -70,7 +78,7 @@ public class SpeechHandler : MonoBehaviour
 
     public void AcceptNew(string speaker, string text, float? textSize = null, Color? barColor = null, Color? textColor = null, int? flavor = null, float? autoPlay = null, float? animDelay = null)
     {
-        Debug.Log("Accepted new dialogue." + barColor.ToString() + textColor.ToString());
+        Debug.Log("Accepted new dialogue."+text + barColor.ToString() + textColor.ToString());
         Dialogue newDialogue = new Dialogue(speaker, text, textSize, barColor, textColor, flavor, autoPlay, animDelay);
         dialogueQueue.Enqueue(newDialogue);
     }
@@ -117,7 +125,7 @@ public class SpeechHandler : MonoBehaviour
         speakerNameText.text = dialogue.GetSpeaker();
         speakerNameText.color = dialogue.GetTextColor();
         speechText.color = dialogue.GetTextColor();
-        speechText.fontSize = dialogue.GetTextSize();
+        //speechText.font = dialogue.GetTextSize();
 
         if (dialogue.GetFlavor() == 0) // Instantly display text.
         {

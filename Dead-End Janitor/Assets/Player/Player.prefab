@@ -665,7 +665,6 @@ GameObject:
   - component: {fileID: 7297454436060158299}
   - component: {fileID: 3206475156105032195}
   - component: {fileID: 2884989566579568605}
-  - component: {fileID: 6587671383476034640}
   - component: {fileID: 1545893150036288333}
   m_Layer: 3
   m_Name: Player
@@ -847,19 +846,6 @@ MonoBehaviour:
   MaxHp: 100
   HumanoidBody: {fileID: 0}
   velocityThreshold: 0.05
---- !u!114 &6587671383476034640
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6819131045589531566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e9590311a23f7be4c844a4123fc490fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SH: {fileID: 1545893150036288333}
 --- !u!114 &1545893150036288333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -867,7 +853,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6819131045589531566}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e579216836a1f3b4fb5918edeebd30fd, type: 3}
   m_Name: 

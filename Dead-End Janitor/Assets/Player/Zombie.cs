@@ -10,13 +10,29 @@ public class Zombie : Humanoid
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private GameObject blood;
     [SerializeField] private GameObject solid;
+    private AudioSource audioSource;
+    private AudioClip audioClip;
+
+     
+
     void Start()
     {
         if(agent == null) agent = GetComponent<NavMeshAgent>();
         Effects = transform.Find("Effects");
         Particles = Effects.GetComponent<ParticleSystem>();
         Particles.Stop(true);
-//        GameplayManager
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.playOnAwake = false;
+        audioSource.Stop();
+
+        // Load the audio clip from the Resources folder
+        audioClip = Resources.Load<AudioClip>("Sounds/FleshHit"); // Replace "AudioFileName" with your MP3's file name (without extension)
+        audioSource.playOnAwake = false;
+        if (audioClip == null)
+        {
+            Debug.LogError("Audio file not found in Resources folder.");
+        }
+        audioSource.clip = audioClip;
     }
 
     // Update is called once per frame
@@ -45,6 +61,9 @@ public class Zombie : Humanoid
             rb = gameObject.AddComponent<Rigidbody>();
         }
         rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
+        audioClip = Resources.Load<AudioClip>("Sounds/BloodExplosion");
+        audioSource.clip = audioClip;
+        audioSource.Play();
         StartDelayedDestroy(Particles.main.duration);
         this.enabled = false;
     }
@@ -53,7 +72,8 @@ public class Zombie : Humanoid
         Particles.Play();
 //        Instantiate(blood, transform.position - new Vector3(0, transform.localScale.y, 0), transform.rotation); //TODO: Replace this with solids, once we have them!
         Instantiate(blood, transform.position - new Vector3(0, transform.localScale.y, 0), transform.rotation);
-    }
+        audioSource.Play();
+    }  
     void StartDelayedDestroy(float time){
         StartCoroutine(DelayedDestroyObject(time));
     }
