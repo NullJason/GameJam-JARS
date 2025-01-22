@@ -36,10 +36,8 @@ public class Tasks : MonoBehaviour
         TaskContainer.gameObject.SetActive(false);
         TaskInfo.gameObject.SetActive(false);
 
-        speechHandler = GameObject.FindFirstObjectByType<SpeechHandler>();
     }
     private Tasks(){}
-    private SpeechHandler speechHandler;
     private Dictionary<int, string> TaskTitles; // TaskID to task title...
     private Dictionary<int, string> TaskDescriptions; // TaskID to task descriptions...
     private Dictionary<GameObject, TaskProgress> TaskObjects = new Dictionary<GameObject, TaskProgress>(); // List of GOs.
@@ -54,7 +52,6 @@ public class Tasks : MonoBehaviour
     Transform TaskInfo;
     TMP_Text TaskTitle;
     TMP_Text TaskDesc;
-    public SpeechHandler GetSpeechHandler() {return speechHandler;}
     public void RefreshTasks(){
         float currentY = 0f;
         foreach (RectTransform rect in TIDToButton.Values)
