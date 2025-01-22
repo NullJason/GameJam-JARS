@@ -63,6 +63,6 @@ public class Zombie : Humanoid
         Destroy(gameObject);
     }
     public virtual int HowManyDroppedTotal(){
-        return (int)Mathf.Ceil(GetMaxHp()) + 1 + 1;
+        return (int)Mathf.Ceil(GetMaxHp()) + 1;
     }
 }
