@@ -114,7 +114,7 @@ public class Hunter : MonoBehaviour
     if(priority == PriorityTier.ContactZombie) navigate.speed = 2.75f;
     else if(priority == PriorityTier.Player) navigate.speed = 2.5f;
     else if(priority == PriorityTier.SeenZombie) navigate.speed = 2f;
-    else if(priority == PriorityTier.Waypoint) navigate.speed = 0.5f;
+    else if(priority == PriorityTier.Waypoint) navigate.speed = 1.0f;
   }
   //Checks whether a raycast from the Hunter to the Player would be within the cone, and then checks whether such a raycast would actually hit the player.
   private bool CheckRayPlayer(){
@@ -134,7 +134,10 @@ public class Hunter : MonoBehaviour
 
   private protected void OnTriggerStay(Collider col){
     Debug.Log("=D");
-    if(priority < PriorityTier.ContactZombie && col.gameObject.layer == LayerMask.NameToLayer("Visible") && col.GetComponent<Collider>().gameObject.tag != "Wall" && !col.gameObject.Equals(player)) {AssignTarget(col.GetComponent<Collider>().gameObject, PriorityTier.ContactZombie); Debug.Log("=D");}
+    if(priority < PriorityTier.ContactZombie && col.gameObject.layer == LayerMask.NameToLayer("Visible") && col.GetComponent<Collider>().gameObject.tag != "Wall"){
+      if(col.gameObject.Equals(player)) AssignTarget(col.GetComponent<Collider>().gameObject, PriorityTier.Player);
+      else AssignTarget(col.GetComponent<Collider>().gameObject, PriorityTier.ContactZombie);
+    }
   }
 
   private protected bool TryDealDamage(GameObject target, int damage = 1){
