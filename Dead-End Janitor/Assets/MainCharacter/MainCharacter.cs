@@ -20,8 +20,12 @@ public class Hunter : MonoBehaviour
   private int damageTimer = 0;
   [SerializeField] private Transform damageCenter; //Where the chainsaw is, approximately. Mostly, it's so the hunter has to turn around to attack a zombie behind.
   [SerializeField] private Transform[] patrolPoints;
+  private Animator animator;
+  // private bool isWalking;
+  // private bool isAnimationPlaying;
 
   void Start(){
+    animator = transform.Find("base").GetComponent<Animator>();
     if(GameplayManager.hunter == null) GameplayManager.hunter = this.gameObject;
     SetUpDetectionRays();
     navigate = GetComponent<UnityEngine.AI.NavMeshAgent>();
@@ -43,6 +47,7 @@ public class Hunter : MonoBehaviour
     }
     PursueTarget();
   }
+  
   private void SetUpDetectionRays(){
     visible = LayerMask.GetMask("Visible");//TODO: Remove magic numbers!
     float arcOfDetection = 2 * Mathf.PI * detectionDistance * detectionSpread / 360; //The length of the arc of the detection cone.
@@ -140,6 +145,9 @@ public class Hunter : MonoBehaviour
       else AssignTarget(col.GetComponent<Collider>().gameObject, PriorityTier.ContactZombie);
     }
   }
+  private void PlayAttackAnim(){
+    animator.SetTrigger("DoAttack");
+  }
 
   private protected bool TryDealDamage(GameObject target, int damage = 1){
     if(damageTimer == 0){
@@ -147,6 +155,7 @@ public class Hunter : MonoBehaviour
       Humanoid h = target.GetComponent<Humanoid>();
       if(h == null)Debug.LogWarning("target \'" + target.name + "\' does not have a Humanoid component, and so cannot be damaged!");
       target.GetComponent<Humanoid>().AddHp(-damage);
+      PlayAttackAnim();
       return true;
     }
     damageTimer-=1;

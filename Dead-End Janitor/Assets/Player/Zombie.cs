@@ -10,6 +10,7 @@ public class Zombie : Humanoid
     [SerializeField] private NavMeshAgent agent;
     [SerializeField] private GameObject blood;
     [SerializeField] private GameObject solid;
+    private Animator animator;
     private AudioSource audioSource;
     private AudioClip audioClip;
 
@@ -33,6 +34,8 @@ public class Zombie : Humanoid
             Debug.LogError("Audio file not found in Resources folder.");
         }
         audioSource.clip = audioClip;
+        animator = GetComponent<Animator>();
+        transform.Find("Armature").rotation = Quaternion.Euler(-90, 180, 0);
     }
 
     // Update is called once per frame
@@ -48,6 +51,7 @@ public class Zombie : Humanoid
     }
     void UponDeath(){
         Debug.Log(gameObject.name + " Has Died and left a big mess.");
+        if(animator) {animator.SetBool("IsWalking", false); animator.SetTrigger("DoDeath");}
         if(DeathProcessed) return;
         DeathProcessed = true;
         if(Particles.isPlaying) Particles.Stop();
@@ -73,7 +77,11 @@ public class Zombie : Humanoid
 //        Instantiate(blood, transform.position - new Vector3(0, transform.localScale.y, 0), transform.rotation); //TODO: Replace this with solids, once we have them!
         Instantiate(blood, transform.position - new Vector3(0, transform.localScale.y, 0), transform.rotation);
         audioSource.Play();
+        DoAttack();
     }  
+    void DoAttack(){
+        animator.SetTrigger("DoAttack");
+    }
     void StartDelayedDestroy(float time){
         StartCoroutine(DelayedDestroyObject(time));
     }
