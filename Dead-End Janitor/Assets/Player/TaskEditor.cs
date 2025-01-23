@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class TaskEditor : MonoBehaviour
 {
+    // made redundant. VALUES HAVE TO BE EDITED THROUGH TASKS.cs
     [SerializeField] private List<int> taskIds = new List<int>();
     [SerializeField] private List<string> taskTitles = new List<string>();
     [SerializeField] private List<string> taskDescriptions = new List<string>();

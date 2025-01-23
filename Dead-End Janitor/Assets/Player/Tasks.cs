@@ -21,9 +21,9 @@ public class Tasks : MonoBehaviour
         //DontDestroyOnLoad(gameObject); // Make persistent across scenes
 
         // init vars.
-        TaskEditor taskEditor = transform.GetComponent<TaskEditor>();
-        TaskTitles = taskEditor.GetTitles();
-        TaskDescriptions = taskEditor.GetDescriptions();
+        //TaskEditor taskEditor = transform.GetComponent<TaskEditor>();
+        // TaskTitles = taskEditor.GetTitles();
+        // TaskDescriptions = taskEditor.GetDescriptions();
 
         Canvas = GameObject.Find("TaskCanvas").transform;
         TaskContainer = Canvas.Find("Container");
@@ -38,8 +38,18 @@ public class Tasks : MonoBehaviour
 
     }
     private Tasks(){}
-    private Dictionary<int, string> TaskTitles; // TaskID to task title...
-    private Dictionary<int, string> TaskDescriptions; // TaskID to task descriptions...
+    // TaskID to task title...
+    private Dictionary<int, string> TaskTitles = new Dictionary<int, string>(){
+        {1,"Vacuum Solids!"},
+        {2,"Mop Liquids!"},
+        {0,"You Shouldn't Be able to see this!"}
+    }; 
+    // TaskID to task descriptions...
+    private Dictionary<int, string> TaskDescriptions = new Dictionary<int, string>(){
+        {1, "You may be one of them, but you really want to punch them in the face for leaving so much solid matter behind. But that would just leave more DIRTY to clean up... ugh."},
+        {2, "Is that stagnant water or is that blood? Can't really tell with these eyes. Well, doesn't matter, they will wash away under the almighty mop."},
+        {0, "this is an invalid key,value pair >:( (dev error totally, yea not joking, uh huh.)"}
+    }; 
     private Dictionary<GameObject, TaskProgress> TaskObjects = new Dictionary<GameObject, TaskProgress>(); // List of GOs.
     private Dictionary<int, int> TIDCount = new Dictionary<int, int>();
     private Dictionary<int, RectTransform> TIDToButton = new Dictionary<int, RectTransform>();
