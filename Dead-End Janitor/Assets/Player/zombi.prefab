@@ -4976,6 +4976,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: zombi
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 781fba124e4662d47bed2d99a10ffe40, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8597865178428971248, guid: 781fba124e4662d47bed2d99a10ffe40, type: 3}
       propertyPath: m_Materials.Array.size
       value: 1
