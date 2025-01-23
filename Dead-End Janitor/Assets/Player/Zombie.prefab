@@ -5035,7 +5035,7 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
-  m_Height: 2
+  m_Height: 4.02
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7668650995986168579
@@ -5051,6 +5051,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHp: 3
+  HumanoidBody: {fileID: 0}
+  velocityThreshold: 100
   DeathProcessed: 0
   agent: {fileID: 0}
   blood: {fileID: 3402228600729002760, guid: 11662b633581e37448c664a7973b8f61, type: 3}
