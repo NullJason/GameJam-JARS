@@ -3274,6 +3274,10 @@ PrefabInstance:
       propertyPath: zombie
       value: 
       objectReference: {fileID: 4546351311403191621, guid: 9de6f9cb5c8a0134bb1eb678bc4680c0, type: 3}
+    - target: {fileID: 2824872132753871250, guid: cb903547a1884e6418ed4d3072ea2e5c, type: 3}
+      propertyPath: spawnTimerReset
+      value: 550
+      objectReference: {fileID: 0}
     - target: {fileID: 9184818832111151848, guid: cb903547a1884e6418ed4d3072ea2e5c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 16.429705
