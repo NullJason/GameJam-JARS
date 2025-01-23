@@ -14,7 +14,7 @@ public class Tutorial : MonoBehaviour
         SpeechHandler.Instance.AcceptNew("You", "...",20,ZombieBarColor,ZombieTextColor,1,1.5f);
         SpeechHandler.Instance.AcceptNew("You", "This Place is Absolutely FILTHY.",20,ZombieBarColor,ZombieTextColor,2,5,0.5f);
         SpeechHandler.Instance.AcceptNew("You", "IT MUST BE CLEANSED!",20,ZombieBarColor,ZombieTextColor,2,5,0.5f);
-        SpeechHandler.Instance.AcceptNew("You", "...Who's that?",20,ZombieBarColor,ZombieTextColor,1,2,0.25f);
+        SpeechHandler.Instance.AcceptNew("You", "...Who's that?",20,ZombieBarColor,ZombieTextColor,1,2,0.1f);
         // SpeechHandler.Instance.AcceptNew("You", "Where Am I?",20,ZombieBarColor,ZombieTextColor,1);
         // SpeechHandler.Instance.AcceptNew("You", "...",20,ZombieBarColor,ZombieTextColor,1);
         // SpeechHandler.Instance.AcceptNew("You", "This Place is Absolutely FILTHY.",20,ZombieBarColor,ZombieTextColor,2);

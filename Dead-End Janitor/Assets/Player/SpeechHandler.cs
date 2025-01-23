@@ -27,7 +27,7 @@ public class SpeechHandler : MonoBehaviour
             Destroy(gameObject); // Destroy duplicate instances
             return;
         }
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
         Instance = this;
         speakerNameText = SpeakerNameTextContainer.GetComponent<Text>();
         speechText = SpeechTextContainer.GetComponent<Text>();
@@ -44,6 +44,7 @@ public class SpeechHandler : MonoBehaviour
     public class Dialogue
     {
         public float MinUiAlpha = 0.5f;
+        public float MaxUiAlpha = 85f/255f;
         public float MinTextAlpha = 0.65f;
         private string text;
         private float textSize;
@@ -58,12 +59,13 @@ public class SpeechHandler : MonoBehaviour
             this.speaker = speaker;
             this.text = text;
             this.textSize = textSize ?? 20;
-            this.barColor = new Color(0, 0, 0, 85f/255f); // Transparent by default.
-            this.textColor = Color.white; // white by default.
+            this.barColor = barColor ?? new Color(0, 0, 0, 85f/255f); // Transparent by default.
+            this.textColor = textColor ?? Color.white; // white by default.
             this.flavor = flavor ?? 0;
             this.autoPlay = autoPlay ?? 0;
             this.animDelay = animDelay ?? 0; if(flavor == 0) this.animDelay = 0; else if(flavor == 1 && animDelay == 0) this.animDelay = 0.1f;
             if(this.barColor.a < MinUiAlpha) this.barColor = new Color(this.barColor.r, this.barColor.g, this.barColor.b, MinUiAlpha);
+            else if(this.barColor.a > MaxUiAlpha) this.barColor = new Color(this.barColor.r, this.barColor.g, this.barColor.b, MaxUiAlpha);
             if(this.textColor.a < MinTextAlpha) this.textColor = new Color(this.textColor.r, this.textColor.g, this.textColor.b, MinTextAlpha);
         }
 
@@ -98,56 +100,57 @@ public class SpeechHandler : MonoBehaviour
         {
             if (DialogueBar.gameObject.activeSelf) StartCoroutine(FadeOutBar());
             return;
-        }
+        }        
+
+        DialogueBar.gameObject.SetActive(true);
 
         Dialogue currentDialogue = dialogueQueue.Dequeue();
         TextDisplayDelay = currentDialogue.GetTextDisplayDelay();
-        StartCoroutine(FadeInBar(currentDialogue));
+        StartCoroutine(FadeInBar());
+        StartCoroutine(Play(currentDialogue));
         Debug.Log("Playing dialogue: "+currentDialogue.GetText());
     }
-
-    private IEnumerator FadeInBar(Dialogue dialogue)
-    {
-        if(!DialogueBar.gameObject.activeSelf) {
-            DialogueBar.gameObject.SetActive(true);
-
-            float fadeDuration = 0.1f;
-            for (float t = 0; t < fadeDuration; t += Time.deltaTime)
-            {
-                dialogueBarCanvasGroup.alpha = t / fadeDuration;
-                yield return null;
-            }
-
-            dialogueBarCanvasGroup.alpha = 1;
+    private IEnumerator FadeInBar(){
+        float fadeDuration = 0.1f;
+        for (float t = 0; t < fadeDuration; t += Time.deltaTime)
+        {
+            dialogueBarCanvasGroup.alpha = t / fadeDuration;
+            yield return null;
         }
 
+        dialogueBarCanvasGroup.alpha = 1;
+    }
+    private IEnumerator Play(Dialogue dialogue)
+    {
+        Debug.Log($"Bar Color: {dialogue.GetBarColor()}");
+Debug.Log($"Text Color: {dialogue.GetTextColor()}");
         // Set UI properties.
         BarContainer.GetComponent<UnityEngine.UI.Image>().color = dialogue.GetBarColor();
         speakerNameText.text = dialogue.GetSpeaker();
         speakerNameText.color = dialogue.GetTextColor();
         speechText.color = dialogue.GetTextColor();
-        //speechText.font = dialogue.GetTextSize();
+        speechText.fontSize = (int) dialogue.GetTextSize();
 
-        if (dialogue.GetFlavor() == 0) // Instantly display text.
+        if (dialogue.GetFlavor() == 0) // Instantly display text
         {
             speechText.text = dialogue.GetText();
         }
         else if (dialogue.GetFlavor() == 1) // Delayed text animation.
         {
-            StartDelayedTextInput(dialogue.GetText());
+            yield return StartCoroutine(DoDelayedTextInput(dialogue.GetText()));
         }
-        else if (dialogue.GetFlavor() == 2) // Instant text with shaking animation.
+        else if (dialogue.GetFlavor() == 2) // Instant text with shaking anim
         {
             speechText.text = dialogue.GetText();
-            StartCoroutine(PlayShakingAnimation());
+            yield return StartCoroutine(PlayShakingAnimation());
         }
         float autoPlayDelay = dialogue.GetAutoPlay();
         if (autoPlayDelay > 0)
         {
             isAutoPlaying = true;
-            if (dialogue.GetFlavor() != 2) yield return new WaitForSeconds(autoPlayDelay + (TextDisplayDelay * dialogue.GetText().Length));
-            else{yield return new WaitForSeconds(autoPlayDelay + TextDisplayDelay );}
-            isAutoPlaying = false; IsPlayingAnim = false; PlayNext();
+            yield return new WaitForSeconds(autoPlayDelay);
+            isAutoPlaying = false;
+            PlayNext();
         }
     }
     private IEnumerator PlayShakingAnimation()
@@ -193,10 +196,10 @@ public class SpeechHandler : MonoBehaviour
         DialogueBar.gameObject.SetActive(false);
     }
 
-    public void StartDelayedTextInput(string message)
-    {
-        StartCoroutine(DoDelayedTextInput(message));
-    }
+    // public void StartDelayedTextInput(string message)
+    // {
+    //     StartCoroutine(DoDelayedTextInput(message));
+    // }
 
     private IEnumerator DoDelayedTextInput(string message)
     {
