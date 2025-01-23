@@ -14,7 +14,7 @@ public class Zombie : Humanoid
     private AudioSource audioSource;
     private AudioClip audioClip;
 
-     
+
 
     void Start()
     {
@@ -75,10 +75,10 @@ public class Zombie : Humanoid
         Debug.Log(gameObject.name + " :" + GetHp() + ": " + "OUCH! >:(");
         Particles.Play();
 //        Instantiate(blood, transform.position - new Vector3(0, transform.localScale.y, 0), transform.rotation); //TODO: Replace this with solids, once we have them!
-        Instantiate(blood, transform.position - new Vector3(0, transform.localScale.y, 0), transform.rotation);
+        Instantiate(blood, transform.position/* - new Vector3(0, transform.localScale.y, 0)*/, transform.rotation);
         audioSource.Play();
         DoAttack();
-    }  
+    }
     void DoAttack(){
         animator.SetTrigger("DoAttack");
     }

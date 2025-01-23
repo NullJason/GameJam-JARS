@@ -58,7 +58,7 @@ public class SwapWeapons : MonoBehaviour
     else{
       previous = current;
       Set(hand);
-      player.moveSpeed = 7;
+      player.moveSpeed = 5;
     }
   }
 

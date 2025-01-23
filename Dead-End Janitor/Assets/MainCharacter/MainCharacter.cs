@@ -47,7 +47,7 @@ public class Hunter : MonoBehaviour
     }
     PursueTarget();
   }
-  
+
   private void SetUpDetectionRays(){
     visible = LayerMask.GetMask("Visible");//TODO: Remove magic numbers!
     float arcOfDetection = 2 * Mathf.PI * detectionDistance * detectionSpread / 360; //The length of the arc of the detection cone.
@@ -117,8 +117,8 @@ public class Hunter : MonoBehaviour
     this.priority = priority;
   }
   private void SetSpeed(PriorityTier priority){
-    if(priority == PriorityTier.ContactZombie) navigate.speed = 2.75f;
-    else if(priority == PriorityTier.Player) navigate.speed = 2.5f;
+    if(priority == PriorityTier.ContactZombie) navigate.speed = 3.75f;
+    else if(priority == PriorityTier.Player) navigate.speed = 4.55f;
     else if(priority == PriorityTier.SeenZombie) navigate.speed = 2f;
     else if(priority == PriorityTier.Waypoint) navigate.speed = 1.0f;
   }

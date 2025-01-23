@@ -2130,7 +2130,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &611569529
 Transform:
   m_ObjectHideFlags: 0
@@ -3325,7 +3325,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &948351853
 Transform:
   m_ObjectHideFlags: 0
@@ -4516,7 +4516,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1321067400
 Transform:
   m_ObjectHideFlags: 0
@@ -6621,6 +6621,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 268904390376814669, guid: 59e2f893b43f7e74a9c30ac9f87b739e, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 190
+      objectReference: {fileID: 0}
+    - target: {fileID: 268904390376814669, guid: 59e2f893b43f7e74a9c30ac9f87b739e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1881257873524065158, guid: 59e2f893b43f7e74a9c30ac9f87b739e, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 2755575761926742119, guid: 59e2f893b43f7e74a9c30ac9f87b739e, type: 3}
       propertyPath: m_Name
       value: HpBar
@@ -6761,6 +6773,10 @@ PrefabInstance:
     - target: {fileID: 4546351311403191621, guid: 9de6f9cb5c8a0134bb1eb678bc4680c0, type: 3}
       propertyPath: m_Name
       value: zombi
+      objectReference: {fileID: 0}
+    - target: {fileID: 4546351311403191621, guid: 9de6f9cb5c8a0134bb1eb678bc4680c0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
