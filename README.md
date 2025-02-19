@@ -1,5 +1,6 @@
-# GameJam-JARS
+# This Repo contains the main Unity Project Files For the Game Dead-End Janitor
+## Playable Executable Versions of the Game will be added under Releases.
 
-### This is where we merge our changes on the unity project. Try to keep this up-to-date so other collaboraters have the most recent files to work with and to prevent file conflicts.
 
-### I recommend getting Github's desktop app to make commiting changes and such easier.
+## Note To Contributors:
+### I recommend getting Github's desktop app to make Tracking Changes and such simpler.
