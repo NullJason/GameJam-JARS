@@ -162,9 +162,16 @@ public class GameplayManager : MonoBehaviour
 
   //To be called on the death of the player.
   public void OnDeath(){
-    Cursor.lockState = CursorLockMode.None;
-    Cursor.visible = true;
-    Debug.Log("=D");
     SceneManager.LoadScene("Death Screen");
+    ShowCursor();
+  }
+  public void ShowCursor(bool show = true){
+    if(show) Cursor.lockState = CursorLockMode.None;
+    else Cursor.lockState = CursorLockMode.Locked;
+    Cursor.visible = show;
+  }
+  public bool SwapShowingCursor(){
+    ShowCursor(!Cursor.visible);
+    return !Cursor.visible;
   }
 }

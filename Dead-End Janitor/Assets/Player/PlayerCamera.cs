@@ -14,26 +14,15 @@ public class PlayerCamera : MonoBehaviour
 	Vector2 rotation = Vector2.zero;
 	const string xAxis = "Mouse X";
 	const string yAxis = "Mouse Y";
-    private bool isCursorLocked = true;
     private void Start() {
+        GameplayManager.main.ShowCursor(false);
         if (PlayerTransform == null) PlayerTransform = GameObject.Find("Player").transform;
     }
     void HandleCursorLock()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            isCursorLocked = !isCursorLocked;
-        }
-
-        if (isCursorLocked)
-        {
-            Cursor.lockState = CursorLockMode.Locked; 
-            Cursor.visible = false; 
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true; 
+            GameplayManager.main.SwapShowingCursor();
         }
     }
 
@@ -47,6 +36,6 @@ public class PlayerCamera : MonoBehaviour
 
         PlayerTransform.rotation = xQuat; // plr handles left/right
 		transform.localRotation = yQuat; // cam handles up/down
-        
+
 	}
 }
