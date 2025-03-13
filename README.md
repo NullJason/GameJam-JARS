@@ -6,7 +6,7 @@ A Unity game where you are a zombie janitor who would rather clean floors than e
 # This Repo contains the main Unity Project Files For the Game Dead-End Janitor
 ## Playable Executable Versions of the Game will be added under Releases.
 
-##Game Controls: 
+## Game Controls: 
 - Arrow keys to move
 - Mouse to look around
 - Press and hold mouse button to clean

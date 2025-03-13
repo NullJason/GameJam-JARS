@@ -53,8 +53,8 @@ public class CleanerItem : MonoBehaviour
 		audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.playOnAwake = false;
         audioSource.Stop();
-        Washing_AC = Resources.Load<AudioClip>("Sounds/wash"); 
-		Vacuum_AC = Resources.Load<AudioClip>("Sounds/vacuum"); 
+        Washing_AC = Resources.Load<AudioClip>("Sounds/wash");
+		Vacuum_AC = Resources.Load<AudioClip>("Sounds/vacuum");
 		audioSource.outputAudioMixerGroup = Mixer.FindMatchingGroups("Master")[0];
 		audioSource.loop = true;
 	}
@@ -98,34 +98,34 @@ public class CleanerItem : MonoBehaviour
 
     void DetectLookAt()
     {
-		if(PlayerCamera == null) { Debug.Log("PlayerCamera DNE, Please assign."); return;}
+				if(PlayerCamera == null) { Debug.Log("PlayerCamera DNE, Please assign."); return;}
 
-		Ray ray = new Ray(PlayerCamera.transform.position, PlayerCamera.transform.forward);
+				Ray ray = new Ray(PlayerCamera.transform.position, PlayerCamera.transform.forward);
         RaycastHit hit;
 
         if (Physics.Raycast(ray, out hit, detectionRange, DirtyLayer))
         {
             Debug.Log("Looking at the huge mess: " + hit.collider.gameObject.name);
-			ToolInterrupted = false;
-			TryCleanUp(hit.collider.gameObject);
-        }
-		else{
-			Debug.Log(" Nothing to Clean! :( ");
-			ToolInterrupted = true;
-		}
+						ToolInterrupted = false;
+						TryCleanUp(hit.collider.gameObject);
+	       }
+				else{
+						Debug.Log(" Nothing to Clean! :( ");
+						ToolInterrupted = true;
+				}
     }
 	void TryCleanUp(GameObject mess){
 		// double tool interrupt check is necessary, trust.
 		DirtyObject MessScript = mess.GetComponent<DirtyObject>();
 		bool CanClean = false;
 		for(int i=0; i<DirtType.Count; i++) {if(DirtType[i] && MessScript.IsDirtType(i)) CanClean = true;} if(!CanClean) return;
-		if(!OnCooldown && !ToolInterrupted) {OnCooldown = true; StartCoroutine(CleanUp(mess));}
+		if(!OnCooldown && !ToolInterrupted && Input.GetButton("Fire1")) {OnCooldown = true; StartCoroutine(CleanUp(mess));}
 	}
 
 	IEnumerator CleanUp(GameObject mess){
 		DirtyObject MessScript = mess.GetComponent<DirtyObject>();
 		yield return new WaitForSecondsRealtime(Speed);
-		if(!ToolInterrupted) MessScript.Clean(Strength);
+		if(!ToolInterrupted && true) MessScript.Clean(Strength);
 		OnCooldown = false;
 	}
 

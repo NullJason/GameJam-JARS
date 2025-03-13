@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 //TODO: When things to clean are created, increment howManyToClean! When they are destroyed, decrement howManyToClean!
 
@@ -9,7 +10,7 @@ public class GameplayManager : MonoBehaviour
   private SaveDataHandler saveHandler;
 
   private List<Spawner> spawners;
-  private int wave = 1;
+  //private int wave = 1;
   private int howManyLeftInWave;
   private bool gameIsActive = false; //TODO!
   [SerializeField] GameObject zombie;
@@ -21,9 +22,9 @@ public class GameplayManager : MonoBehaviour
   int waveTimer;
   public static GameplayManager main;
   public static GameObject hunter;
-  bool music;
-  bool sfx;
-  float lastKnownPlayerHealth = 100;
+  //bool music;
+  //bool sfx;
+  //float lastKnownPlayerHealth = 100;
 //  public Settings settings;
   void Awake(){
     if(main == null){
@@ -37,7 +38,7 @@ public class GameplayManager : MonoBehaviour
   }
   void Update()
   {
-    Debug.Log("Wave: " + wave + "\nZombies left: "+ howManyLeftInWave + "\nTotal cleaning objects: " + howManyToClean + "\nOnscreen cleaning objects: " + howManyToCleanOnScreen);
+    Debug.Log("Wave: " + GetWave() + "\nZombies left: "+ howManyLeftInWave + "\nTotal cleaning objects: " + howManyToClean + "\nOnscreen cleaning objects: " + howManyToCleanOnScreen);
     if(gameIsActive){
       TrySpawn();
       if(howManyLeftInWave == 0 && howManyToClean == 0){
@@ -45,18 +46,18 @@ public class GameplayManager : MonoBehaviour
         if(waveTimer == 0) StartNextWave();
       }
     }
-    Debug.Log("Sound: \n music=" + music + ", \n sfx=" + sfx);
+    Debug.Log("Sound: \n music=" + GetMusic() + ", \n sfx=" + GetSfx());
   }
   void TrySpawn(){
     spawnTimer--;
     if(spawnTimer <= 0){
-      Spawn(wave, zombie);
+      Spawn(GetWave(), zombie);
       spawnTimer = spawnTimerReset;
     }
   }
   void Spawn(int limit, GameObject zombie){
     if(limit > howManyLeftInWave) limit = howManyLeftInWave;
-    if(howManyToCleanOnScreen > 15 + 5 * wave) limit = 0;
+    if(howManyToCleanOnScreen > 15 + 5 * GetWave()) limit = 0;
     int howMany = Random.Range(0, limit + 1);
     Spawner whichOne = spawners[Random.Range(0, spawners.Count)];
     whichOne.Spawn(zombie, howMany);
@@ -71,47 +72,52 @@ public class GameplayManager : MonoBehaviour
   }
 
   public void StartNextWave(){
-    wave++;
+    SetWavePlus(1);
     SetUpWave();
+    SpeechHandler.Instance.AcceptNew("Bob", "Wave Complete!\nWave: " + GetWave() + "\n  The game has been saved.");
     SaveGame();
   }
 
   //Meant to be called at the start of a wave.
   //TODO: Rebalance?
   public void SetUpWave(){
-    howManyLeftInWave = 10 + (wave * wave);
+    howManyLeftInWave = 10 + (GetWave() * GetWave());
     //TODO: Increase player speed?
     waveTimer = waveTimerReset;
     howManyToClean = zombie.GetComponent<Zombie>().HowManyDroppedTotal() * howManyLeftInWave; //TODO: Remove magic numbers, as well as unreliable formula!
   }
 
+  //Loads the saveFile stored in this class from the saveFile stored on the user's computer.
   public void LoadGame(){
     saveFile = saveHandler.Load();
     if(saveFile == null) saveFile = new SaveData();
-    wave = saveFile.wave;
-    music = saveFile.music;
-    sfx = saveFile.sfx;
-    lastKnownPlayerHealth = saveFile.health;
+//    wave = saveFile.wave;
+//    music = saveFile.music;
+//    sfx = saveFile.sfx;
+//    lastKnownPlayerHealth = saveFile.health;
     //TODO: Set Player's health to saveFile.health!
   }
 
+  //Loads the saveFile stored in this class onto the saveFile stored on the user's computer.
   public void SaveGame(){
     if(hunter != null) saveFile.health = hunter.GetComponent<Hunter>().GetPlayer().GetComponent<Player>().GetHp();
-    else saveFile.health = lastKnownPlayerHealth;
-    saveFile.wave = wave;
-    saveFile.music = music;
-    saveFile.sfx = sfx;
+//    else saveFile.health = lastKnownPlayerHealth;
+//    saveFile.wave = wave;
+//    saveFile.music = music;
+//    saveFile.sfx = sfx;
     saveHandler.Save(saveFile);
   }
 
+  //(Apparently) meant to be called when the user starts a new game.
+  //Resets the player's health and the wave number, and saves the game.
+  //Apparently, leaves the music and sound effects unchanged.
   public void ResetSave(){
 //    bool tempSfx = sfx;
 //    bool tempMusic = music;
-    saveFile = new SaveData();
-    wave = 1;
-    lastKnownPlayerHealth = 100;
-    saveFile.music = music;
-    saveFile.sfx = sfx;
+    SetWave(1);
+    saveFile.health = 100; //TODO:Remove magic numbers!
+//    saveFile.music = music;
+//    saveFile.sfx = sfx;
     SaveGame();
   }
 
@@ -127,17 +133,37 @@ public class GameplayManager : MonoBehaviour
   public void AddToCleanOnScreen(){
     howManyToCleanOnScreen++;
   }
+  private int GetWave(){
+    return saveFile.wave;
+  }
+  private void SetWave(int i){
+    saveFile.wave = i;
+  }
+  private void SetWavePlus(int i = 1){
+    SetWave(GetWave() + i);
+  }
   public bool GetMusic(){
-    return music;
+    return saveFile.music;
   }
   public bool GetSfx(){
-    return sfx;
+    return saveFile.sfx;
   }
+
+  //Setter method for music and sfx.
   public void SetSettings(bool music, bool sfx){
-    this.sfx = sfx;
-    this.music = music;
+    saveFile.sfx = sfx;
+    saveFile.music = music;
   }
-  public float GetLastPlayerHealth(){
-    return lastKnownPlayerHealth;
+
+  //Returns the health of the player at the last save.
+  public float SavedHealth(){
+    return saveFile.health;
+  }
+
+  //To be called on the death of the player.
+  public void OnDeath(){
+    Cursor.lockState = CursorLockMode.None;
+    SceneManager.LoadScene("Death Screen");
+    Cursor.visible = true;
   }
 }

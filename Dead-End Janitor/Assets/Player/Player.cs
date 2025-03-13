@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Player : Humanoid
 {
@@ -29,25 +28,23 @@ public class Player : Humanoid
             Debug.LogError("Audio file not found in Resources folder.");
         }
         audioSource.clip = audioClip;
-        SetHp(GameplayManager.main.GetLastPlayerHealth());
+        SetHp(GameplayManager.main.SavedHealth());
     }
+
+    //TODO: Rewrite this code to be run through method calls, removing or altering code in Humanoid.cs as necessary!
     void Update()
     {
-        if(IsDead()){
-            UponDeath();
-        }
-        if(TookDamage()){
-            OnHit();
-        }
         //if(IsMoving())
-        if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D))OnMove(); else {audioSource.loop = false; audioSource.Stop();}
+        if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) OnMoving();
+        else {audioSource.loop = false; audioSource.Stop();}
     }
-    void OnMove(){
+    private protected override void OnMoving(){
         // play sound
         Debug.Log("moving");
         if(!audioSource.isPlaying) {audioSource.loop = true; audioSource.Play();}
     }
-    void UponDeath(){
+    private protected override void OnDeath(){
+        Debug.Log("=D");
         int deaths = Tasks.Instance.GetPlayerDeathCount();
         switch(deaths){
             case 1:
@@ -77,11 +74,6 @@ public class Player : Humanoid
         Tasks.Instance.AddPlayerDeath();
 
         SpeechHandler.Instance.PlayNext();
-        SceneManager.LoadScene("Death Screen");
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-    }
-    void OnHit(){
-
+        GameplayManager.main.OnDeath();
     }
 }

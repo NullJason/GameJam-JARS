@@ -42,14 +42,8 @@ public class Zombie : Humanoid
     void Update()
     {
         agent.SetDestination(GameplayManager.hunter.transform.position);
-        if(IsDead()){
-            UponDeath();
-        }
-        if(TookDamage()){
-            OnHit();
-        }
     }
-    void UponDeath(){
+    private protected override void OnDeath(){
         Debug.Log(gameObject.name + " Has Died and left a big mess.");
         if(animator) {animator.SetBool("IsWalking", false); animator.SetTrigger("DoDeath");}
         if(DeathProcessed) return;
