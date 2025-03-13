@@ -11,7 +11,7 @@ public class GameplayManager : MonoBehaviour
 
   private List<Spawner> spawners;
   //private int wave = 1;
-  private int howManyLeftInWave;
+  private int howManyLeftInWave; //remaining number of zombies that will be spawned as part of this wave.
   private bool gameIsActive = false; //TODO!
   [SerializeField] GameObject zombie;
   [SerializeField] int spawnTimerReset = 300; //How long it takes for the Manager to summon a new set of zombies.
@@ -100,7 +100,7 @@ public class GameplayManager : MonoBehaviour
 
   //Loads the saveFile stored in this class onto the saveFile stored on the user's computer.
   public void SaveGame(){
-    if(hunter != null) saveFile.health = hunter.GetComponent<Hunter>().GetPlayer().GetComponent<Player>().GetHp();
+    if(hunter != null) saveFile.health = GetPlayerHealth();
 //    else saveFile.health = lastKnownPlayerHealth;
 //    saveFile.wave = wave;
 //    saveFile.music = music;
@@ -158,6 +158,14 @@ public class GameplayManager : MonoBehaviour
   //Returns the health of the player at the last save.
   public float SavedHealth(){
     return saveFile.health;
+  }
+  //Returns the player's hp. TODO: Make sure that this works properly, particularly when multiplayer rolls around!
+  public float GetPlayerHealth(){
+    return hunter.GetComponent<Hunter>().GetPlayer().GetComponent<Player>().GetHp();
+  }
+
+  public int GetZombiesLeftInWave(){
+    return howManyLeftInWave;
   }
 
   //To be called on the death of the player.
