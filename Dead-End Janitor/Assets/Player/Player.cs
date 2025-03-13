@@ -31,10 +31,8 @@ public class Player : Humanoid
         SetHp(GameplayManager.main.SavedHealth());
     }
 
-    //TODO: Rewrite this code to be run through method calls, removing or altering code in Humanoid.cs as necessary!
     void Update()
     {
-        //if(IsMoving())
         if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) OnMoving();
         else {audioSource.loop = false; audioSource.Stop();}
     }
@@ -44,7 +42,6 @@ public class Player : Humanoid
         if(!audioSource.isPlaying) {audioSource.loop = true; audioSource.Play();}
     }
     private protected override void OnDeath(){
-        Debug.Log("=D");
         int deaths = Tasks.Instance.GetPlayerDeathCount();
         switch(deaths){
             case 1:

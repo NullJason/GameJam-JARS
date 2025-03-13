@@ -32,20 +32,11 @@ public abstract class Humanoid : MonoBehaviour
     public void SetMaxHp(float num) {Hp = MaxHp = num;}
     public void AddHp(float num, bool damageSource = true) {SetHp(Hp+num, damageSource);}
     public void ToggleInvulnerability(){Invulnerable = !Invulnerable;}
-    //TODO: Replace or remove the following four methods!
-    //  Instead of directly checking whether an event is occuring, we should have it so that the logic of checking when one dies is here
-  //  public bool IsDead(){if(Hp == 0 && !Invulnerable && !IsDeadFired) {IsDeadFired = true; return true;} return false;}
-//    public bool TookDamage(){bool state = Damaged; Damaged = false; return state && !Invulnerable && Hp>0;}
-//    public bool HasMoved(){ if(Vector3.Distance(PreviousPosition,HumanoidTransform.position) < 0.1) return false; PreviousPosition = HumanoidTransform.position; return true; }
-//    public bool IsMoving() {
-        //if(HumanoidBody == null){Debug.Log("No RB!"); return false;} return HumanoidBody.linearVelocity.sqrMagnitude > velocityThreshold * velocityThreshold;
-//        return isMoving;
-//    }
     private protected virtual void OnMoved(){}
     private protected virtual void OnMoving(){}
     private protected virtual void OnDeath(){}
     //If overrided, this method must call its super. Otherwise, OnDeath() may not be called correctly!
     private protected virtual void OnTakeDamage(){
-        if(Hp < 0) OnDeath();
+        if(Hp <= 0) OnDeath();
     }
 }
