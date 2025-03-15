@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class MoveButton : ButtonFunctionality
 {
-  [SerializeField] private Transform other;
+  [SerializeField] private int MenuToMoveTo;
   private protected override void Start()
   {
     base.Start();
   }
 
   private protected override void ButtonDo(){
-    MenuCamera.main.Move(other);
+    MenuCamera.main.Move(MenuToMoveTo);
   }
 }

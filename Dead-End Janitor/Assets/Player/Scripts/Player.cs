@@ -4,6 +4,9 @@ public class Player : Humanoid
 {
     // Checkout Humanoid.cs!
 
+    // Stats
+    [SerializeField] private float PlayerLuck = 1;
+
     private AudioSource audioSource;
     private AudioClip audioClip;
 
