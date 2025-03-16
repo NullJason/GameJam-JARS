@@ -42,6 +42,7 @@ public class GameplayManager : MonoBehaviour
     if(gameIsActive){
       TrySpawn();
       if(howManyLeftInWave == 0 && howManyToClean == 0){
+        Debug.Log("=D");
         waveTimer--;
         if(waveTimer == 0) StartNextWave();
       }
