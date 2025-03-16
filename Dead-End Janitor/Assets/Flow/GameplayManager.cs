@@ -133,7 +133,15 @@ public class GameplayManager : MonoBehaviour
   public void AddToCleanOnScreen(){
     howManyToCleanOnScreen++;
   }
-  private int GetWave(){
+  //Returns how many DirtyObjects exist on screen at the moment.
+  public float GetVisibleCleanables(){
+    return howManyToCleanOnScreen;
+  }
+  //Returns how many DirtyObjects must been cleaned to complete the wave.
+  public float GetCleanables(){
+    return howManyToClean;
+  }
+  public int GetWave(){
     return saveFile.wave;
   }
   private void SetWave(int i){
@@ -166,6 +174,14 @@ public class GameplayManager : MonoBehaviour
 
   public int GetZombiesLeftInWave(){
     return howManyLeftInWave;
+  }
+  //Returns the number of points or score currently accumulated between games.
+  public int GetPoints(){
+    return saveFile.accumulatedPoints;
+  }
+  //Returns the number of points or score currently accumulated in this game.
+  public int GetMatchPoints(){
+    return saveFile.points;
   }
 
   //To be called on the death of the player.
