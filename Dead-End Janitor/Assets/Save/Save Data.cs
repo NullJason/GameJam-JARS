@@ -8,7 +8,8 @@ public class SaveData
   public float health;
   public bool music;
   public bool sfx;
-  public bool points;
+  public int points;
+  public int accumulatedPoints;
   public HashSet<Item> items;
   public enum Item{
     mop = 1,
@@ -19,5 +20,10 @@ public class SaveData
     health = 100;
     music = true;
     sfx = true;
+    points = 0;
+    accumulatedPoints = 0;
+    items = new HashSet<Item>();
+    items.Add(Item.mop);
+    items.Add(Item.vacuum);
   }
 }
