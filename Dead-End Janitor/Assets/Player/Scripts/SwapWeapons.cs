@@ -45,6 +45,7 @@ public class SwapWeapons : MonoBehaviour
     }
   }
 
+  //Disables the most recent tool or hand, and enables t as the new tool. 
   void Set(Transform t){
     current.gameObject.SetActive(false);
     current = t;

@@ -89,6 +89,11 @@ public class CleanerItem : MonoBehaviour
 		// Animator animator = GetComponent<Animator>();
 		// isAnimating = animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f;
     }
+		void OnEnable(){
+			OnCooldown = false;
+			ToolInterrupted = false; // stops cleaning if you look away or stop holding down m1.
+			isAnimating = false;
+		}
 	public void ConnectCleanerCollision(Collision other) {
 		if((DirtyLayer.value & (1 << other.gameObject.layer)) != 0) {
 			TryCleanUp(other.gameObject);
