@@ -10,11 +10,8 @@ public class SaveData
   public bool sfx;
   public int points;
   public int accumulatedPoints;
-  public HashSet<Item> items;
-  public enum Item{
-    mop = 1,
-    vacuum = 2
-  }
+  public HashSet<Tool> items;
+
   public SaveData(){
     wave = 1;
     health = 100;
@@ -22,8 +19,8 @@ public class SaveData
     sfx = true;
     points = 0;
     accumulatedPoints = 0;
-    items = new HashSet<Item>();
-    items.Add(Item.mop);
-    items.Add(Item.vacuum);
+    items = new HashSet<Tool>();
+    items.Add(Tool.mop);
+    items.Add(Tool.vacuum);
   }
 }
