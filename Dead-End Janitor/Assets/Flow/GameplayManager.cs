@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using System;
 
 //TODO: When things to clean are created, increment howManyToClean! When they are destroyed, decrement howManyToClean!
 
@@ -59,8 +60,8 @@ public class GameplayManager : MonoBehaviour
   void Spawn(int limit, GameObject zombie){
     if(limit > howManyLeftInWave) limit = howManyLeftInWave;
     if(howManyToCleanOnScreen > 15 + 5 * GetWave()) limit = 0;
-    int howMany = Random.Range(0, limit + 1);
-    Spawner whichOne = spawners[Random.Range(0, spawners.Count)];
+    int howMany = UnityEngine.Random.Range(0, limit + 1);
+    Spawner whichOne = spawners[UnityEngine.Random.Range(0, spawners.Count)];
     whichOne.Spawn(zombie, howMany);
     howManyLeftInWave -= howMany;
   }
@@ -180,15 +181,64 @@ public class GameplayManager : MonoBehaviour
   public int GetPoints(){
     return saveFile.accumulatedPoints;
   }
+
+  //TODO: Maybe make this public, or add more limited setters?
+  private void SetPoints(int i){
+    saveFile.accumulatedPoints += i;
+  }
+
   //Returns the number of points or score currently accumulated in this game.
   public int GetMatchPoints(){
     return saveFile.points;
+  }
+
+  //Attempts to remove a certain number of points.
+  //If the player does not have enough points, does nothing to points.
+  //If the player does have enough points, subtracts that many points from the player.
+  //In either case, returns the number of points the player has minus the cost.
+  //  Note that a negative score indicates that the transaction failed.
+  //  Note that a positive score indicates that the transaction succeeded, and represents the remaining points.
+  //TODO: Test!
+  public int TryRemovePoints(int cost){
+    int result = GetPoints() - cost;
+    if(result >= 0) SetPoints(result);
+    return result;
   }
 
   //To be called on the death of the player.
   public void OnDeath(){
     SceneManager.LoadScene("Death Screen");
     ShowCursor();
+  }
+
+  //Basic getter for checking whether a certain Tool has been unlocked in the current save data.
+  public bool CheckToolUnlocked(Tool tool){
+    return saveFile.items.Contains(tool);
+  }
+
+  //Adds a tool to the set of tools possessed, and saves the data.
+  //Will not throw an error if the tool is already locked.
+  //When implementing a tool shop, this should not be preferred! Instead, use TryUnlockTool!
+  public void ForceUnlockTool(Tool tool){
+    saveFile.items.Add(tool);
+    SaveGame();
+  }
+
+  //TODO
+  public bool TryUnlockTool(Tool tool, int cost){
+    if(CheckToolUnlocked(tool)){
+      throw new ToolAlreadyOwnedException("Tool already unlocked, cannot unlock again!");
+    }
+    if(TryRemovePoints(cost) < 0){
+      return false;
+    }
+    ForceUnlockTool(tool);
+    return true;
+  }
+  private class ToolAlreadyOwnedException : Exception{
+    public ToolAlreadyOwnedException(String s) : base(s){ //Honestly, not quite sure how this line works.
+
+    }
   }
   public void ShowCursor(bool show = true){
     if(show) Cursor.lockState = CursorLockMode.None;
