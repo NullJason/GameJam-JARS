@@ -1,0 +1,21 @@
+using UnityEngine;
+using UnityEngine.UI;
+
+//A button that buys some item if the player has enough points.
+//Deactivates if the player acquires the tool through this button, or if the player already has the tool when this button is created.
+
+public class BuyButton : ButtonFunctionality
+{
+  private protected override void Start(){
+    base.Start();
+    if(GameplayManager.main.CheckToolUnlocked(tool)) TurnOffButton();
+  }
+  [SerializeField] Tool tool;
+  [SerializeField] int cost;
+  private protected override void ButtonDo(){
+    if(GameplayManager.main.TryUnlockTool(tool, cost)) TurnOffButton();
+  }
+  void TurnOffButton(){
+    button.interactable = false;
+  }
+}
