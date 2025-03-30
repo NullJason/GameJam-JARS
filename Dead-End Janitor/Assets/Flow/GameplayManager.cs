@@ -204,7 +204,16 @@ public class GameplayManager : MonoBehaviour
     if(result >= 0) SetPoints(result);
     return result;
   }
+  public void AddPoints(int i){
+    if(i < 0) Debug.LogWarning("Adding a negative number of points (i)! This may result in a negative total points! If this was not intended, use TryRemovePoints()!");
+    SetPoints(GetPoints() + i);
+  }
 
+  //Removes points from match points and moves them to accumulated points.
+  //TODO!
+  public void ShuntPoints(){
+    Debug.LogError("TODO!");
+  }
   //To be called on the death of the player.
   public void OnDeath(){
     SceneManager.LoadScene("Death Screen");
@@ -221,7 +230,6 @@ public class GameplayManager : MonoBehaviour
   //When implementing a tool shop, this should not be preferred! Instead, use TryUnlockTool!
   public void ForceUnlockTool(Tool tool){
     saveFile.items.Add(tool);
-    SaveGame();
   }
 
   //TODO
