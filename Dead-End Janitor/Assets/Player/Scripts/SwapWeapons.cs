@@ -5,6 +5,8 @@ public class SwapWeapons : MonoBehaviour
   [SerializeField] Transform mop;
   [SerializeField] Transform vacuum;
   [SerializeField] Transform hand;
+  [SerializeField] Transform LeftHand;
+  [SerializeField] KeyCode EquipSecondaryKey = KeyCode.Alpha1;
   Transform current;
   Transform previous;
   [SerializeField] PlayerMovement player;
@@ -28,6 +30,9 @@ public class SwapWeapons : MonoBehaviour
     if(Input.GetButtonDown("Fire2")) Next();
     if(Input.GetButtonDown("Fire3")) Sprint();
     if(Input.GetButtonDown("Fire1") && current.Equals(hand)) TakeUpPreviousTool();
+    if(Input.GetKeyDown(EquipSecondaryKey)){
+      LeftHand.gameObject.SetActive(!LeftHand.gameObject.activeSelf);
+    }
   }
 
   void Next(){

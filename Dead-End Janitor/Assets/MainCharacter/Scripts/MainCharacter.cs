@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 public class Hunter : MonoBehaviour
@@ -16,7 +17,9 @@ public class Hunter : MonoBehaviour
   private NavMeshAgent navigate;
   private PriorityTier priority = 0;
   private int waypointTimer = -1;
-  [SerializeField] private int damageTimerReset;
+  [SerializeField] private int damageTimerReset = 100;
+  public float stunDuration = .1f; // Time the target is disabled, this temporarily enables knockback forces which are disabled by character controller and navmeshagent.
+  [SerializeField] private int damage = 5;
   private int damageTimer = 0;
   [SerializeField] private Transform damageCenter; //Where the chainsaw is, approximately. Mostly, it's so the hunter has to turn around to attack a zombie behind.
   [SerializeField] private Transform[] patrolPoints;
@@ -31,6 +34,7 @@ public class Hunter : MonoBehaviour
     navigate = GetComponent<UnityEngine.AI.NavMeshAgent>();
   }
   void FixedUpdate(){
+    transform.GetComponent<Rigidbody>().AddForce(transform.forward*5);
     DisplayRays();
     if(target == null) priority = 0;
     if(priority < PriorityTier.ContactZombie){
@@ -103,7 +107,7 @@ public class Hunter : MonoBehaviour
             waypointTimer = -1;
           }
         }
-        else TryDealDamage(target, 1);
+        else TryDealDamage(target, damage);
         return true;
       }
       navigate.destination = target.transform.position;
@@ -148,14 +152,38 @@ public class Hunter : MonoBehaviour
   private void PlayAttackAnim(){
     animator.SetTrigger("DoAttack");
   }
+  private IEnumerator StunCoroutine(GameObject target){
+      bool CanApplyForce = false;
+      if (target.TryGetComponent<NavMeshAgent>(out NavMeshAgent navAgent)){
+        CanApplyForce = true;
+        navAgent.enabled = false;
+      }
+
+      if (target.TryGetComponent<CharacterController>(out CharacterController charControl)){
+        CanApplyForce = true;
+        charControl.enabled = false;
+      }
+      if (!CanApplyForce) {yield break;}
+      Rigidbody targetRb = target.GetComponent<Rigidbody>();
+      targetRb.linearVelocity = Vector3.zero;
+      targetRb.angularVelocity = Vector3.zero;
+      targetRb.AddExplosionForce(500, transform.position, 10);
+      // Vector3 knockbackDirection = (target.transform.position - transform.position).normalized;
+      // targetRb.AddForce(knockbackDirection * 60, ForceMode.Force);
+      yield return new WaitForSeconds(stunDuration);
+      if (navAgent){navAgent.enabled = true;}
+      else if(charControl){charControl.enabled = true;}
+  }
 
   private protected bool TryDealDamage(GameObject target, int damage = 1){
     if(damageTimer == 0){
+      PlayAttackAnim();
+      // TODO: Add a anim trigger to the anim controller in the manager to set off a event whenever the attack animation gets to the actual slashing part.
       damageTimer = damageTimerReset;
+      StartCoroutine(StunCoroutine(target));
       Humanoid h = target.GetComponent<Humanoid>();
       if(h == null)Debug.LogWarning("target \'" + target.name + "\' does not have a Humanoid component, and so cannot be damaged!");
       target.GetComponent<Humanoid>().AddHp(-damage);
-      PlayAttackAnim();
       return true;
     }
     damageTimer-=1;
