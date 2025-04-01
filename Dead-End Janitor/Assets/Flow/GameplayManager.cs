@@ -171,7 +171,7 @@ public class GameplayManager : MonoBehaviour
   }
   //Returns the player's hp. TODO: Make sure that this works properly, particularly when multiplayer rolls around!
   public float GetPlayerHealth(){
-    return hunter.GetComponent<Hunter>().GetPlayer().GetComponent<Player>().GetHp();
+    return GetPlayer().GetHp();
   }
 
   public int GetZombiesLeftInWave(){
@@ -204,9 +204,16 @@ public class GameplayManager : MonoBehaviour
     if(result >= 0) SetPoints(result);
     return result;
   }
-  public void AddPoints(int i){
+  public void AddPoints(int i = 1, bool announce = false){
     if(i < 0) Debug.LogWarning("Adding a negative number of points (i)! This may result in a negative total points! If this was not intended, use TryRemovePoints()!");
     SetPoints(GetPoints() + i);
+    if(announce){
+      Debug.Log("  +" + i + " points!");//TODO: Add better implementation!
+    }
+  }
+
+  public float GetBaseLuck(){
+    return GetPlayer().GetBaseLuck();
   }
 
   //Removes points from match points and moves them to accumulated points.
@@ -256,5 +263,11 @@ public class GameplayManager : MonoBehaviour
   public bool SwapShowingCursor(){
     ShowCursor(!Cursor.visible);
     return !Cursor.visible;
+  }
+
+  //TODO: Make sure this works properly, particularly when multiplayer rolls around!
+  public Player GetPlayer(){
+    if(hunter == null) Debug.LogError("Could not get player! Get player logic is based on the hunter, but the hunter is null!");
+    return hunter.GetComponent<Hunter>().GetPlayer().GetComponent<Player>();
   }
 }

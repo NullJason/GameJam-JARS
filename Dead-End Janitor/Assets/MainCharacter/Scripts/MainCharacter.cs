@@ -156,12 +156,12 @@ public class Hunter : MonoBehaviour
       bool CanApplyForce = false;
       if (target.TryGetComponent<NavMeshAgent>(out NavMeshAgent navAgent)){
         CanApplyForce = true;
-        navAgent.enabled = false;
+        //navAgent.enabled = false;
       }
 
       if (target.TryGetComponent<CharacterController>(out CharacterController charControl)){
         CanApplyForce = true;
-        charControl.enabled = false;
+        //charControl.enabled = false;
       }
       if (!CanApplyForce) {yield break;}
       Rigidbody targetRb = target.GetComponent<Rigidbody>();

@@ -76,4 +76,7 @@ public class Player : Humanoid
         SpeechHandler.Instance.PlayNext();
         GameplayManager.main.OnDeath();
     }
+    public float GetBaseLuck(){
+      return PlayerLuck;
+    }
 }

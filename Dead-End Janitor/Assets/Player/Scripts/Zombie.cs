@@ -41,7 +41,7 @@ public class Zombie : Humanoid
     // Update is called once per frame
     void Update()
     {
-        agent.SetDestination(GameplayManager.hunter.transform.position);
+        if(agent != null && agent.enabled) agent.SetDestination(GameplayManager.hunter.transform.position);
     }
     private protected override void OnDeath(){
         Debug.Log(gameObject.name + " Has Died and left a big mess.");

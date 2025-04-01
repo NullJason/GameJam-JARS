@@ -46,12 +46,12 @@ public class DirtyObject : MonoBehaviour
 		audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.playOnAwake = false;
         audioSource.Stop();
-		Bubbles_AC = Resources.Load<AudioClip>("Sounds/bubble"); 
+		Bubbles_AC = Resources.Load<AudioClip>("Sounds/bubble");
     }
 	public void Clean(float Strength){
 		Hp -= Strength;
-		if(Hp <= 0) { if(CleanProcessed) return; CleanProcessed = true; 
-		if(DirtType[0]) {audioSource.clip = Bubbles_AC; audioSource.Play();} 
+		if(Hp <= 0) { if(CleanProcessed) return; CleanProcessed = true;
+		if(DirtType[0]) {audioSource.clip = Bubbles_AC; audioSource.Play();}
 		else if(DirtType[1]){} //vacuum dirt type death noise
 		Tasks.Instance.CompleteTask(gameObject); Particles.Play(); StartDelayedDestroy(Particles.main.duration); return;}
 
@@ -104,7 +104,13 @@ public class DirtyObject : MonoBehaviour
     }
     IEnumerator DelayedDestroyObject(float time){
         yield return new WaitForSeconds(time);
+				if(GPM){
+						GPM.Clean();
+						float luck = GameplayManager.main.GetBaseLuck(); //TODO: Draw from the tool luck stat, as well as any modifier!
+						float random = Random.Range(0, 3);
+						Debug.Log("Random:" + random + " + luck:" + luck);
+						if(luck >= random) GameplayManager.main.AddPoints(1, true);
+				}
         Destroy(gameObject);
-		if(GPM) GPM.Clean();
     }
 }
