@@ -6,6 +6,7 @@ public class SwapWeapons : MonoBehaviour
   [SerializeField] Transform solidsTool;
   [SerializeField] Transform hand;
   [SerializeField] Transform LeftHand;
+  [SerializeField] Transform playerCamera;
   [SerializeField] KeyCode EquipSecondaryKey = KeyCode.Alpha1;
   Transform current;
   Transform previous;
@@ -13,6 +14,8 @@ public class SwapWeapons : MonoBehaviour
   // Start is called once before the first execution of Update after the MonoBehaviour is created
   void Start()
   {
+    if(playerCamera == null) liquidsTool = transform.Find("PlayerCamera");
+    if(playerCamera == null) liquidsTool = transform;
     if(liquidsTool == null) liquidsTool = transform.Find("MopTool");
     if(solidsTool == null) solidsTool = transform.Find("Vacuum");
     if(hand == null) hand = transform.Find("Empty"); //Note: With my current configuration of the player, this will not work.
@@ -76,8 +79,22 @@ public class SwapWeapons : MonoBehaviour
     player.moveSpeed = 3;
   }
 
-  //Sets
-  public void SetTool(Tool t){
-
+  //Changes the tool the player has equipped. This is distinct from the tool the player is holding.
+  //Throws an exception if the tool is not valid.
+  //TODO: Test!
+  public void SetTool(Transform tool){
+    if(!tool.GetComponent<CleanerItem>()) Debug.LogWarning("Transform " + tool + " had no CleanerItem component associated with it!");
+    tool = Instantiate(tool, playerCamera);
+    Dirty newToolDirtType = tool.GetComponent<CleanerItem>().GetDirtType();
+    if(newToolDirtType == Dirty.liquid){
+      Destroy(liquidsTool);
+      liquidsTool = tool;
+    }
+    else if(newToolDirtType == Dirty.solid){
+      Destroy(solidsTool);
+      solidsTool = tool;
+    }
+    if(current.Equals(tool)) tool.gameObject.SetActive(true);
+    else tool.gameObject.SetActive(false);
   }
 }
