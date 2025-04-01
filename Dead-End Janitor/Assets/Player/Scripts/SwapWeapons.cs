@@ -14,10 +14,10 @@ public class SwapWeapons : MonoBehaviour
   // Start is called once before the first execution of Update after the MonoBehaviour is created
   void Start()
   {
-    if(playerCamera == null) liquidsTool = transform.Find("PlayerCamera");
-    if(playerCamera == null) liquidsTool = transform;
-    if(liquidsTool == null) liquidsTool = transform.Find("MopTool");
-    if(solidsTool == null) solidsTool = transform.Find("Vacuum");
+    if(playerCamera == null) playerCamera = transform.Find("PlayerCamera");
+    if(playerCamera == null) playerCamera = transform;
+    if(liquidsTool == null) liquidsTool = playerCamera.Find("MopTool");
+    if(solidsTool == null) solidsTool = playerCamera.Find("vacuum");
     if(hand == null) hand = transform.Find("Empty"); //Note: With my current configuration of the player, this will not work.
     if(liquidsTool == null) Debug.LogWarning("Could not find mop (or any other liquid-tool) under player cam, and no default value was provided!");
     if(solidsTool == null) Debug.LogWarning("Could not find vacuum (or any other solid-tool) under player cam, and no default value was provided!");
