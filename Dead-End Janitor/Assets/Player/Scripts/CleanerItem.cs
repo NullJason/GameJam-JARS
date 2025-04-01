@@ -151,4 +151,11 @@ public class CleanerItem : MonoBehaviour
         mixer.SetFloat(parameter, target);
     }
 
+		public Dirty GetDirtType(){
+				if(DirtType[0] && DirtType[1]) return Dirty.all;
+				if(DirtType[0] && !DirtType[1]) return Dirty.liquid;
+				if(!DirtType[0] && DirtType[1]) return Dirty.solid;
+				return Dirty.none;
+		}
+
 }
