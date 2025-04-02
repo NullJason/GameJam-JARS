@@ -83,10 +83,18 @@ public class GameplayManager : MonoBehaviour
     SaveGame();
   }
 
+  //Sets up a new game using preexisting save data.
+  public void SetUpNewRound(String sceneName = "Demo Scene"){
+    //TODO: Check if sceneName corresponds to a valid scene, and moreover, if that scene is meant to run the game.
+    GameplayManager.main.LoadGame();
+    SceneManager.LoadScene(sceneName);
+    SetGameActive(true);
+    GameplayManager.main.SetUpWave();
+  }
+
   //Meant to be called at the start of a wave.
   //TODO: Rebalance?
-  public void SetUpWave(){
-    SetGameActive(true);
+  private void SetUpWave(){
     howManyLeftInWave = 10 + (GetWave() * GetWave());
     //TODO: Increase player speed?
     waveTimer = waveTimerReset;

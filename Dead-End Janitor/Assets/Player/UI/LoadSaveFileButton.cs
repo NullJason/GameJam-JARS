@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class LoadSaveFileButton : ButtonFunctionality
 {
-  [SerializeField] private protected string sceneName = "Demo Scene"; //The name of the scene that the match should start in. 
+  [SerializeField] private protected string sceneName = "Demo Scene"; //The name of the scene that the match should start in.
   private protected override void Start(){
     base.Start();
     if(!GameplayManager.main.SaveExists()){
@@ -13,8 +13,6 @@ public class LoadSaveFileButton : ButtonFunctionality
     }
   }
   private protected override void ButtonDo(){
-    GameplayManager.main.LoadGame();
-    SceneManager.LoadScene(sceneName);
-    GameplayManager.main.SetUpWave();
+    GameplayManager.main.SetUpNewRound(sceneName);
   }
 }
