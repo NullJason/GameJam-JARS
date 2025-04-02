@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-//A button that starts a new game with a new save file.
+//A button that starts a new game with a preexisting save file.
 
 public class LoadSaveFileButton : ButtonFunctionality
 {
