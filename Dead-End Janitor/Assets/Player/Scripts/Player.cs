@@ -85,6 +85,9 @@ public class Player : Humanoid
     }
 
     //Causes the player to equip the passed tool. Does not guarantee that the player will be holding the tool.
+    public void SetTool(Tool tool){
+        SetTool(Tools.Get(tool));
+    }
     public void SetTool(GameObject tool){
         SetTool(tool.transform);
     }

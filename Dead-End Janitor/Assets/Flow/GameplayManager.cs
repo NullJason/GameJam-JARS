@@ -86,10 +86,29 @@ public class GameplayManager : MonoBehaviour
   //Sets up a new game using preexisting save data.
   public void SetUpNewRound(String sceneName = "Demo Scene"){
     //TODO: Check if sceneName corresponds to a valid scene, and moreover, if that scene is meant to run the game.
-    GameplayManager.main.LoadGame();
+    LoadGame();
     SceneManager.LoadScene(sceneName);
     SetGameActive(true);
-    GameplayManager.main.SetUpWave();
+    SetUpWave();
+    if(CheckToolUnlocked(GetSolidTool())) GetPlayer().SetTool(GetSolidTool());
+    else Debug.LogError("Could not equip tool " + GetSolidTool() + " because it was not yet unlocked!");
+    if(CheckToolUnlocked(GetLiquidTool())) GetPlayer().SetTool(GetLiquidTool());
+    else Debug.LogError("Could not equip tool " + GetLiquidTool() + " because it was not yet unlocked!");
+  }
+
+  private Tool GetLiquidTool(){
+    return saveFile.liquidTool;
+  }
+  private Tool GetSolidTool(){
+    return saveFile.solidTool;
+  }
+  public void SetLiquidTool(Tool tool){
+    //TODO: check if tools are proper, ie if this tool is a liquid tool.
+    saveFile.liquidTool = tool;
+  }
+  public void SetSolidTool(Tool tool){
+    //TODO: check if tools are proper, ie if this tool is a solid tool.
+    saveFile.solidTool = tool;
   }
 
   //Meant to be called at the start of a wave.
