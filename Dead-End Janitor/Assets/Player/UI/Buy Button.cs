@@ -12,8 +12,13 @@ public class BuyButton : ButtonFunctionality
   }
   [SerializeField] Tool tool;
   [SerializeField] int cost;
+  [SerializeField] bool save = true;
   private protected override void ButtonDo(){
-    if(GameplayManager.main.TryUnlockTool(tool, cost)) TurnOffButton();
+    if(GameplayManager.main.TryUnlockTool(tool, cost)){
+      TurnOffButton();
+      if(save) GameplayManager.main.SaveGame();
+      GameplayManager.main.LoadGame();
+    }
   }
   void TurnOffButton(){
     button.interactable = false;

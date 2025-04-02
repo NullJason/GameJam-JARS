@@ -33,6 +33,7 @@ public class GameplayManager : MonoBehaviour
       main = this;
       DontDestroyOnLoad(this);
     }
+    else Destroy(this.gameObject);
     spawners = new List<Spawner>();
     saveHandler = new SaveDataHandler(Application.persistentDataPath, "save"); //TODO: Remove magic numbers!
     waveTimer = waveTimerReset;
@@ -40,8 +41,13 @@ public class GameplayManager : MonoBehaviour
   }
   void Update()
   {
+    Debug.Log("Spray: " + CheckToolUnlocked(Tool.spray));
     Debug.Log("Wave: " + GetWave() + "\nZombies left: "+ howManyLeftInWave + "\nTotal cleaning objects: " + howManyToClean + "\nOnscreen cleaning objects: " + howManyToCleanOnScreen);
     if(gameIsActive){
+      if(CheckToolUnlocked(Tool.spray)){
+        Debug.Log(";");
+        GetPlayer().SetTool(Tools.Get(Tool.mop));
+      }
       TrySpawn();
       if(howManyLeftInWave == 0 && howManyToClean == 0){
         Debug.Log("=D");
@@ -71,6 +77,7 @@ public class GameplayManager : MonoBehaviour
   }
 
   public void SetGameActive(bool active){
+    Debug.Log("=D");
     gameIsActive = active;
   }
 
@@ -84,6 +91,7 @@ public class GameplayManager : MonoBehaviour
   //Meant to be called at the start of a wave.
   //TODO: Rebalance?
   public void SetUpWave(){
+    SetGameActive(true);
     howManyLeftInWave = 10 + (GetWave() * GetWave());
     //TODO: Increase player speed?
     waveTimer = waveTimerReset;
@@ -227,6 +235,7 @@ public class GameplayManager : MonoBehaviour
     SceneManager.LoadScene("Death Screen");
     ShowCursor();
     player = null;
+    SetGameActive(false);
   }
 
   //Basic getter for checking whether a certain Tool has been unlocked in the current save data.
@@ -273,8 +282,11 @@ public class GameplayManager : MonoBehaviour
     return player;
   }
 
-  public void SetPlayer(Player player){
-    if(this.player == null) this.player = player;
+  public void SetPlayer(Player player, bool printOnSuccess = false){
+    if(this.player == null){
+      this.player = player;
+      if(printOnSuccess) Debug.Log("Successfully set player to " + player);
+    }
     else Debug.LogError("Attempted to set player, but a player had already been specified!");
   }
 }

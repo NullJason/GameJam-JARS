@@ -10,7 +10,7 @@ public class SaveData
   public bool sfx;
   public int points;
   public int accumulatedPoints;
-  public HashSet<Tool> items;
+  public List<Tool> items;
   public Tool liquidTool;
   public Tool solidTool;
   public Tool special;
@@ -22,7 +22,7 @@ public class SaveData
     sfx = true;
     points = 0;
     accumulatedPoints = 0;
-    items = new HashSet<Tool>();
+    items = new List<Tool>();
     items.Add(Tool.mop);
     items.Add(Tool.vacuum);
     liquidTool = Tool.mop;

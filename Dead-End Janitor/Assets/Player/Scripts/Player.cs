@@ -9,6 +9,7 @@ public class Player : Humanoid
 
     private AudioSource audioSource;
     private AudioClip audioClip;
+    [SerializeField] private SwapWeapons toolSystem;
 
     Color ZombieTextColor = new Color(0,100f/255f,0,230f/255f);
     Color ZombieBarColor = new Color(0,0,0,85f/255f);
@@ -18,7 +19,9 @@ public class Player : Humanoid
 
     void Start()
     {
-        GameplayManager.main.SetPlayer(this);
+        if(toolSystem == null) toolSystem = GetComponent<SwapWeapons>();
+        if(toolSystem == null) Debug.LogError("Could not find the SwapWeapons component!");
+        GameplayManager.main.SetPlayer(this, true);
         // Add an AudioSource component if not already attached
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.playOnAwake = false;
@@ -78,6 +81,14 @@ public class Player : Humanoid
         GameplayManager.main.OnDeath();
     }
     public float GetBaseLuck(){
-      return PlayerLuck;
+        return PlayerLuck;
+    }
+
+    //Causes the player to equip the passed tool. Does not guarantee that the player will be holding the tool.
+    public void SetTool(GameObject tool){
+        SetTool(tool.transform);
+    }
+    public void SetTool(Transform tool){
+        toolSystem.SetTool(tool.transform);
     }
 }

@@ -301,8 +301,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 0}
-  tool: 2
-  cost: 1
+  tool: 3
+  cost: 100
 --- !u!114 &94960408
 MonoBehaviour:
   m_ObjectHideFlags: 0

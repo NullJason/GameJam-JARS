@@ -2561,6 +2561,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1005624698}
   m_CullTransparentMesh: 1
+--- !u!1 &1039885573 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1893591082490941110, guid: cb903547a1884e6418ed4d3072ea2e5c, type: 3}
+  m_PrefabInstance: {fileID: 1507619964}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1039885576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039885573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55f74a68f83716f4b84167703eb6be45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mop: {fileID: 7490691632325160954, guid: 101fac5e6db68c04cba2dcf38aac79bb, type: 3}
+  vacuum: {fileID: 1305997389668456316, guid: 4b98b92573091ab48bd3583769b40464, type: 3}
+  spray: {fileID: 7490691632325160954, guid: 75e85400574ccf341941e3ec9e898519, type: 3}
+  sponge: {fileID: 7490691632325160954, guid: 75e85400574ccf341941e3ec9e898519, type: 3}
+  featherDuster: {fileID: 7490691632325160954, guid: 75e85400574ccf341941e3ec9e898519, type: 3}
+  slippySoap: {fileID: 7490691632325160954, guid: 75e85400574ccf341941e3ec9e898519, type: 3}
 --- !u!4 &1191909641 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 557308323636614271, guid: 8671b62654f027f4495a693af2c47121, type: 3}
@@ -3532,7 +3555,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1893591082490941110, guid: cb903547a1884e6418ed4d3072ea2e5c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1039885576}
   m_SourcePrefab: {fileID: 100100000, guid: cb903547a1884e6418ed4d3072ea2e5c, type: 3}
 --- !u!1 &1515797488
 GameObject:
