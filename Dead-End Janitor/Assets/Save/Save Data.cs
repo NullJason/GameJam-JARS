@@ -26,6 +26,6 @@ public class SaveData
     items.Add(Tool.mop);
     items.Add(Tool.vacuum);
     liquidTool = Tool.mop;
-    liquidTool = Tool.vacuum;
+    solidTool = Tool.vacuum;
   }
 }

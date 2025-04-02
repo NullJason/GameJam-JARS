@@ -38,10 +38,12 @@ public class GameplayManager : MonoBehaviour
     saveHandler = new SaveDataHandler(Application.persistentDataPath, "save"); //TODO: Remove magic numbers!
     waveTimer = waveTimerReset;
     LoadGame();
+    SetLiquidTool(Tool.spray);
+    SaveGame();
   }
   void Update()
   {
-    Debug.Log("Spray: " + CheckToolUnlocked(Tool.spray));
+    Debug.Log("solid Tool: " + GetSolidTool());
     Debug.Log("Wave: " + GetWave() + "\nZombies left: "+ howManyLeftInWave + "\nTotal cleaning objects: " + howManyToClean + "\nOnscreen cleaning objects: " + howManyToCleanOnScreen);
     if(gameIsActive){
       TrySpawn();
@@ -87,9 +89,16 @@ public class GameplayManager : MonoBehaviour
   public void SetUpNewRound(String sceneName = "Demo Scene"){
     //TODO: Check if sceneName corresponds to a valid scene, and moreover, if that scene is meant to run the game.
     LoadGame();
-    SceneManager.LoadScene(sceneName);
-    SetGameActive(true);
-    SetUpWave();
+    AsyncOperation loadScene = SceneManager.LoadSceneAsync(sceneName);
+    loadScene.completed += (x) => {
+      SetGameActive(true);
+      SetUpWave();
+      SetUpTools();
+    };
+  }
+
+  //Meant to be called at the beginning of a new round, but after the player has been assigned.
+  private void SetUpTools(){
     if(CheckToolUnlocked(GetSolidTool())) GetPlayer().SetTool(GetSolidTool());
     else Debug.LogError("Could not equip tool " + GetSolidTool() + " because it was not yet unlocked!");
     if(CheckToolUnlocked(GetLiquidTool())) GetPlayer().SetTool(GetLiquidTool());

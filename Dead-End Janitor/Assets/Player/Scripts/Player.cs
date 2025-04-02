@@ -16,12 +16,10 @@ public class Player : Humanoid
     Color MCTextColor = new Color(200f/255f,25f/255f,50f/255f,230f/255f);
     Color MCBarColor = new Color(200f/255f,25f/255f,50f/255f,85f/255f);
     //public Dialogue(string speaker, string text, float? textSize, Color? barColor, Color? textColor, int? flavor, float? autoPlay, float? animDelay)
-
-    void Start()
-    {
+    void Awake(){
+        GameplayManager.main.SetPlayer(this, true);
         if(toolSystem == null) toolSystem = GetComponent<SwapWeapons>();
         if(toolSystem == null) Debug.LogError("Could not find the SwapWeapons component!");
-        GameplayManager.main.SetPlayer(this, true);
         // Add an AudioSource component if not already attached
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.playOnAwake = false;
