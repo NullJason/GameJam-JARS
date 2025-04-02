@@ -71,7 +71,7 @@ public class GameplayManager : MonoBehaviour
     spawners.Add(spawner);
   }
 
-  public void SetGameActive(bool active){
+  private void SetGameActive(bool active){
     gameIsActive = active;
   }
 
