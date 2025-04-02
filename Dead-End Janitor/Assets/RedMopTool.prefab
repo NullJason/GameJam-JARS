@@ -5222,7 +5222,7 @@ MonoBehaviour:
   PlayerCameraTransform: {fileID: 0}
   detectionRange: 10
   Effects: {fileID: 6580834237417343120}
-  DirtType: 0101
+  DirtType: 0100
   CleanMethod: 0100
   Vacuum_Volume: 0.6
   Mop_Volume: 1

@@ -86,14 +86,20 @@ public class SwapWeapons : MonoBehaviour
     tool = Instantiate(tool, playerCamera);
     Dirty newToolDirtType = tool.GetComponent<CleanerItem>().GetDirtType();
     if(newToolDirtType == Dirty.liquid){
-      Destroy(liquidsTool);
+      Debug.Log("Removing liquid tool!");
+      Destroy(liquidsTool.gameObject);
       liquidsTool = tool;
     }
     else if(newToolDirtType == Dirty.solid){
-      Destroy(solidsTool);
+      Debug.Log("Removing solid tool!");
+      Destroy(solidsTool.gameObject);
       solidsTool = tool;
     }
-    if(current.Equals(tool)) tool.gameObject.SetActive(true);
+    else Debug.LogError("Tool added did not correspond to a proper, singular dirt type! As such, the tool may not replace properly!");
+    if(current == null){
+      current = tool;
+      tool.gameObject.SetActive(true);
+    }
     else tool.gameObject.SetActive(false);
   }
 }

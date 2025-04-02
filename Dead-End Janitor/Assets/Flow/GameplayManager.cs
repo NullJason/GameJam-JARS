@@ -44,13 +44,8 @@ public class GameplayManager : MonoBehaviour
     Debug.Log("Spray: " + CheckToolUnlocked(Tool.spray));
     Debug.Log("Wave: " + GetWave() + "\nZombies left: "+ howManyLeftInWave + "\nTotal cleaning objects: " + howManyToClean + "\nOnscreen cleaning objects: " + howManyToCleanOnScreen);
     if(gameIsActive){
-      if(CheckToolUnlocked(Tool.spray)){
-        Debug.Log(";");
-        GetPlayer().SetTool(Tools.Get(Tool.mop));
-      }
       TrySpawn();
       if(howManyLeftInWave == 0 && howManyToClean == 0){
-        Debug.Log("=D");
         waveTimer--;
         if(waveTimer == 0) StartNextWave();
       }
@@ -77,7 +72,6 @@ public class GameplayManager : MonoBehaviour
   }
 
   public void SetGameActive(bool active){
-    Debug.Log("=D");
     gameIsActive = active;
   }
 
