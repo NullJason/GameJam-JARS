@@ -75,7 +75,8 @@ public class GameplayManager : MonoBehaviour
     gameIsActive = active;
   }
 
-  public void StartNextWave(){
+  //Meant to be called when the player completes a wave.
+  private void StartNextWave(){
     SetWavePlus(1);
     SetUpWave();
     SpeechHandler.Instance.AcceptNew("Bob", "Wave Complete!\nWave: " + GetWave() + "\n  The game has been saved.");
