@@ -23,6 +23,7 @@ public class GameplayManager : MonoBehaviour
   int waveTimer;
   public static GameplayManager main;
   public static GameObject hunter;
+  private Player player;
   //bool music;
   //bool sfx;
   //float lastKnownPlayerHealth = 100;
@@ -221,10 +222,11 @@ public class GameplayManager : MonoBehaviour
   public void ShuntPoints(){
     Debug.LogError("TODO!");
   }
-  //To be called on the death of the player.
+  //To be called on the death of the player. (TODO: How should this work/be called in multiplayer modes?)
   public void OnDeath(){
     SceneManager.LoadScene("Death Screen");
     ShowCursor();
+    player = null;
   }
 
   //Basic getter for checking whether a certain Tool has been unlocked in the current save data.
@@ -267,7 +269,12 @@ public class GameplayManager : MonoBehaviour
 
   //TODO: Make sure this works properly, particularly when multiplayer rolls around!
   public Player GetPlayer(){
-    if(hunter == null) Debug.LogError("Could not get player! Get player logic is based on the hunter, but the hunter is null!");
-    return hunter.GetComponent<Hunter>().GetPlayer().GetComponent<Player>();
+    if(player == null) Debug.LogError("The player is null! Has the intended player called SetPlayer(Player) yet?");
+    return player;
+  }
+
+  public void SetPlayer(Player player){
+    if(this.player == null) this.player = player;
+    else Debug.LogError("Attempted to set player, but a player had already been specified!");
   }
 }

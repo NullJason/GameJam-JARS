@@ -18,6 +18,7 @@ public class Player : Humanoid
 
     void Start()
     {
+        GameplayManager.main.SetPlayer(this);
         // Add an AudioSource component if not already attached
         audioSource = gameObject.AddComponent<AudioSource>();
         audioSource.playOnAwake = false;
