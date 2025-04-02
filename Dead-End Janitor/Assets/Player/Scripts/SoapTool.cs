@@ -12,8 +12,6 @@ public class SoapTool : MonoBehaviour
 	private string LayerName = "Dirty";
 	private Camera PlayerCamera;
 	private bool OnCooldown = false;
-	private bool ToolInterrupted = false; // stops cleaning if you look away or stop holding down m1.
-	private bool isAnimating = false;
 	[SerializeField] private ParticleSystem Effects;
     [SerializeField] private Transform ObjectThrown;
 	private AudioMixer Mixer;
@@ -31,28 +29,29 @@ public class SoapTool : MonoBehaviour
         {
             DirtyLayer = 1 << dirtyLayerId;
         }
-		Mixer = Resources.Load<AudioMixer>("Sounds/MainMixer");
 
-		audioSource = gameObject.AddComponent<AudioSource>();
-        audioSource.playOnAwake = false;
-        audioSource.Stop();
+		// Mixer = Resources.Load<AudioMixer>("Sounds/MainMixer");
+
+		// audioSource = gameObject.AddComponent<AudioSource>();
+        // audioSource.playOnAwake = false;
+        // audioSource.Stop();
         // Washing_AC = Resources.Load<AudioClip>("Sounds/wash");
-		audioSource.outputAudioMixerGroup = Mixer.FindMatchingGroups("Master")[0];
-		audioSource.loop = true;
+		// audioSource.outputAudioMixerGroup = Mixer.FindMatchingGroups("Master")[0];
+		// audioSource.loop = true;
 	}
-	void PlaySoundEnding(){
-		audioSource.loop = false;
-		audioSource.time = currentEnd;
-	}
+	// void PlaySoundEnding(){
+	// 	audioSource.loop = false;
+	// 	audioSource.time = currentEnd;
+	// }
     void Update()
     {
-		if (audioSource.isPlaying && audioSource.loop)
-        {
-            if (audioSource.time > currentEnd)
-            {
-                audioSource.time = currentStart;
-            }
-        }
+		// if (audioSource.isPlaying && audioSource.loop)
+        // {
+        //     if (audioSource.time > currentEnd)
+        //     {
+        //         audioSource.time = currentStart;
+        //     }
+        // }
 
 		if(Input.GetMouseButtonDown(0) && !OnCooldown) //if(Effects.main.loop) 
         {
@@ -62,9 +61,6 @@ public class SoapTool : MonoBehaviour
             Throwable.SetActive(true);
             StartCoroutine(DoCooldown());
 		}
-		if(Input.GetMouseButtonUp(0)) //if(Effects.main.loop) {Effects.Stop(); PlaySoundEnding(); Mixer.SetFloat("MainMusicVolume", 0f);}
-		if(Input.GetMouseButton(0)) ToolInterrupted = false;
-		else{ ToolInterrupted = true; }
 
 		// Animator animator = GetComponent<Animator>();
 		// isAnimating = animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1.0f;
@@ -77,20 +73,20 @@ public class SoapTool : MonoBehaviour
 
 	}
 
-    private IEnumerator FadeMixerGroup(AudioMixer mixer, string parameter = "MainMusicVolume", float target = -20f, float duration = 2f)
-    {
-        float currentTime = 0f;
-        float currentVolume;
-        mixer.GetFloat(parameter, out currentVolume);
+    // private IEnumerator FadeMixerGroup(AudioMixer mixer, string parameter = "MainMusicVolume", float target = -20f, float duration = 2f)
+    // {
+    //     float currentTime = 0f;
+    //     float currentVolume;
+    //     mixer.GetFloat(parameter, out currentVolume);
 
-        while (currentTime < duration)
-        {
-            currentTime += Time.deltaTime;
-            float newVolume = Mathf.Lerp(currentVolume, target, currentTime / duration);
-            mixer.SetFloat(parameter, newVolume);
-            yield return null;
-        }
+    //     while (currentTime < duration)
+    //     {
+    //         currentTime += Time.deltaTime;
+    //         float newVolume = Mathf.Lerp(currentVolume, target, currentTime / duration);
+    //         mixer.SetFloat(parameter, newVolume);
+    //         yield return null;
+    //     }
 
-        mixer.SetFloat(parameter, target);
-    }
+    //     mixer.SetFloat(parameter, target);
+    // }
 }
