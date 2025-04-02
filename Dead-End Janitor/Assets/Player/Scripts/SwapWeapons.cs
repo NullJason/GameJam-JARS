@@ -15,10 +15,9 @@ public class SwapWeapons : MonoBehaviour
   void Start()
   {
     if(playerCamera == null) playerCamera = transform.Find("PlayerCamera");
-    if(playerCamera == null) playerCamera = transform;
-    if(liquidsTool == null) liquidsTool = playerCamera.Find("MopTool");
-    if(solidsTool == null) solidsTool = playerCamera.Find("vacuum");
-    if(hand == null) hand = transform.Find("Empty"); //Note: With my current configuration of the player, this will not work.
+    if(liquidsTool == null) liquidsTool = transform.Find("MopTool");
+    if(solidsTool == null) solidsTool = transform.Find("Vacuum");
+    if(hand == null) hand = playerCamera.Find("Hand"); //Note: With my current configuration of the player, this will not work.
     if(liquidsTool == null) Debug.LogWarning("Could not find mop (or any other liquid-tool) under player cam, and no default value was provided!");
     if(solidsTool == null) Debug.LogWarning("Could not find vacuum (or any other solid-tool) under player cam, and no default value was provided!");
     if(hand == null) Debug.LogWarning("Could not find hand, and no default value was provided!");
