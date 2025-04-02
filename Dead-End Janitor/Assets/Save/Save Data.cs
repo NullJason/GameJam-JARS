@@ -11,6 +11,9 @@ public class SaveData
   public int points;
   public int accumulatedPoints;
   public HashSet<Tool> items;
+  public Tool liquidTool;
+  public Tool solidTool;
+  public Tool special;
 
   public SaveData(){
     wave = 1;
@@ -22,5 +25,7 @@ public class SaveData
     items = new HashSet<Tool>();
     items.Add(Tool.mop);
     items.Add(Tool.vacuum);
+    liquidTool = Tool.mop;
+    liquidTool = Tool.vacuum;
   }
 }
