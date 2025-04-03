@@ -38,12 +38,11 @@ public class GameplayManager : MonoBehaviour
     saveHandler = new SaveDataHandler(Application.persistentDataPath, "save"); //TODO: Remove magic numbers!
     waveTimer = waveTimerReset;
     LoadGame();
-    SetLiquidTool(Tool.spray);
     SaveGame();
   }
   void Update()
   {
-    Debug.Log("solid Tool: " + GetSolidTool());
+    Debug.Log("liquid Tool: " + GetLiquidTool());
     Debug.Log("Wave: " + GetWave() + "\nZombies left: "+ howManyLeftInWave + "\nTotal cleaning objects: " + howManyToClean + "\nOnscreen cleaning objects: " + howManyToCleanOnScreen);
     if(gameIsActive){
       TrySpawn();
@@ -111,13 +110,26 @@ public class GameplayManager : MonoBehaviour
   private Tool GetSolidTool(){
     return saveFile.solidTool;
   }
+  public Tool GetTool(Dirty dirty){
+    if(dirty == Dirty.solid) return GetSolidTool();
+    if(dirty == Dirty.liquid) return GetLiquidTool();
+    Debug.LogError("Failed to get tool: Player only has a solid and liquid tool, not a " + dirty + " tool!");
+    return new Tool();
+  }
   public void SetLiquidTool(Tool tool){
     //TODO: check if tools are proper, ie if this tool is a liquid tool.
-    saveFile.liquidTool = tool;
+    if(Tools.GetDirtType(tool) != Dirty.liquid) Debug.LogError("Could not assign liquid tool to " + tool + " because it wasn't a liquid tool!");
+    else saveFile.liquidTool = tool;
   }
   public void SetSolidTool(Tool tool){
     //TODO: check if tools are proper, ie if this tool is a solid tool.
-    saveFile.solidTool = tool;
+    if(Tools.GetDirtType(tool) != Dirty.solid) Debug.LogError("Could not assign solid tool to " + tool + " because it wasn't a solid tool!");
+    else saveFile.solidTool = tool;
+  }
+  public void SetTool(Tool tool, Dirty dirtType){
+    if(dirtType == Dirty.solid) SetSolidTool(tool);
+    else if(dirtType == Dirty.liquid) SetLiquidTool(tool);
+    else Debug.LogError("Failed to get tool: Player only has a solid and liquid tool, not a " + dirtType + " tool!");
   }
 
   //Meant to be called at the start of a wave.
