@@ -17,7 +17,6 @@ public class BuyButton : ButtonFunctionality
     if(GameplayManager.main.TryUnlockTool(tool, cost)){
       TurnOffButton();
       if(save) GameplayManager.main.SaveGame();
-      GameplayManager.main.LoadGame();
     }
   }
   void TurnOffButton(){
