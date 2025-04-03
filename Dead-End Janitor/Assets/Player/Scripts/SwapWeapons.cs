@@ -81,17 +81,17 @@ public class SwapWeapons : MonoBehaviour
   //Changes the tool the player has equipped. This is distinct from the tool the player is holding.
   //Throws an exception if the tool is not valid.
   //TODO: Test!
-  public void SetTool(Transform tool){
+  public void SetTool(Transform tool, bool announce = false){
     if(!tool.GetComponent<CleanerItem>()) Debug.LogWarning("Transform " + tool + " had no CleanerItem component associated with it!");
     tool = Instantiate(tool, playerCamera);
     Dirty newToolDirtType = tool.GetComponent<CleanerItem>().GetDirtType();
     if(newToolDirtType == Dirty.liquid){
-      Debug.Log("Removing liquid tool!");
+      if(announce) Debug.Log("Removing liquid tool!");
       Destroy(liquidsTool.gameObject);
       liquidsTool = tool;
     }
     else if(newToolDirtType == Dirty.solid){
-      Debug.Log("Removing solid tool!");
+      if(announce) Debug.Log("Removing solid tool!");
       Destroy(solidsTool.gameObject);
       solidsTool = tool;
     }
