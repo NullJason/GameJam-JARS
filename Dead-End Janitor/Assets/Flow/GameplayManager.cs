@@ -112,8 +112,8 @@ public class GameplayManager : MonoBehaviour
   }
   public Tool GetTool(Dirty dirty){
     if(dirty == Dirty.solid) return GetSolidTool();
-    if(dirty == Dirty.liquid) return GetLiquidTool();
-    Debug.LogError("Failed to get tool: Player only has a solid and liquid tool, not a " + dirty + " tool!");
+    else if(dirty == Dirty.liquid) return GetLiquidTool();
+    else Debug.LogError("Failed to get tool: Player only has a solid and liquid tool, not a " + dirty + " tool!");
     return new Tool();
   }
   public void SetLiquidTool(Tool tool){

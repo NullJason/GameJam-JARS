@@ -7,7 +7,11 @@ public class Tools : MonoBehaviour
   private Dictionary <Tool, GameObject> tools;
   private Dictionary <Tool, Dirty> dirtTypes;
   [SerializeField] GameObject mop;
+  [SerializeField] GameObject mopII;
+  [SerializeField] GameObject mopIII;
   [SerializeField] GameObject vacuum;
+  [SerializeField] GameObject vacuumII;
+  [SerializeField] GameObject vacuumIII;
   [SerializeField] GameObject spray;
   [SerializeField] GameObject sponge;
   [SerializeField] GameObject featherDuster;
@@ -38,7 +42,11 @@ public class Tools : MonoBehaviour
     tools = new Dictionary<Tool, GameObject>();
     dirtTypes = new Dictionary<Tool, Dirty>();
     CheckAndAdd(Tool.mop, mop);
+    CheckAndAdd(Tool.mopII, mopII);
+    CheckAndAdd(Tool.mopIII, mopIII);
     CheckAndAdd(Tool.vacuum, vacuum);
+    CheckAndAdd(Tool.vacuumII, vacuumII);
+    CheckAndAdd(Tool.vacuumIII, vacuumIII);
     CheckAndAdd(Tool.spray, spray);
     CheckAndAdd(Tool.sponge, sponge);
     CheckAndAdd(Tool.featherDuster, featherDuster);
