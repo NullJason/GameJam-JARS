@@ -19,6 +19,12 @@ public class DirtyObject : MonoBehaviour
 	GameplayManager GPM;
 
 	public bool IsDirtType(int index){return DirtType[index];}
+	private void SetLayerRecursive(GameObject parent, int index){
+		parent.layer = index;
+		foreach (Transform child in transform){
+				SetLayerRecursive(child.gameObject, index);
+		}
+	}
     void Start()
     {
 		Effects = transform.Find("Effects");
@@ -36,6 +42,7 @@ public class DirtyObject : MonoBehaviour
         if (layerIndex != -1)
         {
             gameObject.layer = layerIndex;
+			SetLayerRecursive(gameObject, layerIndex);
 		}
 
 		if(TaskID < 1) TaskID = 1;

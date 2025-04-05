@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RangedTool : MonoBehaviour
@@ -7,20 +9,14 @@ public class RangedTool : MonoBehaviour
     // 0 = default_Projectile, 1 = soap, 2 = vry slip soap
     public Transform ProjectileFolder; // folder all projectiles get parented to.
     Dictionary<int, Transform> ProjectileAssets = new Dictionary<int, Transform>();
-     
-    // A list of ToolType Descriptors to make it easier to conceptialize ig.
-    // Describes how the tool behaves.
-    Dictionary<int, string> ToolTypes = new Dictionary<int, string>{
-        [1] = "Cleanse", // the projectile will directly clean upon impact.
-        [2] = "Weapon", // the projectile will damage the humanoid upon impact.
-        [3] = "AOEProjectile" // the projectile itself is an AOE object. (such as a bubble gun)
-        };
-    
 
     [Header("RangedTool Properties")]
+    [SerializeField] private bool CanClean = true;
+    [SerializeField] private bool CanDamage = true;
+    [SerializeField] private int CleanType = 0; // 0 = liquid, 1 = solid here
     [SerializeField] private float ToolCooldown = 1;
-    [SerializeField] private List<int> ToolType = new List<int>(1);
     [SerializeField] private float ShootDelay = 0.5f;    
+    [SerializeField] private bool isAuto = false; // determines if the weapon is togglable instead.
     [SerializeField] private GameObject Projectile;
     [SerializeField] private int ProjectileID_BackUp; // in case for wahtever reason can't find the projectile or too lazy to parent the projectile => uses ProjectileAssets instead.
     [SerializeField] private (int,int) Accuracy = (1,1); // 1 (max) = shoots directly at the cursor, -1 (min) = shoots behind the player. x = horizontal alignment, y = verticle alignment.
@@ -28,7 +24,7 @@ public class RangedTool : MonoBehaviour
     [SerializeField] private float ProjectileSpeed = 10;
 
 
-    [Header("Projectile Properties")]
+    [Header("Projectile Percent Properties")]
     // these properties are transferred as a scale factor to the actual projectile.
     // Ex: if a Projectile originally has a dmg of 5 and the tool a dmg scale of 2 it will do 200% more dmg then it usually does.
     [SerializeField] private int ProjectileImpact = 1;
@@ -38,16 +34,32 @@ public class RangedTool : MonoBehaviour
     [SerializeField] private float ProjectileLifeTime = 1;
     [SerializeField] private float ProjectileScale = 1;
     [SerializeField] private float ProjectileImpactDelay = 1;
-    [SerializeField] private int ProjectileGravity = 1; 
+    [SerializeField] private int ProjectileGravity = 1;
 
+    private bool OnCooldown = false;
     private GameObject AppliedProjectile;
 
-    public void ShootProjectile(){
+    // Call whenever you want to shoot a projectile.
+    public void ShootProjectile(Transform origin){
+        if (OnCooldown) return;
+        else OnCooldown = true;
+        if (origin == null) origin = transform;
+        StartCoroutine(ProjectileStart(origin));
+        
+    }
+    // Stops a toggleable tool (a tool using isAuto).
+    public void StopTool(){
+
+    }
+    private IEnumerator ProjectileStart(Transform shootOrigin){
+        yield return new WaitForSeconds(ShootDelay);
         for (int i = 0; i<ProjectileCount; i++){
             GameObject projectile = CreateProjectile();
             projectile.transform.SetParent(ProjectileFolder);
             // TODO: delays and such
             // TODO: actually shoot the projectile
+            projectile.transform.SetPositionAndRotation(shootOrigin.position, shootOrigin.rotation);
+
             projectile.SetActive(true);
         }
     }

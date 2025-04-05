@@ -1,11 +1,13 @@
 using UnityEngine;
 using System.Reflection;
-using UnityEngine.WSA;
+using Unity.VisualScripting;
+using Unity.Mathematics;
 
 public class Projectile : MonoBehaviour
 {
-    [Header("Projectile Behavior")]
-    [SerializeField] private Vector2 ProjectilePath = new Vector2(0,0); // randomizes how the projectile travels.
+    [Header("Projectile Behavior / Base Stats")] // The basic stat of the projectile. Tools can add to a projectile's stats through the Projectile Percent Properties.
+    private int CleanType = 1; // DO NOT ALTER. Change in RangedTool instead, value reflected. altering this WILL break cleaning.
+    [SerializeField] private Vector2 ProjectilePath = new Vector2(0,0); // randomizes how the projectile travels. (animation only)
     [SerializeField] private int ProjectileBounceCount = 0; // bounces off walls?
     [SerializeField] private int ProjectileImpact = 1;
     [SerializeField] private float ProjectileDamage = 5; 
@@ -15,8 +17,22 @@ public class Projectile : MonoBehaviour
     [SerializeField] private float ProjectileScale = 1;
     [SerializeField] private float ProjectileImpactDelay = 0;
     [SerializeField] private int ProjectileGravity = 0; // influence of world gravity. can be any int.
+    [SerializeField] private GameObject AOEObject; // the AOE effect that spawns upon the end of the projectile's lifespan.
     private Transform ProjectileFolder;
     private bool ProjectileEnabled = false;
+    private Rigidbody ProjectileRB;
+    private Collider ProjectileColl;
+    private const string DirtyLayerName = "Dirty";
+    private int DirtyLayerIndex;
+    void Start()
+    {
+        int layerIndex = LayerMask.NameToLayer(DirtyLayerName);
+
+        if (layerIndex != -1)
+        {
+            DirtyLayerIndex = layerIndex;
+		} else Debug.Log("DIRTY LAYER DNE!!!");
+    }
     public void InitFromToolValues(RangedTool source){
         // getting values via reflection so I dont have to manually apply every single thing using parameters. fortunately not computationally expensive if just for initializing.
         FieldInfo[] fields = typeof(RangedTool).GetFields();
@@ -40,13 +56,52 @@ public class Projectile : MonoBehaviour
 
     void OnEnable()
     {
-        if (transform.parent = ProjectileFolder) ProjectileEnabled = true;
+        if (transform.parent = ProjectileFolder){
+            ProjectileEnabled = true;
+            ProjectileRB = transform.GetOrAddComponent<Rigidbody>();
+            ProjectileColl = transform.GetOrAddComponent<Collider>();
+        }
     }
-    private const string collidedText = "Projectile Collided."; // debug
+    private const string collidedText = "Projectile Collided with something."; // debug
+    private const string collidedFailText = "Projectile Collided while !ProjectileEnabled, folder prob not set up.";
+    private const string collidedBehaviorNotSetText = "Unspecified Behavior.";
     void OnCollisionEnter(Collision collision)
     {
+        Transform CollT = collision.transform;
+        string tag = CollT.tag;
+        int layer = collision.gameObject.layer;
+
         if (ProjectileEnabled){
             Debug.Log(collidedText);
+            if(layer == 0){ // default unity layer (walls, floors, etc.)
+                if (ProjectileBounceCount != 0){
+                    ProjectileBounceCount -= 1;
+                } else Destroy(gameObject);
+            }
+            else if(layer == DirtyLayerIndex){
+                if(CollT.TryGetComponent(out DirtyObject dirt)){
+                    if (dirt.IsDirtType(CleanType)) dirt.Clean(ProjectileDamage);
+                }
+            } 
+            else if(CollT.TryGetComponent(out Humanoid humanoid)){
+                humanoid.AddHp(ProjectileDamage); // TODO: doesn't account for friendly fire yet.
+                if (ProjectilePierce != 0) ProjectilePierce -= 1;
+                else Destroy(gameObject);
+            }
+            else Debug.Log(collidedBehaviorNotSetText);
+        } 
+        else{
+            Debug.Log(collidedFailText);
         }
+    }
+    void OnDestroy()
+    {
+        if (AOEObject == null) return;
+        Vector3 pos = transform.position;
+        quaternion rot = transform.rotation;
+        GameObject AOEobj = Instantiate(AOEObject);
+        AOEobj.transform.SetParent(ProjectileFolder);
+        AOEobj.transform.SetPositionAndRotation(pos, rot);
+        AOEobj.SetActive(true);
     }
 }
