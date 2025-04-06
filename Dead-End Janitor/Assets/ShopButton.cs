@@ -1,13 +1,10 @@
 using UnityEngine;
 
-public abstract class ItemButton : ButtonFunctionality
+public abstract class ItemButton : SystemButton
 {
   [SerializeField] private protected Tool tool;
-  public void Init(){
-    Init(tool);
-  }
   public void Init(Tool tool){
     this.tool = tool;
-    Start();
+    Init();
   }
 }
