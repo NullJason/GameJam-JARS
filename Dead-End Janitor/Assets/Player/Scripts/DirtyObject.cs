@@ -42,7 +42,8 @@ public class DirtyObject : MonoBehaviour
         if (layerIndex != -1)
         {
             gameObject.layer = layerIndex;
-			SetLayerRecursive(gameObject, layerIndex);
+//      TODO: Repair the SetLayerRecursive method!
+//			SetLayerRecursive(gameObject, layerIndex);
 		}
 
 		if(TaskID < 1) TaskID = 1;
