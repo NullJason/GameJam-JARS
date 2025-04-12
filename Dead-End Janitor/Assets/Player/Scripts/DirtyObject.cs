@@ -21,8 +21,8 @@ public class DirtyObject : MonoBehaviour
 	public bool IsDirtType(int index){return DirtType[index];}
 	private void SetLayerRecursive(GameObject parent, int index){
 		parent.layer = index;
-		foreach (Transform child in transform){
-				SetLayerRecursive(child.gameObject, index);
+		foreach (Transform child in parent.transform){
+			SetLayerRecursive(child.gameObject, index);
 		}
 	}
     void Start()
@@ -43,7 +43,7 @@ public class DirtyObject : MonoBehaviour
         {
             gameObject.layer = layerIndex;
 //      TODO: Repair the SetLayerRecursive method!
-//			SetLayerRecursive(gameObject, layerIndex);
+			SetLayerRecursive(gameObject, layerIndex);
 		}
 
 		if(TaskID < 1) TaskID = 1;

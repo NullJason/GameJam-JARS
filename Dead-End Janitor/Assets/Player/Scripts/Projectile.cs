@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Reflection;
 using Unity.VisualScripting;
 using Unity.Mathematics;
+using System.Collections;
 
 public class Projectile : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class Projectile : MonoBehaviour
     [SerializeField] private float ProjectileImpactDelay = 0;
     [SerializeField] private int ProjectileGravity = 0; // influence of world gravity. can be any int.
     [SerializeField] private GameObject AOEObject; // the AOE effect that spawns upon the end of the projectile's lifespan.
+    private bool CanClean = true;
+    private bool CanDamage = true;
     private Transform ProjectileFolder;
     private bool ProjectileEnabled = false;
     private Rigidbody ProjectileRB;
@@ -33,8 +36,10 @@ public class Projectile : MonoBehaviour
             DirtyLayerIndex = layerIndex;
 		} else Debug.Log("DIRTY LAYER DNE!!!");
     }
-    public void InitFromToolValues(RangedTool source){
+    public void InitFromToolValues(RangedTool source, bool CanClean, bool CanDamage){
         // getting values via reflection so I dont have to manually apply every single thing using parameters. fortunately not computationally expensive if just for initializing.
+        this.CanClean = CanClean;
+        this.CanDamage = CanDamage;
         FieldInfo[] fields = typeof(RangedTool).GetFields();
         foreach (FieldInfo field in fields){
             FieldInfo targetField = typeof(Projectile).GetField(field.Name);
@@ -49,6 +54,7 @@ public class Projectile : MonoBehaviour
                 }
             }
         }
+        transform.localScale *= ProjectileScale;
     }
     public void PassFolder(Transform folder){
         ProjectileFolder = folder;
@@ -58,17 +64,22 @@ public class Projectile : MonoBehaviour
     {
         if (transform.parent = ProjectileFolder){
             ProjectileEnabled = true;
-            ProjectileRB = transform.GetOrAddComponent<Rigidbody>();
-            ProjectileColl = transform.GetOrAddComponent<Collider>();
+            if(transform.TryGetComponent<Rigidbody>(out Rigidbody rb)) ProjectileRB = rb;
+            if(transform.TryGetComponent<Collider>(out Collider c)) ProjectileColl = c;
+            StartCoroutine(DoDelayedDestroy());
         }
     }
     private const string collidedText = "Projectile Collided with something."; // debug
     private const string collidedFailText = "Projectile Collided while !ProjectileEnabled, folder prob not set up.";
     private const string collidedBehaviorNotSetText = "Unspecified Behavior.";
+    
+    private IEnumerator DoDelayedDestroy(){
+        yield return new WaitForSeconds(ProjectileLifeTime);
+        Destroy(gameObject);
+    }
     void OnCollisionEnter(Collision collision)
     {
         Transform CollT = collision.transform;
-        string tag = CollT.tag;
         int layer = collision.gameObject.layer;
 
         if (ProjectileEnabled){
@@ -78,12 +89,12 @@ public class Projectile : MonoBehaviour
                     ProjectileBounceCount -= 1;
                 } else Destroy(gameObject);
             }
-            else if(layer == DirtyLayerIndex){
+            else if(layer == DirtyLayerIndex && CanClean){
                 if(CollT.TryGetComponent(out DirtyObject dirt)){
                     if (dirt.IsDirtType(CleanType)) dirt.Clean(ProjectileDamage);
                 }
             } 
-            else if(CollT.TryGetComponent(out Humanoid humanoid)){
+            else if(CanDamage && CollT.TryGetComponent(out Humanoid humanoid)){
                 humanoid.AddHp(ProjectileDamage); // TODO: doesn't account for friendly fire yet.
                 if (ProjectilePierce != 0) ProjectilePierce -= 1;
                 else Destroy(gameObject);

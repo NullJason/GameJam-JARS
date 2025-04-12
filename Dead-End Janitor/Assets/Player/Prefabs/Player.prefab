@@ -53,7 +53,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 343727712192911317}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1172,29 +1172,37 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoapGun
       objectReference: {fileID: 0}
+    - target: {fileID: 713612164688024313, guid: 68754da922d2605458cfb58ed2d537b1, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1040758084899102721, guid: 68754da922d2605458cfb58ed2d537b1, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: cb726d222099873488377c59aad74621, type: 2}
     - target: {fileID: 7436993454794934521, guid: 68754da922d2605458cfb58ed2d537b1, type: 3}
       propertyPath: m_LocalScale.x
-      value: 7.1428595
+      value: 0.61
       objectReference: {fileID: 0}
     - target: {fileID: 7436993454794934521, guid: 68754da922d2605458cfb58ed2d537b1, type: 3}
       propertyPath: m_LocalScale.y
-      value: 7.1428585
+      value: 0.61
       objectReference: {fileID: 0}
     - target: {fileID: 7436993454794934521, guid: 68754da922d2605458cfb58ed2d537b1, type: 3}
       propertyPath: m_LocalScale.z
-      value: 7.1428585
+      value: 0.61
       objectReference: {fileID: 0}
     - target: {fileID: 7436993454794934521, guid: 68754da922d2605458cfb58ed2d537b1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.7357163
+      value: -0.61
       objectReference: {fileID: 0}
     - target: {fileID: 7436993454794934521, guid: 68754da922d2605458cfb58ed2d537b1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.107143
+      value: -0.11
       objectReference: {fileID: 0}
     - target: {fileID: 7436993454794934521, guid: 68754da922d2605458cfb58ed2d537b1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.057143
+      value: 1.18
       objectReference: {fileID: 0}
     - target: {fileID: 7436993454794934521, guid: 68754da922d2605458cfb58ed2d537b1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1224,7 +1232,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7436993454794934521, guid: 68754da922d2605458cfb58ed2d537b1, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 442581588847470734, guid: 68754da922d2605458cfb58ed2d537b1, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -1252,12 +1265,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33cb250fc41c83540973d3d5f1f7a311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CoolDown: 5
-  ThrowStrength: 10
   Player: {fileID: 0}
   PlayerCameraTransform: {fileID: 0}
   Effects: {fileID: 0}
-  ObjectThrown: {fileID: 0}
+  ToolMonobehavior: {fileID: 6214989539712875015}
 --- !u!114 &6214989539712875015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1271,11 +1282,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ProjectileFolder: {fileID: 0}
+  CanClean: 1
+  CanDamage: 1
+  CleanType: 0
   ToolCooldown: 1
-  ToolType: 
   ShootDelay: 0.5
+  isAuto: 0
   Projectile: {fileID: 0}
   ProjectileID_BackUp: 0
+  ShootPhysicalProjectile: 0
   ProjectileCount: 1
   ProjectileSpeed: 10
   ProjectileImpact: 1
