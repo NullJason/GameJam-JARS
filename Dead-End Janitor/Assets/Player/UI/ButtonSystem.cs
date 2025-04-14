@@ -2,7 +2,11 @@ using UnityEngine;
 
 public class ButtonSystem : MonoBehaviour
 {
-  [SerializeField] SystemButton[] buttons;
+  [SerializeField] private protected SystemButton[] buttons;
+
+  private protected virtual void Awake(){
+    foreach(SystemButton b in buttons) b.Init();
+  }
 
   //Signals that this ButtonSystem should re-initialize buttons[i].
   //If i == -1, will re-initialize all buttons.

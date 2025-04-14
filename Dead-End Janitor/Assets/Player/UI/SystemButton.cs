@@ -2,7 +2,7 @@ using UnityEngine;
 
 public abstract class SystemButton : ButtonFunctionality
 {
-  ButtonSystem system;
+  private protected ButtonSystem system;
 
   //How the button should initialize itself when the system signals for it to.
   public void Init(){

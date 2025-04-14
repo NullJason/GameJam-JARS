@@ -15,6 +15,7 @@ public class BuyButton : ItemButton
   private protected override void ButtonDo(){
     if(GameplayManager.main.TryUnlockTool(tool, cost)){
       TurnOffButton();
+      Signal();
       if(save) GameplayManager.main.SaveGame();
     }
   }
