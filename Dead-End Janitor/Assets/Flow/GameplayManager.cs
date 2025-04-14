@@ -157,7 +157,7 @@ public class GameplayManager : MonoBehaviour
   public void FullResetSave(){
     Debug.LogWarning("Full data wipe occurring! Was this intended?");
     saveFile = null;
-    Save();
+    SaveGame();
   }
 
   //Loads the saveFile stored in this class onto the saveFile stored on the user's computer.
