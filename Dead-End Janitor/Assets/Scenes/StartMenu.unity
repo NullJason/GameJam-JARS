@@ -2903,7 +2903,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 0}
-  close: {fileID: 643360615}
+  close:
+  - {fileID: 643360615}
   open: {fileID: 633319340}
 --- !u!114 &1243935777
 MonoBehaviour:
@@ -3687,6 +3688,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1515797488}
   m_CullTransparentMesh: 1
+--- !u!1 &1623230518 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6009757627043269629, guid: 8671b62654f027f4495a693af2c47121, type: 3}
+  m_PrefabInstance: {fileID: 5736419339916257853}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1658540847
 GameObject:
   m_ObjectHideFlags: 0
@@ -5111,6 +5117,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -60
       objectReference: {fileID: 0}
+    - target: {fileID: 489901763056951390, guid: 8671b62654f027f4495a693af2c47121, type: 3}
+      propertyPath: 'close.Array.data[0]'
+      value: 
+      objectReference: {fileID: 633319340}
     - target: {fileID: 557308323636614271, guid: 8671b62654f027f4495a693af2c47121, type: 3}
       propertyPath: m_LocalPosition.x
       value: 33.574535
@@ -5199,6 +5209,10 @@ PrefabInstance:
       propertyPath: m_MatchWidthOrHeight
       value: 0.77
       objectReference: {fileID: 0}
+    - target: {fileID: 1394408791744377353, guid: 8671b62654f027f4495a693af2c47121, type: 3}
+      propertyPath: 'close.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1623230518}
     - target: {fileID: 2244574685493882437, guid: 8671b62654f027f4495a693af2c47121, type: 3}
       propertyPath: m_Color.a
       value: 1
@@ -5267,6 +5281,10 @@ PrefabInstance:
       propertyPath: open
       value: 
       objectReference: {fileID: 643360615}
+    - target: {fileID: 2957920237085327331, guid: 8671b62654f027f4495a693af2c47121, type: 3}
+      propertyPath: 'close.Array.data[0]'
+      value: 
+      objectReference: {fileID: 633319340}
     - target: {fileID: 2957953101958924898, guid: 8671b62654f027f4495a693af2c47121, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
