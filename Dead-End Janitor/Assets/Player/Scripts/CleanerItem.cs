@@ -94,7 +94,7 @@ public class CleanerItem : MonoBehaviour
 			ToolInterrupted = false; // stops cleaning if you look away or stop holding down m1.
 			isAnimating = false;
 		}
-	public void ConnectCleanerCollision(Collision other) {
+	public void ConnectCleanerCollision(Transform other) {
 		if((DirtyLayer.value & (1 << other.gameObject.layer)) != 0) {
 			TryCleanUp(other.gameObject);
 		}

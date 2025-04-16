@@ -21,7 +21,7 @@ public class SoapTool : MonoBehaviour
     {
 		if(Input.GetMouseButtonDown(0)) 
         {
-			ToolMonobehavior.ActivateTool(PlayerCameraTransform);
+			ToolMonobehavior.ActivateTool(transform);
 		}
     }
 }

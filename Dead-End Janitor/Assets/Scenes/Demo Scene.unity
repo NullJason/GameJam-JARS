@@ -5736,10 +5736,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35656990ef22f7145a1d3f5626b1a2c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  display: {fileID: 1792489427}
-  infoToDisplay: 1
-  pretext: 'There are '
-  posttext: ' on screen'
 --- !u!114 &1792489427
 MonoBehaviour:
   m_ObjectHideFlags: 0

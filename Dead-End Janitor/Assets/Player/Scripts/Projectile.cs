@@ -58,14 +58,29 @@ public class Projectile : MonoBehaviour
     }
     public void PassFolder(Transform folder){
         ProjectileFolder = folder;
+        transform.SetParent(folder);
     }
+    public void Ignore(GameObject objectToIgnore)
+    {
+    Collider[] ObjectColliders = objectToIgnore.GetComponentsInChildren<Collider>();
+    Collider[] projectileColliders = transform.GetComponentsInChildren<Collider>();
 
+    foreach (var projCol in projectileColliders)
+    {
+        foreach (var Col in ObjectColliders)
+        {
+            Physics.IgnoreCollision(projCol, Col);
+            Debug.Log(Col.name);
+        }
+    }
+}
     void OnEnable()
     {
-        if (transform.parent = ProjectileFolder){
-            ProjectileEnabled = true;
+        if (!ProjectileEnabled && transform.parent == ProjectileFolder){
+            ProjectileEnabled = true; 
             if(transform.TryGetComponent<Rigidbody>(out Rigidbody rb)) ProjectileRB = rb;
             if(transform.TryGetComponent<Collider>(out Collider c)) ProjectileColl = c;
+            if (ProjectileGravity != 0) rb.useGravity = true;
             StartCoroutine(DoDelayedDestroy());
         }
     }
@@ -79,6 +94,8 @@ public class Projectile : MonoBehaviour
     }
     void OnCollisionEnter(Collision collision)
     {
+        Debug.Log($"[Projectile] Collided with {collision.gameObject.name}");
+
         Transform CollT = collision.transform;
         int layer = collision.gameObject.layer;
 

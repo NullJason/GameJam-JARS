@@ -17,6 +17,9 @@ public class RangedTool : PlayerTool
     [SerializeField] private float ToolCooldown = 1;
     [SerializeField] private float ShootDelay = 0.5f;    
     [SerializeField] private bool isAuto = false; // determines if the weapon is togglable instead.
+    [SerializeField] private int Ammo = 5;
+    [SerializeField] private int MaxAmmo = 100;
+    [SerializeField] private List<GameObject> ObjectsToIgnore = new List<GameObject>(); // makes projectile ignore the object and its children in collisions and rays.
 
     [SerializeField] private GameObject Projectile;
     [SerializeField] private int ProjectileID_BackUp; // in case for wahtever reason can't find the projectile or too lazy to parent the projectile => uses ProjectileAssets instead.
@@ -33,18 +36,20 @@ public class RangedTool : PlayerTool
     [SerializeField] private float ProjectileDamage = 1; 
     [SerializeField] private int ProjectilePierce = 1; 
     [SerializeField] private int ProjectileWallPierce = 1; 
-    [SerializeField] private float ProjectileLifeTime = 1;
+    [SerializeField] private float ProjectileLifeTime = 5;
     [SerializeField] private float ProjectileScale = 1;
     [SerializeField] private float ProjectileImpactDelay = 1;
     [SerializeField] private int ProjectileGravity = 1;
 
 
     private bool OnCooldown = false;
+    private bool IsShooting = false;
     private GameObject AppliedProjectile;
 
     // Call whenever you want to shoot a projectile.
     public override void ActivateTool(Transform origin){
-        if (OnCooldown) return;
+        if (ToolCooldown < ShootDelay) Debug.Log("CoolDown shorter than delay, projectiles will slowly shoot faster.");
+        if (OnCooldown || IsShooting) return;
         OnCooldown = true;
         if (origin == null) origin = transform;
         StartCoroutine(ProjectileStart(origin));
@@ -54,21 +59,30 @@ public class RangedTool : PlayerTool
     public override void StopTool(){
 
     }
+    private void OnEnable() {
+        if (IsShooting) {IsShooting = false; OnCooldown = true; StartCoroutine(DoCoolDown());} // prevents re-equip rapid shooting.
+    }
     private IEnumerator DoCoolDown(){
         yield return new WaitForSeconds(ToolCooldown);
         OnCooldown = false;
     }
     private IEnumerator ProjectileStart(Transform shootOrigin){
+        IsShooting = true;
         yield return new WaitForSeconds(ShootDelay);
         for (int i = 0; i<ProjectileCount; i++){
             GameObject projectile = CreateProjectile();
-            projectile.transform.SetParent(ProjectileFolder);
             projectile.SetActive(true);
+            //projectile.transform.SetParent(ProjectileFolder);
+            projectile.transform.SetPositionAndRotation(shootOrigin.position, shootOrigin.rotation);
+            
             // TODO: different shooting mechanisms
             if(ShootPhysicalProjectile){
-               Rigidbody rb = projectile.GetOrAddComponent<Rigidbody>();
-               rb.AddForce(shootOrigin.forward * ProjectileSpeed);
+                Debug.Log("Shot physical projectile");
+                Rigidbody rb = projectile.GetOrAddComponent<Rigidbody>();
+                // rb.isKinematic = false;
+                rb.AddForce(shootOrigin.forward * ProjectileSpeed);
             } else{
+                Debug.Log("Shot ray projectile");
                 Ray ray = new Ray(shootOrigin.position, shootOrigin.forward);
                 if (Physics.Raycast(ray, out RaycastHit hit, 50f))
                 {
@@ -81,22 +95,34 @@ public class RangedTool : PlayerTool
                     }  
                 }
             }
-            projectile.transform.SetPositionAndRotation(shootOrigin.position, shootOrigin.rotation);
             
-            yield return new WaitForSeconds(ShootDelay);
+            if(i>0) yield return new WaitForSeconds(ShootDelay);
         }
+        IsShooting = false;
     }
     private void ApplyProjectile(GameObject projectile){
-        bool exists = projectile.TryGetComponent(out Projectile projectileMono);
-        if (!exists) {projectile.AddComponent<Projectile>(); projectileMono = projectile.GetComponent<Projectile>();}
-        ApplyToolInfluenceToMono(projectileMono);
-        projectileMono.PassFolder(ProjectileFolder);
+        Projectile ProjMono;
+        if(projectile.TryGetComponent(out Projectile pm)){
+            ProjMono = pm;
+        }
+        else {Debug.Log("projectile doesn't contain projectile mono"); projectile.AddComponent<Projectile>(); ProjMono = projectile.GetComponent<Projectile>();}
+        ApplyToolInfluenceToMono(ProjMono);
+        ProjMono.PassFolder(ProjectileFolder);
+        if(ShootPhysicalProjectile){
+            projectile.GetComponent<Collider>().enabled = true; // force initialization
+            projectile.GetComponent<Rigidbody>().detectCollisions = true; // optional but useful
+
+            foreach(GameObject g in ObjectsToIgnore){
+                ProjMono.Ignore(g);
+            }
+        }
         AppliedProjectile = projectile;
     }
     private void ApplyToolInfluenceToMono(Projectile mono){
        mono.InitFromToolValues(this,CanClean,CanDamage);
     }
     private GameObject CreateProjectile(){
+        if (AppliedProjectile == null) InitProjectile();
         return Instantiate(AppliedProjectile);
     }
     private void InitProjectile(){
@@ -120,7 +146,9 @@ public class RangedTool : PlayerTool
         DefaultProjectile.transform.localScale = new Vector3(0.25f,0.25f,0.25f);
         DefaultProjectile.AddComponent<Collider>();
         DefaultProjectile.AddComponent<Rigidbody>();
+        DefaultProjectile.SetActive(false);
         ProjectileAssets.Add(0, DefaultProjectile.transform);
+        ObjectsToIgnore.Add(GameObject.Find("Player"));
         InitProjectile();
     }
 

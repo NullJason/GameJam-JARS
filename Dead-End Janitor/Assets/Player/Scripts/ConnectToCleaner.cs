@@ -13,13 +13,17 @@ public class ConnectToCleaner : MonoBehaviour
         if(CleanerItemScript==null) CleanerItemScript = transform.parent.GetComponent<CleanerItem>();
     }
     private void OnCollisionEnter(Collision other) {
-        if(CleanMethod[0]) CleanerItemScript.ConnectCleanerCollision(other);
+        if(CleanMethod[0]) CleanerItemScript.ConnectCleanerCollision(other.transform);
     }
-    private void OnCollisionStay(Collision other) {
-        if(CleanMethod[1]) CleanerItemScript.ConnectCleanerCollision(other);
+    void OnTriggerStay(Collider other)
+    {
+        if(CleanMethod[1]) CleanerItemScript.ConnectCleanerCollision(other.transform);
     }
+    // private void OnCollisionStay(Collision other) {
+    //     if(CleanMethod[1]) CleanerItemScript.ConnectCleanerCollision(other.transform);
+    // }
     private void OnCollisionExit(Collision other) {
-        if(CleanMethod[0]) CleanerItemScript.ConnectCleanerCollision(other);
+        if(CleanMethod[0]) CleanerItemScript.ConnectCleanerCollision(other.transform);
     }
     private void OnDisable(){
       Debug.Log("=D");

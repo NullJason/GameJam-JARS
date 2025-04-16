@@ -1288,11 +1288,14 @@ MonoBehaviour:
   ToolCooldown: 1
   ShootDelay: 0.5
   isAuto: 0
+  Ammo: 5
+  MaxAmmo: 100
+  ObjectsToIgnore: []
   Projectile: {fileID: 0}
   ProjectileID_BackUp: 0
-  ShootPhysicalProjectile: 0
+  ShootPhysicalProjectile: 1
   ProjectileCount: 1
-  ProjectileSpeed: 10
+  ProjectileSpeed: 6
   ProjectileImpact: 1
   ProjectileDamage: 1
   ProjectilePierce: 1
@@ -1419,6 +1422,10 @@ PrefabInstance:
     - target: {fileID: 1752531772993233060, guid: 45b8aba72565c5448b38ea6387fc41e1, type: 3}
       propertyPath: m_Name
       value: vacuum
+      objectReference: {fileID: 0}
+    - target: {fileID: 2250448750707745707, guid: 45b8aba72565c5448b38ea6387fc41e1, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
