@@ -44,6 +44,8 @@ public class GameplayManager : MonoBehaviour
   {
     Debug.Log("liquid Tool: " + GetLiquidTool());
     Debug.Log("Wave: " + GetWave() + "\nZombies left: "+ howManyLeftInWave + "\nTotal cleaning objects: " + howManyToClean + "\nOnscreen cleaning objects: " + howManyToCleanOnScreen);
+    Debug.Log("Tool Unlocked: " + saveFile.items.Contains(Tool.sponge));
+    Debug.Log("Tool Unlocked': " + CheckToolUnlocked(Tool.sponge));
     if(gameIsActive){
       TrySpawn();
       if(howManyLeftInWave == 0 && howManyToClean == 0){
@@ -156,7 +158,7 @@ public class GameplayManager : MonoBehaviour
   //Used to reset all values to default.
   public void FullResetSave(){
     Debug.LogWarning("Full data wipe occurring! Was this intended?");
-    saveFile = null;
+    saveFile = new SaveData();
     SaveGame();
   }
 
@@ -303,6 +305,9 @@ public class GameplayManager : MonoBehaviour
 
   //TODO
   public bool TryUnlockTool(Tool tool, int cost){
+/*    Debug.Log("Called TryUnlockTool with tool:" + tool + " and cost:" + cost);
+    Debug.Log("Tool Unlocked: " + saveFile.items.Contains(Tool.sponge));
+    Debug.Log("Tool Unlocked': " + CheckToolUnlocked(Tool.sponge));
     if(CheckToolUnlocked(tool)){
       throw new ToolAlreadyOwnedException("Tool already unlocked, cannot unlock again!");
     }
@@ -310,7 +315,19 @@ public class GameplayManager : MonoBehaviour
       return false;
     }
     ForceUnlockTool(tool);
-    return true;
+    return true;*/
+    foreach(Tool t in saveFile.items){
+      Debug.Log(t);
+    }
+    if(saveFile.items.Contains(tool)) Debug.Log("Unlocked no! Bad!");
+    if(cost > saveFile.accumulatedPoints){
+      return false;
+    }
+    else{
+      saveFile.accumulatedPoints -= cost;
+      saveFile.items.Add(tool);
+      return true;
+    }
   }
   private class ToolAlreadyOwnedException : Exception{
     public ToolAlreadyOwnedException(String s) : base(s){ //Honestly, not quite sure how this line works.

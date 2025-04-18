@@ -3,8 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class LoadNewSaveFileButton : LoadSaveFileButton
 {
-  private protected override void Start(){
-    base.Start();
+  private protected override void Init(){
+    base.Init();
     button.interactable = true;
   }
   private protected override void ButtonDo(){

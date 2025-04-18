@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class MoveButton : ButtonFunctionality
 {
   [SerializeField] private int MenuToMoveTo;
-  private protected override void Start()
+  private protected override void Init()
   {
-    base.Start();
+    base.Init();
   }
 
   private protected override void ButtonDo(){

@@ -6,20 +6,25 @@ using UnityEngine.UI;
 
 public class BuyButton : ItemButton
 {
-  private protected override void Start(){
-    base.Start();
+  public override void Reset(){
+    base.Reset();
     if(GameplayManager.main.CheckToolUnlocked(tool)) TurnOffButton();
   }
   [SerializeField] int cost;
   [SerializeField] bool save = true;
   private protected override void ButtonDo(){
+    Debug.Log("=3" + transform.parent.gameObject.name);
     if(GameplayManager.main.TryUnlockTool(tool, cost)){
       TurnOffButton();
       Signal();
       if(save) GameplayManager.main.SaveGame();
+      transform.Translate(500, 0, 0);
     }
   }
   void TurnOffButton(){
     button.interactable = false;
+  }
+  void Warning(){
+    Debug.Log("=3");
   }
 }

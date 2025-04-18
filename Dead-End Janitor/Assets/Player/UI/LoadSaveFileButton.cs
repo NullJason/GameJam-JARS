@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement;
 public class LoadSaveFileButton : ButtonFunctionality
 {
   [SerializeField] private protected string sceneName = "Demo Scene"; //The name of the scene that the match should start in.
-  private protected override void Start(){
-    base.Start();
+  private protected override void Init(){
+    base.Init();
     if(!GameplayManager.main.SaveExists()){
       button.interactable = false;
     }

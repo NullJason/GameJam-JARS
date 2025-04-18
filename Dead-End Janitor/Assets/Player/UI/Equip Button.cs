@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class EquipButton : ItemButton
 {
-  private protected override void Start(){
-    base.Start();
+  private protected override void Init(){
+    base.Init();
     dirtType = Tools.GetDirtType(tool);
     if(!GameplayManager.main.CheckToolUnlocked(tool)) button.gameObject.SetActive(false);
   }

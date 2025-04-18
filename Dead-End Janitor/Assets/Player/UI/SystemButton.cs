@@ -1,19 +1,20 @@
 using UnityEngine;
 
+//A SystemButton is a button that works as a part of a larger system, run by a ButtonSystem. A SystemButton can signal for the ButtonSystem to reset other SystemButton-s within the system.
+//This may be useful to avoid having to repeatedly run some check over whether another button is pressed or if a certain button-related condition is met.
+
 public abstract class SystemButton : ButtonFunctionality
 {
   private protected ButtonSystem system;
 
   //How the button should initialize itself when the system signals for it to.
-  public void Init(){
-    Start();
-  }
+  public abstract void Reset();
 
-  //Initialize, but first set the proper system.
-  public void Init(ButtonSystem b){
+  //Reset, but first set the proper system.
+  public void SetUpSystem(ButtonSystem b){
     if(system != null) Debug.LogWarning("Setting button system of " + this + " from " + system + " to " + b + ". Was this intended? ");
     system = b;
-    Init();
+    Reset();
   }
 
   //Signals for the ButtonSystem to reset all appropriate buttons.

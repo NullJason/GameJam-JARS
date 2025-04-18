@@ -7,8 +7,8 @@ public class BackButton : ButtonFunctionality
 {
   [SerializeField] GameObject[] close;
   [SerializeField] GameObject open;
-  private protected override void Start(){
-    base.Start();
+  private protected override void Init(){
+    base.Init();
     if(close == null) {
       close = new GameObject[1];
       close[0] = gameObject;
