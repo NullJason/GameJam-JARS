@@ -8,23 +8,29 @@ public class BuyButton : ItemButton
 {
   public override void Reset(){
     base.Reset();
-    if(GameplayManager.main.CheckToolUnlocked(tool)) TurnOffButton();
+    CheckTurnOn();
   }
   [SerializeField] int cost;
   [SerializeField] bool save = true;
   private protected override void ButtonDo(){
-    Debug.Log("=3" + transform.parent.gameObject.name);
     if(GameplayManager.main.TryUnlockTool(tool, cost)){
       TurnOffButton();
       Signal();
       if(save) GameplayManager.main.SaveGame();
-      transform.Translate(500, 0, 0);
     }
   }
+
+  //Turns on or off the button, in this case based on whether the item hasn't already been purchased.
+  private protected void CheckTurnOn(){
+    if(GameplayManager.main.CheckToolUnlocked(tool)) TurnOffButton();
+    else TurnOnButton();
+}
   void TurnOffButton(){
+    if(button == null) TryFindButton();
     button.interactable = false;
   }
-  void Warning(){
-    Debug.Log("=3");
+  void TurnOnButton(){
+    if(button == null) TryFindButton();
+    button.interactable = true;
   }
 }

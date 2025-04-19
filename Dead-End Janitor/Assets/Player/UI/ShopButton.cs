@@ -2,15 +2,14 @@ using UnityEngine;
 
 public abstract class ItemButton : SystemButton
 {
-  [SerializeField] private protected Tool tool;
+  [SerializeField] private protected Tool tool = Tool.error;
 
   public override void Reset(){
 
   }
 
-  //Initialize the proper tool and system and reset.
-  public void SetUpSystem(Tool tool, ButtonSystem system){
-    this.tool = tool;
-    SetUpSystem(system);
+  public void TrySetTool(Tool t){
+    if(tool == Tools.Empty()) tool = t;
+    else Debug.LogError("Could not set tool because tool was already set to " + tool + "! ");
   }
 }

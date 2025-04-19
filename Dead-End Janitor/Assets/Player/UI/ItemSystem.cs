@@ -4,6 +4,13 @@ public class ItemSystem : ButtonSystem
 {
   [SerializeField] Tool tool;
   private protected override void Awake(){
-    foreach(ItemButton b in buttons) b.SetUpSystem(tool, this);
+    if(tool != Tools.Empty()){
+      foreach(ItemButton b in buttons){
+        b.TrySetTool(tool);
+        b.SetUpSystem(this);
+      }
+      Debug.Log("Set Up Properly!");
+    }
+    else foreach(ItemButton b in buttons) b.SetUpSystem(this);
   }
 }
