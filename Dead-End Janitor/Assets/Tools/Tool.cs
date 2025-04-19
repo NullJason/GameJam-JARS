@@ -1,4 +1,5 @@
 public enum Tool{
+  error = 0,
   mop = 1,
   mopII = 2,
   mopIII = 3,

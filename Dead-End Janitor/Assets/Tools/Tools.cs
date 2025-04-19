@@ -60,4 +60,7 @@ public class Tools : MonoBehaviour
       dirtTypes.Add(t, cleaner.GetDirtType());
     }
   }
+  public static Tool Empty(){
+    return Tool.error;
+  }
 }
