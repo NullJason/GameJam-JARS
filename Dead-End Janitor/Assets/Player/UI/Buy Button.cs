@@ -21,15 +21,15 @@ public class BuyButton : ItemButton
   }
 
   //Turns on or off the button, in this case based on whether the item hasn't already been purchased.
-  private protected void CheckTurnOn(){
+  private protected virtual void CheckTurnOn(){
     if(GameplayManager.main.CheckToolUnlocked(tool)) TurnOffButton();
     else TurnOnButton();
 }
-  void TurnOffButton(){
+  private protected virtual void TurnOffButton(){
     if(button == null) TryFindButton();
     button.interactable = false;
   }
-  void TurnOnButton(){
+  private protected virtual void TurnOnButton(){
     if(button == null) TryFindButton();
     button.interactable = true;
   }
