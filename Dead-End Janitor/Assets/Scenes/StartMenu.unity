@@ -2736,33 +2736,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1005624698}
   m_CullTransparentMesh: 1
---- !u!1 &1039885573 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1893591082490941110, guid: cb903547a1884e6418ed4d3072ea2e5c, type: 3}
-  m_PrefabInstance: {fileID: 1507619964}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1039885576
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1039885573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55f74a68f83716f4b84167703eb6be45, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mop: {fileID: 7490691632325160954, guid: 101fac5e6db68c04cba2dcf38aac79bb, type: 3}
-  mopII: {fileID: 2186419399614896549, guid: 2aeb2cb803dc6824486f08955613f3d7, type: 3}
-  mopIII: {fileID: 5476260137094737044, guid: 8654c84720f93a4489c0ab5c12a77ef0, type: 3}
-  vacuum: {fileID: 1752531772993233060, guid: 45b8aba72565c5448b38ea6387fc41e1, type: 3}
-  vacuumII: {fileID: 3670474566045412653, guid: c298e69f87350f644a9e6512a7f45026, type: 3}
-  vacuumIII: {fileID: 6737078281106769179, guid: 95b776972dabfc24c8fc4854423c46fb, type: 3}
-  spray: {fileID: 7490691632325160954, guid: 75e85400574ccf341941e3ec9e898519, type: 3}
-  sponge: {fileID: 7490691632325160954, guid: 75e85400574ccf341941e3ec9e898519, type: 3}
-  featherDuster: {fileID: 7490691632325160954, guid: 75e85400574ccf341941e3ec9e898519, type: 3}
-  slippySoap: {fileID: 7490691632325160954, guid: 75e85400574ccf341941e3ec9e898519, type: 3}
 --- !u!1 &1088868617
 GameObject:
   m_ObjectHideFlags: 0
@@ -3727,14 +3700,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Manager
       objectReference: {fileID: 0}
-    - target: {fileID: 2824872132753871250, guid: cb903547a1884e6418ed4d3072ea2e5c, type: 3}
-      propertyPath: zombie
-      value: 
-      objectReference: {fileID: 4546351311403191621, guid: 9de6f9cb5c8a0134bb1eb678bc4680c0, type: 3}
-    - target: {fileID: 2824872132753871250, guid: cb903547a1884e6418ed4d3072ea2e5c, type: 3}
-      propertyPath: spawnTimerReset
-      value: 550
-      objectReference: {fileID: 0}
     - target: {fileID: 9184818832111151848, guid: cb903547a1884e6418ed4d3072ea2e5c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 16.429705
@@ -3778,10 +3743,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1893591082490941110, guid: cb903547a1884e6418ed4d3072ea2e5c, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1039885576}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb903547a1884e6418ed4d3072ea2e5c, type: 3}
 --- !u!1 &1515797488
 GameObject:
@@ -4747,6 +4709,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 0}
+  tool: 0
 --- !u!114 &1900144726
 MonoBehaviour:
   m_ObjectHideFlags: 0

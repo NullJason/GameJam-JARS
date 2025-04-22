@@ -17,7 +17,10 @@ public class Player : Humanoid
     Color MCBarColor = new Color(200f/255f,25f/255f,50f/255f,85f/255f);
     //public Dialogue(string speaker, string text, float? textSize, Color? barColor, Color? textColor, int? flavor, float? autoPlay, float? animDelay)
     void Awake(){
-        GameplayManager.main.SetPlayer(this, true);
+        if(GameplayManager.main != null){
+            GameplayManager.main.SetPlayer(this, true);
+            SetHp(GameplayManager.main.SavedHealth());
+        } else Debug.LogWarning("GAMEPLAYMANAGER IS NULL.");
         if(toolSystem == null) toolSystem = GetComponent<SwapWeapons>();
         if(toolSystem == null) Debug.LogError("Could not find the SwapWeapons component!");
         // Add an AudioSource component if not already attached
@@ -33,7 +36,6 @@ public class Player : Humanoid
             Debug.LogError("Audio file not found in Resources folder.");
         }
         audioSource.clip = audioClip;
-        SetHp(GameplayManager.main.SavedHealth());
     }
 
     void Update()
@@ -49,23 +51,23 @@ public class Player : Humanoid
     private protected override void OnDeath(){
         int deaths = Tasks.Instance.GetPlayerDeathCount();
         switch(deaths){
-            case 1:
+            case 0:
                 SpeechHandler.Instance.AcceptNew("Her", "You are an odd one.",20,MCBarColor,MCTextColor,1,2,0.01f);
                 SpeechHandler.Instance.AcceptNew("Her", "However.",20,MCBarColor,MCTextColor,1,2,0.01f);
                 SpeechHandler.Instance.AcceptNew("Her", "YOU ARE MERELY A ZOMBIE.",20,MCBarColor,MCTextColor,1,2,0.05f);
                 SpeechHandler.Instance.AcceptNew("Her", "DO NOT GET IN MY WAY AGAIN.",20,MCBarColor,MCTextColor,1,0,0.05f);
             break;
-            case 2:
+            case 1:
                 SpeechHandler.Instance.AcceptNew("Her", "Another janitor?",20,MCBarColor,MCTextColor,1,2,0.01f);
                 SpeechHandler.Instance.AcceptNew("Her", "No, it's you again.",20,MCBarColor,MCTextColor,1,2,0.01f);
                 SpeechHandler.Instance.AcceptNew("Her", "I will make sure to kill you this time. Goodbye.",20,MCBarColor,MCTextColor,1,2,0.01f);
             break;
-            case 3:
+            case 2:
                 SpeechHandler.Instance.AcceptNew("Her", "How embarrasing.",20,MCBarColor,MCTextColor,1,2,0.01f);
                 SpeechHandler.Instance.AcceptNew("Her", "Die.",20,MCBarColor,MCTextColor,1,2,0.01f);
                 SpeechHandler.Instance.AcceptNew("Her", "...3",20,MCBarColor,MCTextColor,1,2,0.01f);
             break;
-            case 10:
+            case 9:
                 SpeechHandler.Instance.AcceptNew("Her", "...",20,MCBarColor,MCTextColor,1,2,0.01f);
                 SpeechHandler.Instance.AcceptNew("Her", "How long have I been here?",20,MCBarColor,MCTextColor,1,2,0.01f);
             break;
@@ -76,7 +78,7 @@ public class Player : Humanoid
         Tasks.Instance.AddPlayerDeath();
 
         SpeechHandler.Instance.PlayNext();
-        GameplayManager.main.OnDeath();
+        if (GameplayManager.main != null) GameplayManager.main.OnDeath();
     }
     public float GetBaseLuck(){
         return PlayerLuck;

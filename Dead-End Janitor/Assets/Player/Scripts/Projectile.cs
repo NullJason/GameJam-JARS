@@ -10,6 +10,7 @@ public class Projectile : MonoBehaviour
     private int CleanType = 1; // DO NOT ALTER. Change in RangedTool instead, value reflected. altering this WILL break cleaning.
     [SerializeField] private Vector2 ProjectilePath = new Vector2(0,0); // randomizes how the projectile travels. (animation only)
     [SerializeField] private int ProjectileBounceCount = 0; // bounces off walls?
+    [SerializeField] private int ProjectileBounceForce = 1;
     [SerializeField] private int ProjectileImpact = 1;
     [SerializeField] private float ProjectileDamage = 5; 
     [SerializeField] private int ProjectilePierce = 0; // determines how many entities can be pierced where -1 = infinite pierce. For example if the tool shoots a big bubble (AOE) you would want -1 so the bubble doesn't 'pop' when it hits an entity or dirty object.
@@ -19,8 +20,10 @@ public class Projectile : MonoBehaviour
     [SerializeField] private float ProjectileImpactDelay = 0;
     [SerializeField] private int ProjectileGravity = 0; // influence of world gravity. can be any int.
     [SerializeField] private GameObject AOEObject; // the AOE effect that spawns upon the end of the projectile's lifespan.
-    private bool CanClean = true;
-    private bool CanDamage = true;
+    [SerializeField] private GameObject PlayerWhoFired;
+    [SerializeField] private bool FriendlyFire = false;
+    [SerializeField] private bool CanClean = true;
+    [SerializeField] private bool CanDamage = true;
     private Transform ProjectileFolder;
     private bool ProjectileEnabled = false;
     private Rigidbody ProjectileRB;
@@ -36,10 +39,10 @@ public class Projectile : MonoBehaviour
             DirtyLayerIndex = layerIndex;
 		} else Debug.Log("DIRTY LAYER DNE!!!");
     }
-    public void InitFromToolValues(RangedTool source, bool CanClean, bool CanDamage){
+    public void InitFromToolValues(RangedTool source){
         // getting values via reflection so I dont have to manually apply every single thing using parameters. fortunately not computationally expensive if just for initializing.
-        this.CanClean = CanClean;
-        this.CanDamage = CanDamage;
+        // this.CanClean = CanClean;
+        // this.CanDamage = CanDamage;
         FieldInfo[] fields = typeof(RangedTool).GetFields();
         foreach (FieldInfo field in fields){
             FieldInfo targetField = typeof(Projectile).GetField(field.Name);
@@ -49,12 +52,16 @@ public class Projectile : MonoBehaviour
                 if(toolValue is int intvalue && projectileValue is int targetint){
                     targetField.SetValue(this, targetint + intvalue * targetint);
                 }
-                else if(toolValue is float floatvalue && projectileValue is int targetfloat){
+                else if(toolValue is float floatvalue && projectileValue is float targetfloat){
                     targetField.SetValue(this, targetfloat + floatvalue * targetfloat);
+                }
+                else if(toolValue is bool boolvalue && projectileValue is bool targetbool){
+                    targetField.SetValue(this, boolvalue);
                 }
             }
         }
         transform.localScale *= ProjectileScale;
+        PlayerWhoFired = source.GetOwner();
     }
     public void PassFolder(Transform folder){
         ProjectileFolder = folder;
@@ -62,24 +69,27 @@ public class Projectile : MonoBehaviour
     }
     public void Ignore(GameObject objectToIgnore)
     {
-    Collider[] ObjectColliders = objectToIgnore.GetComponentsInChildren<Collider>();
-    Collider[] projectileColliders = transform.GetComponentsInChildren<Collider>();
+        if(objectToIgnore == null) {Debug.Log("Tried to ignore null."); return;}
+        if(gameObject.activeSelf) Debug.Log("Projectile Active before ignore collision.");
+        Collider[] ObjectColliders = objectToIgnore.GetComponentsInChildren<Collider>();
+        Collider[] projectileColliders = transform.GetComponentsInChildren<Collider>();
 
-    foreach (var projCol in projectileColliders)
-    {
-        foreach (var Col in ObjectColliders)
+        foreach (var projCol in projectileColliders)
         {
-            Physics.IgnoreCollision(projCol, Col);
-            Debug.Log(Col.name);
+            foreach (var Col in ObjectColliders)
+            {
+                Physics.IgnoreCollision(projCol, Col);
+                Debug.Log(Col.name);
+            }
         }
     }
-}
     void OnEnable()
     {
         if (!ProjectileEnabled && transform.parent == ProjectileFolder){
             ProjectileEnabled = true; 
+            transform.SetParent(ProjectileFolder);
             if(transform.TryGetComponent<Rigidbody>(out Rigidbody rb)) ProjectileRB = rb;
-            if(transform.TryGetComponent<Collider>(out Collider c)) ProjectileColl = c;
+            if(transform.TryGetComponent<Collider>(out Collider c)) {ProjectileColl = c; Ignore(PlayerWhoFired);}
             if (ProjectileGravity != 0) rb.useGravity = true;
             StartCoroutine(DoDelayedDestroy());
         }
@@ -94,27 +104,29 @@ public class Projectile : MonoBehaviour
     }
     void OnCollisionEnter(Collision collision)
     {
-        Debug.Log($"[Projectile] Collided with {collision.gameObject.name}");
 
         Transform CollT = collision.transform;
         int layer = collision.gameObject.layer;
 
         if (ProjectileEnabled){
-            Debug.Log(collidedText);
+            Debug.LogWarning($"Projectile Collided with {collision.gameObject.name}");
             if(layer == 0){ // default unity layer (walls, floors, etc.)
                 if (ProjectileBounceCount != 0){
                     ProjectileBounceCount -= 1;
-                } else Destroy(gameObject);
+                } else {Destroy(gameObject);}
+                Debug.LogWarning($"Projectile Bounced Off {collision.gameObject.name}");
             }
             else if(layer == DirtyLayerIndex && CanClean){
                 if(CollT.TryGetComponent(out DirtyObject dirt)){
                     if (dirt.IsDirtType(CleanType)) dirt.Clean(ProjectileDamage);
+                    Debug.LogWarning($"Projectile tried to clean {collision.gameObject.name}");
                 }
             } 
             else if(CanDamage && CollT.TryGetComponent(out Humanoid humanoid)){
-                humanoid.AddHp(ProjectileDamage); // TODO: doesn't account for friendly fire yet.
+                humanoid.AddHp(-ProjectileDamage); 
                 if (ProjectilePierce != 0) ProjectilePierce -= 1;
                 else Destroy(gameObject);
+                Debug.LogWarning($"Projectile tried to damage {collision.gameObject.name}");
             }
             else Debug.Log(collidedBehaviorNotSetText);
         } 
@@ -124,6 +136,7 @@ public class Projectile : MonoBehaviour
     }
     void OnDestroy()
     {
+        Debug.LogWarning("Projectile was destroyed!");
         if (AOEObject == null) return;
         Vector3 pos = transform.position;
         quaternion rot = transform.rotation;

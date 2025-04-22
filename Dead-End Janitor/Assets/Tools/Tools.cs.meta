@@ -1,2 +1,21 @@
 fileFormatVersion: 2
 guid: 55f74a68f83716f4b84167703eb6be45
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - mop: {fileID: 7490691632325160954, guid: 101fac5e6db68c04cba2dcf38aac79bb, type: 3}
+  - mopII: {fileID: 2186419399614896549, guid: 2aeb2cb803dc6824486f08955613f3d7, type: 3}
+  - mopIII: {fileID: 5476260137094737044, guid: 8654c84720f93a4489c0ab5c12a77ef0, type: 3}
+  - vacuum: {fileID: 1752531772993233060, guid: 45b8aba72565c5448b38ea6387fc41e1, type: 3}
+  - vacuumII: {fileID: 3670474566045412653, guid: c298e69f87350f644a9e6512a7f45026, type: 3}
+  - vacuumIII: {fileID: 6737078281106769179, guid: 95b776972dabfc24c8fc4854423c46fb, type: 3}
+  - spray: {instanceID: 0}
+  - sponge: {instanceID: 0}
+  - featherDuster: {instanceID: 0}
+  - slippySoap: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
