@@ -120,8 +120,12 @@ public class RangedTool : PlayerTool
                 foreach(GameObject g in ObjectsToIgnore){
                     ProjMono.Ignore(g);
                 }
-                newProjectile.GetComponent<Collider>().enabled = true; 
-                newProjectile.GetComponent<Rigidbody>().detectCollisions = true;
+                newProjectile.GetOrAddComponent<Collider>().enabled = true; 
+                if (!newProjectile.TryGetComponent<Rigidbody>(out var rb))
+                {
+                    rb = newProjectile.AddComponent<Rigidbody>();
+                }
+                rb.detectCollisions = true;
             }
         }
         return newProjectile;
@@ -131,6 +135,7 @@ public class RangedTool : PlayerTool
         GameObject newProjectile;
         if (Projectile){
             newProjectile = Instantiate(Projectile);
+            if(newProjectile.TryGetComponent<RangedTool>(out RangedTool rt)) Destroy(rt);
         }
         else newProjectile = Instantiate(ProjectileAssets[ProjectileID_BackUp].gameObject);
         newProjectile.SetActive(false);

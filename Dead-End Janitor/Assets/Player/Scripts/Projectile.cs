@@ -3,6 +3,7 @@ using System.Reflection;
 using Unity.VisualScripting;
 using Unity.Mathematics;
 using System.Collections;
+#pragma warning disable CS0219, CS0414 // disables assigned but not used variable and field warning.
 
 public class Projectile : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class Projectile : MonoBehaviour
     private Collider ProjectileColl;
     private const string DirtyLayerName = "Dirty";
     private int DirtyLayerIndex;
+    private GameObject QueuedAOEObject;
     void Start()
     {
         int layerIndex = LayerMask.NameToLayer(DirtyLayerName);
@@ -73,6 +75,7 @@ public class Projectile : MonoBehaviour
         if(gameObject.activeSelf) Debug.Log("Projectile Active before ignore collision.");
         Collider[] ObjectColliders = objectToIgnore.GetComponentsInChildren<Collider>();
         Collider[] projectileColliders = transform.GetComponentsInChildren<Collider>();
+        if(QueuedAOEObject != null && QueuedAOEObject.TryGetComponent<AOEObject>(out AOEObject aoeMono)) aoeMono.Ignore(objectToIgnore);
 
         foreach (var projCol in projectileColliders)
         {
@@ -87,6 +90,7 @@ public class Projectile : MonoBehaviour
     {
         if (!ProjectileEnabled && transform.parent == ProjectileFolder){
             ProjectileEnabled = true; 
+            QueuedAOEObject = Instantiate(AOEObject);
             transform.SetParent(ProjectileFolder);
             if(transform.TryGetComponent<Rigidbody>(out Rigidbody rb)) ProjectileRB = rb;
             if(transform.TryGetComponent<Collider>(out Collider c)) {ProjectileColl = c; Ignore(PlayerWhoFired);}
@@ -140,9 +144,8 @@ public class Projectile : MonoBehaviour
         if (AOEObject == null) return;
         Vector3 pos = transform.position;
         quaternion rot = transform.rotation;
-        GameObject AOEobj = Instantiate(AOEObject);
-        AOEobj.transform.SetParent(ProjectileFolder);
-        AOEobj.transform.SetPositionAndRotation(pos, rot);
-        AOEobj.SetActive(true);
+        QueuedAOEObject.transform.SetParent(ProjectileFolder);
+        QueuedAOEObject.transform.SetPositionAndRotation(pos, rot);
+        QueuedAOEObject.SetActive(true);
     }
 }
