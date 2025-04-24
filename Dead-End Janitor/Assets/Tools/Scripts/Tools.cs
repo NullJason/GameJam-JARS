@@ -16,6 +16,22 @@ public class Tools : MonoBehaviour
   [SerializeField] GameObject sponge;
   [SerializeField] GameObject featherDuster;
   [SerializeField] GameObject slippySoap;
+  [SerializeField] GameObject soapGun;
+  [SerializeField] GameObject verySlippySoap;
+  [SerializeField] GameObject soapBomb;
+  [SerializeField] GameObject pressureWasher;
+  [SerializeField] GameObject incinerator;
+  [SerializeField] GameObject vaporizer;
+  [SerializeField] GameObject purifierOrb;
+  [SerializeField] GameObject decayOrb;
+  [SerializeField] GameObject spinMop;
+  [SerializeField] GameObject electricfier;
+  [SerializeField] GameObject broom;
+  [SerializeField] GameObject bubbleSigil;
+  [SerializeField] GameObject soapBooster;
+  [SerializeField] GameObject lintRoller;
+  [SerializeField] GameObject especiallyLargeBubbleNuke;
+
 
   void Awake(){
     Debug.Log("main.tools");
@@ -41,6 +57,18 @@ public class Tools : MonoBehaviour
   private void SetUp(){
     tools = new Dictionary<Tool, GameObject>();
     dirtTypes = new Dictionary<Tool, Dirty>();
+    // if variables are serialized here and name matches the name in enum, could do the following:
+    // Reflect variables.
+    //     foreach (Tool tool in Enum.GetValues(typeof(Tool)))
+    // {
+    //     string fieldName = tool.ToString();
+    //     FieldInfo field = GetType().GetField(fieldName, BindingFlags.NonPublic | BindingFlags.Instance);
+    //     if (field != null && field.GetValue(this) is GameObject go && go != null)
+    //     {
+    //         CheckAndAdd(tool, go);
+    //     }
+    // }
+    // or ig use scriptable objects
     CheckAndAdd(Tool.mop, mop);
     CheckAndAdd(Tool.mopII, mopII);
     CheckAndAdd(Tool.mopIII, mopIII);
@@ -51,6 +79,21 @@ public class Tools : MonoBehaviour
     CheckAndAdd(Tool.sponge, sponge);
     CheckAndAdd(Tool.featherDuster, featherDuster);
     CheckAndAdd(Tool.slippySoap, slippySoap);
+    CheckAndAdd(Tool.soapGun, soapGun);
+    CheckAndAdd(Tool.verySlippySoap, verySlippySoap);
+    CheckAndAdd(Tool.soapBomb, soapBomb);
+    CheckAndAdd(Tool.pressureWasher, pressureWasher);
+    CheckAndAdd(Tool.incinerator, incinerator);
+    CheckAndAdd(Tool.vaporizer, vaporizer);
+    CheckAndAdd(Tool.purifierOrb, purifierOrb);
+    CheckAndAdd(Tool.decayOrb, decayOrb);
+    CheckAndAdd(Tool.spinMop, spinMop);
+    CheckAndAdd(Tool.electricfier, electricfier);
+    CheckAndAdd(Tool.broom, broom);
+    CheckAndAdd(Tool.bubbleSigil, bubbleSigil);
+    CheckAndAdd(Tool.soapBooster, soapBooster);
+    CheckAndAdd(Tool.lintRoller, lintRoller);
+    CheckAndAdd(Tool.especiallyLargeBubbleNuke, especiallyLargeBubbleNuke);
   }
   private void CheckAndAdd(Tool t, GameObject toolObject){
     CleanerItem cleaner = toolObject.GetComponent<CleanerItem>();

@@ -1,0 +1,30 @@
+public enum Tool{
+  error = 0,
+  mop = 1,
+  mopII = 2,
+  mopIII = 3,
+  vacuum = 4,
+  vacuumII = 5,
+  vacuumIII = 6,
+  spray = 7,
+  sponge = 8,
+  featherDuster = 9,
+  slippySoap = 10,
+  soapGun = 11,
+  verySlippySoap = 12,
+  soapBomb = 13,
+  pressureWasher = 14,
+  incinerator = 15,
+  vaporizer = 16,
+  purifierOrb = 17,
+  decayOrb = 18,
+  spinMop = 19,
+  electricfier = 20,
+  broom = 21,
+  bubbleSigil = 22,
+  soapBooster = 23,
+  lintRoller = 24,
+
+
+  especiallyLargeBubbleNuke = 999
+}

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9184818832111151848}
   - component: {fileID: 2824872132753871250}
+  - component: {fileID: 7512042967295083078}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -44,6 +45,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c312338c8eb1d60448840c7daa8e1d37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zombie: {fileID: 6572985940792525328, guid: 8e87cfe97749f464ab465227409b28de, type: 3}
-  spawnTimerReset: 300
+  zombie: {fileID: 4546351311403191621, guid: 9de6f9cb5c8a0134bb1eb678bc4680c0, type: 3}
+  spawnTimerReset: 550
   waveTimerReset: 600
+--- !u!114 &7512042967295083078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893591082490941110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55f74a68f83716f4b84167703eb6be45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mop: {fileID: 7490691632325160954, guid: 101fac5e6db68c04cba2dcf38aac79bb, type: 3}
+  mopII: {fileID: 2186419399614896549, guid: 2aeb2cb803dc6824486f08955613f3d7, type: 3}
+  mopIII: {fileID: 5476260137094737044, guid: 8654c84720f93a4489c0ab5c12a77ef0, type: 3}
+  vacuum: {fileID: 1752531772993233060, guid: 45b8aba72565c5448b38ea6387fc41e1, type: 3}
+  vacuumII: {fileID: 3670474566045412653, guid: c298e69f87350f644a9e6512a7f45026, type: 3}
+  vacuumIII: {fileID: 6737078281106769179, guid: 95b776972dabfc24c8fc4854423c46fb, type: 3}
+  spray: {fileID: 7490691632325160954, guid: 75e85400574ccf341941e3ec9e898519, type: 3}
+  sponge: {fileID: 7490691632325160954, guid: 75e85400574ccf341941e3ec9e898519, type: 3}
+  featherDuster: {fileID: 7490691632325160954, guid: 75e85400574ccf341941e3ec9e898519, type: 3}
+  slippySoap: {fileID: 7490691632325160954, guid: 75e85400574ccf341941e3ec9e898519, type: 3}
+  soapGun: {fileID: 713612164688024313, guid: 68754da922d2605458cfb58ed2d537b1, type: 3}
+  verySlippySoap: {fileID: 3732924969168652094, guid: afc3ee7b39c39ad429a6ed597728dcd1, type: 3}
+  soapBomb: {fileID: 908070306723303384, guid: 92a0346b23b67bd4eb39262706e5d4b6, type: 3}
+  pressureWasher: {fileID: 5540133716103707528, guid: 9b5a00f3f170d8746b562eb29803d820, type: 3}
+  incinerator: {fileID: 4518316358189515574, guid: a706513658a78d94ea0a35243ead5798, type: 3}
+  vaporizer: {fileID: 311507659628485504, guid: 6efe7a94173a6644c850b2c783d807f8, type: 3}
+  purifierOrb: {fileID: 1150501653596400488, guid: 067659ce88d10c24e9c510e7f2669a1a, type: 3}
+  decayOrb: {fileID: 2546356274265668617, guid: 13ae7f301ec48bb4eaf488b76bf84598, type: 3}
+  spinMop: {fileID: 9130950300993636400, guid: 55fa0a05a4ff2b74daa25d590f615189, type: 3}
+  electricfier: {fileID: 8241022384506458605, guid: 3d567985ae30a3e4fbdf91d10a006026, type: 3}
+  broom: {fileID: 9196313059492898464, guid: 837f3f603ecce2e40969c6ffb3e2bc1d, type: 3}
+  bubbleSigil: {fileID: 2293402959794025172, guid: f8d2de5d1bb438c458fa111d204d6f3e, type: 3}
+  soapBooster: {fileID: 8793300835108886960, guid: 00609526b84ce8c47b1c0030e4e7a3eb, type: 3}
+  lintRoller: {fileID: 846750906568646989, guid: 99462032fe6408e4d97c03330b15e391, type: 3}
+  especiallyLargeBubbleNuke: {fileID: 3965994372998059365, guid: 4a7c46532dc48654d93387dc862f22d0, type: 3}

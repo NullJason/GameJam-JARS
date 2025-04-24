@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-#pragma warning disable CS0219 // disables assigned but not used variable warning.
+#pragma warning disable CS0219, CS0414 // disables assigned but not used variable and field warning.
 public class RangedTool : PlayerTool
 {
     // If we ever want a Projectile ID to Projectile Object structure. Should contain a list of all avaliable Projectile Assets in Game. This would only exist to make it more customizable and as backup.
@@ -40,8 +40,7 @@ public class RangedTool : PlayerTool
     [SerializeField] private float ProjectileScale = 1;
     [SerializeField] private float ProjectileImpactDelay = 1;
     [SerializeField] private int ProjectileGravity = 1;
-
-
+    [SerializeField] private GameObject Owner;
     private bool OnCooldown = false;
     private bool IsShooting = false;
     private GameObject AppliedProjectile;
@@ -108,28 +107,35 @@ public class RangedTool : PlayerTool
         else {Debug.Log("projectile doesn't contain projectile mono"); projectile.AddComponent<Projectile>(); ProjMono = projectile.GetComponent<Projectile>();}
         ApplyToolInfluenceToMono(ProjMono);
         ProjMono.PassFolder(ProjectileFolder);
-        if(ShootPhysicalProjectile){
-            projectile.GetComponent<Collider>().enabled = true; // force initialization
-            projectile.GetComponent<Rigidbody>().detectCollisions = true; // optional but useful
-
-            foreach(GameObject g in ObjectsToIgnore){
-                ProjMono.Ignore(g);
-            }
-        }
         AppliedProjectile = projectile;
     }
     private void ApplyToolInfluenceToMono(Projectile mono){
-       mono.InitFromToolValues(this,CanClean,CanDamage);
+       mono.InitFromToolValues(this);
     }
     private GameObject CreateProjectile(){
         if (AppliedProjectile == null) InitProjectile();
-        return Instantiate(AppliedProjectile);
+        GameObject newProjectile = Instantiate(AppliedProjectile);
+        if(ShootPhysicalProjectile){
+            if(newProjectile.TryGetComponent(out Projectile ProjMono)){
+                foreach(GameObject g in ObjectsToIgnore){
+                    ProjMono.Ignore(g);
+                }
+                newProjectile.GetOrAddComponent<Collider>().enabled = true; 
+                if (!newProjectile.TryGetComponent<Rigidbody>(out var rb))
+                {
+                    rb = newProjectile.AddComponent<Rigidbody>();
+                }
+                rb.detectCollisions = true;
+            }
+        }
+        return newProjectile;
     }
     private void InitProjectile(){
         // note: default int value is 0 even if not explicitly set in C#
         GameObject newProjectile;
         if (Projectile){
             newProjectile = Instantiate(Projectile);
+            if(newProjectile.TryGetComponent<RangedTool>(out RangedTool rt)) Destroy(rt);
         }
         else newProjectile = Instantiate(ProjectileAssets[ProjectileID_BackUp].gameObject);
         newProjectile.SetActive(false);
@@ -139,6 +145,7 @@ public class RangedTool : PlayerTool
         yield return new WaitForSeconds(ToolCooldown);
         OnCooldown = false;
     }
+    public GameObject GetOwner() { if(Owner == null) Owner = GameObject.Find("Player"); return Owner;}
     void Start()
     {
         if (ProjectileFolder == null) ProjectileFolder = new GameObject("ProjectileFolder").transform;
@@ -148,8 +155,8 @@ public class RangedTool : PlayerTool
         DefaultProjectile.AddComponent<Rigidbody>();
         DefaultProjectile.SetActive(false);
         ProjectileAssets.Add(0, DefaultProjectile.transform);
-        ObjectsToIgnore.Add(GameObject.Find("Player"));
+        if(Owner == null) Owner = GameObject.Find("Player");
+        ObjectsToIgnore.Add(Owner);
         InitProjectile();
     }
-
 }
