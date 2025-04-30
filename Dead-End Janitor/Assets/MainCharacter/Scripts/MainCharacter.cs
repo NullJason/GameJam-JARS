@@ -4,12 +4,17 @@ using UnityEngine.AI;
 public class Hunter : MonoBehaviour
 {
   //Detection works as follows: the hunter sends out a series of raycasts around it, forming a flattened cone, or arc. If it detects an object in the huntable layer, it will stop searching and start chasing. MinDetectionSize is the smallest size that the hunter can detect (and therefore indirectly, how close the rays must be together and how many there must be).
+  //TODO: Implement new weapons and stats systems!
+  //The hunter will target as previously. However, it will only pursue a target until it is within range of at least one weapon. There will be 3-5 range categories. 
+  //It will then attack with the highest priority weapon of appropriate range class, priority being determined for each weapon. 
+  //  (i.e. it won't attack with a weapon of a shorter range category if the target enemy is not close enough, even if that weapon has higher priority.)
+  //When used, a weapon will go to cooldown. This cooldown will be updated whenever the MC tries to attack using a weapon but is not able to. 
   [SerializeField] private protected LayerMask visible;
   [SerializeField] private protected float minDetectionSize;
   [SerializeField] private protected float detectionDistance; //How far away an object must be to avoid detection.
   [SerializeField] private protected float detectionSpread; //How many degrees the detection cone should be.
   [SerializeField] private protected GameObject player; //TODO: Find better way to get this!
-  [SerializeField] private protected float attackDistance = 0.65f; //How close the target must be to start dealing damage.
+  [SerializeField] private protected float attackDistance = 0.65f; //How close the target must be to start dealing damage. TODO: Depracate!
   [SerializeField] private protected Vector3 SightOriginOffset = new Vector3(0,0,0);
   private Quaternion[] raycastRotations; //Stores the directions of all the raycasts, relative to the player's rotation.
   private int numberOfRays;
