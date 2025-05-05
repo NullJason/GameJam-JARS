@@ -90,7 +90,7 @@ public class Projectile : MonoBehaviour
     {
         if (!ProjectileEnabled && transform.parent == ProjectileFolder){
             ProjectileEnabled = true; 
-            QueuedAOEObject = Instantiate(AOEObject);
+            if(AOEObject) QueuedAOEObject = Instantiate(AOEObject);
             transform.SetParent(ProjectileFolder);
             if(transform.TryGetComponent<Rigidbody>(out Rigidbody rb)) ProjectileRB = rb;
             if(transform.TryGetComponent<Collider>(out Collider c)) {ProjectileColl = c; Ignore(PlayerWhoFired);}

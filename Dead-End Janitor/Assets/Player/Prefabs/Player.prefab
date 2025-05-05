@@ -1236,74 +1236,11 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 442581588847470734, guid: 68754da922d2605458cfb58ed2d537b1, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 713612164688024313, guid: 68754da922d2605458cfb58ed2d537b1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4377521938640101769}
-    - targetCorrespondingSourceObject: {fileID: 713612164688024313, guid: 68754da922d2605458cfb58ed2d537b1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6214989539712875015}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 68754da922d2605458cfb58ed2d537b1, type: 3}
---- !u!1 &4101285420759189782 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 713612164688024313, guid: 68754da922d2605458cfb58ed2d537b1, type: 3}
-  m_PrefabInstance: {fileID: 3534748634832149487}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4377521938640101769
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4101285420759189782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33cb250fc41c83540973d3d5f1f7a311, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 0}
-  PlayerCameraTransform: {fileID: 0}
-  Effects: {fileID: 0}
-  ToolMonobehavior: {fileID: 6214989539712875015}
---- !u!114 &6214989539712875015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4101285420759189782}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6226e1efcd948b048b4884cd6ec78768, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ProjectileFolder: {fileID: 0}
-  CanClean: 1
-  CanDamage: 1
-  CleanType: 0
-  ToolCooldown: 1
-  ShootDelay: 0.5
-  isAuto: 0
-  Ammo: 5
-  MaxAmmo: 100
-  ObjectsToIgnore: []
-  Projectile: {fileID: 0}
-  ProjectileID_BackUp: 0
-  ShootPhysicalProjectile: 1
-  ProjectileCount: 1
-  ProjectileSpeed: 6
-  ProjectileImpact: 1
-  ProjectileDamage: 1
-  ProjectilePierce: 1
-  ProjectileWallPierce: 1
-  ProjectileLifeTime: 1
-  ProjectileScale: 1
-  ProjectileImpactDelay: 1
-  ProjectileGravity: 1
 --- !u!4 &6212839944201868054 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7436993454794934521, guid: 68754da922d2605458cfb58ed2d537b1, type: 3}
