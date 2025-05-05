@@ -97,7 +97,15 @@ public class Tools : MonoBehaviour
   }
   private void CheckAndAdd(Tool t, GameObject toolObject){
     CleanerItem cleaner = toolObject.GetComponent<CleanerItem>();
-    if(cleaner == null) Debug.LogError("Tool " + toolObject + " (" + t + ")" + " did not have a cleaner item attached to it, did not add!");
+    if(cleaner == null) {
+      PlayerTool pt = toolObject.GetComponent<PlayerTool>();
+      if(pt == null) Debug.LogError("Tool " + toolObject + " (" + t + ")" + " did not have a cleaner item attached to it, did not add!");
+      else{
+        Debug.LogError("Note that this won't add all the dirtTypes a playertool may have.");
+        tools.Add(t, toolObject);
+        dirtTypes.Add(t, pt.GetPrimaryCleanType());
+      }
+    }
     else{
       tools.Add(t, toolObject);
       dirtTypes.Add(t, cleaner.GetDirtType());
