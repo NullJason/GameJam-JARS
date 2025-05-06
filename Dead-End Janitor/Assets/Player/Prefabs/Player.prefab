@@ -448,6 +448,7 @@ GameObject:
   - component: {fileID: 2853078030676805939}
   - component: {fileID: 5401562053449011181}
   - component: {fileID: 4803901323560981626}
+  - component: {fileID: 4702301894484317685}
   m_Layer: 0
   m_Name: PlayerCamera
   m_TagString: MainCamera
@@ -592,6 +593,21 @@ MonoBehaviour:
   PlayerTransform: {fileID: 2069399378186922470}
   sensitivity: 2
   yRotationLimit: 88
+--- !u!114 &4702301894484317685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4570859306605731557}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d13280ea2f212d4e9a8e5675e8f6819, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
 --- !u!1 &6819131045589531566
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,6 +626,9 @@ GameObject:
   - component: {fileID: 2767457814090359531}
   - component: {fileID: 7569435613072332462}
   - component: {fileID: 2050226522463494972}
+  - component: {fileID: 7138505220643969603}
+  - component: {fileID: -8808026252771677489}
+  - component: {fileID: 1833069996532991366}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -851,6 +870,71 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &7138505220643969603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6819131045589531566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  _assetId: 417622736
+  serverOnly: 0
+  visibility: 0
+  hasSpawned: 0
+--- !u!114 &-8808026252771677489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6819131045589531566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3563da07a5745f14cad6e2cf7a61e355, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+--- !u!114 &1833069996532991366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6819131045589531566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f63ea2e505fd484193fb31c5c55ca73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 1
+  syncMode: 0
+  syncInterval: 0.033333335
+  baselineRate: 1
+  unreliableRedundancy: 0
+  baselineIsDelta: 1
+  debugLog: 0
+  useFixedUpdate: 0
+  target: {fileID: 2069399378186922470}
+  bufferSizeLimit: 64
+  sendRate: 30
+  positionSensitivity: 0.01
+  rotationSensitivity: 0.01
+  scaleSensitivity: 0.01
+  syncPosition: 1
+  syncRotation: 1
+  syncScale: 0
+  debugDraw: 0
+  showGizmos: 0
+  showOverlay: 0
+  overlayColor: {r: 0, g: 0, b: 0, a: 0.5}
 --- !u!1 &7907408658337614640
 GameObject:
   m_ObjectHideFlags: 0

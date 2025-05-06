@@ -2,24 +2,23 @@ using UnityEngine;
 using TMPro;
 using Mirror;
 
-public class HostLobbyUI : MonoBehaviour
+public class HostLobby : MonoBehaviour
 {
     public TMP_Text lobbyCodeDisplay;
-    public GameObject lobbyPanel;
     public NetworkManager networkManager;
+    public CustomNetworkDiscovery discovery;
 
     private string lobbyCode;
 
     public void CreateLobby()
     {
         lobbyCode = LobbyManager.Instance.GenerateUniqueLobbyCode();
+        LobbyManager.Instance.CurrentLobbyCode = lobbyCode;
         lobbyCodeDisplay.text = "Lobby Code: " + lobbyCode;
 
         networkManager.StartHost();
-
-        LobbyManager.Instance.RegisterLobby(lobbyCode, networkManager);
-
-        lobbyPanel.SetActive(true);
+        discovery.currentLobbyCode = lobbyCode;
+        discovery.AdvertiseServer(); // broadcast lobby code over LAN
     }
     void OnEnable()
     {
@@ -27,7 +26,6 @@ public class HostLobbyUI : MonoBehaviour
     }
     private void OnDisable()
     {
-        if (!string.IsNullOrEmpty(lobbyCode))
-            LobbyManager.Instance.UnregisterLobby(lobbyCode);
+        networkManager.StopHost();
     }
 }
