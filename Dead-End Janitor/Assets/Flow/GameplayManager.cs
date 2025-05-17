@@ -29,6 +29,7 @@ public class GameplayManager : MonoBehaviour
   //float lastKnownPlayerHealth = 100;
 //  public Settings settings;
   void Awake(){
+    
     if(main == null){
       main = this;
       DontDestroyOnLoad(this);
@@ -39,6 +40,9 @@ public class GameplayManager : MonoBehaviour
     waveTimer = waveTimerReset;
     LoadGame();
     SaveGame();
+    //For debug purposes only!
+    SetSolidTool(Tool.vacuum);
+    SetLiquidTool(Tool.mop);
   }
   void Update()
   {
@@ -106,10 +110,10 @@ public class GameplayManager : MonoBehaviour
     else Debug.LogError("Could not equip tool " + GetLiquidTool() + " because it was not yet unlocked!");
   }
 
-  private Tool GetLiquidTool(){
+  public Tool GetLiquidTool(){
     return saveFile.liquidTool;
   }
-  private Tool GetSolidTool(){
+  public Tool GetSolidTool(){
     return saveFile.solidTool;
   }
   public Tool GetTool(Dirty dirty){

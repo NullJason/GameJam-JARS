@@ -11,7 +11,7 @@ public class ButtonSystem : MonoBehaviour
   //Signals that this ButtonSystem should re-initialize buttons[i].
   //If i == -1, will re-initialize all buttons.
   public void Refresh(int i = -1){
-    Debug.Log("Refreshing!");
+    Debug.Log("Refreshing!" + buttons.Length);
     if(i < 0){
       foreach(SystemButton b in buttons) Reset(b);
     }
@@ -21,6 +21,7 @@ public class ButtonSystem : MonoBehaviour
   }
 
   private protected virtual void Reset(SystemButton button){
+    Debug.Log("Refreshed!");
     button.Reset();
   }
 }

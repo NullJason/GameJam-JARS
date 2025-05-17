@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 public abstract class SystemButton : ButtonFunctionality
 {
-  private protected List<ButtonSystem> systems;
+  [SerializeField] private protected List<ButtonSystem> systems;
   bool initialized = false;
 
   //How the button should initialize itself when the system signals for it to.

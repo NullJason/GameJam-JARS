@@ -7,7 +7,9 @@ using UnityEngine.UI;
 
 public class EquipButton : ItemButton
 {
+  [SerializeField] Image img;
   private protected override void Init(){
+    if(img == null) img = GetComponent<Image>();
     base.Init();
     Reset();
   }
@@ -36,9 +38,20 @@ public class EquipButton : ItemButton
 
   //Turns on or off the button, in this case based on whether the item has been purchased and isn't already being held.
   private protected void CheckTurnOn(){
-    if(!GameplayManager.main.CheckToolUnlocked(tool) || GameplayManager.main.GetTool(dirtType) == tool) TurnOffButton();
-    else TurnOnButton();
-}
+    if(!GameplayManager.main.CheckToolUnlocked(tool) && true){
+      //img.color = new Color(10, 10, 10);
+      TurnOffButton();
+    }
+    else if(GameplayManager.main.GetTool(dirtType) == tool && true) {
+      //img.color = new Color(50, 50, 50);
+      TurnOffButton();
+    }
+
+    else{
+      TurnOnButton();
+      //img.color = new Color(255, 255, 255);
+    }
+  }
 
   void TurnOffButton(){
     if(button == null){

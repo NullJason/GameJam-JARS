@@ -120,6 +120,7 @@ GameObject:
   - component: {fileID: 3043730311673164963}
   - component: {fileID: 7426267775983110875}
   - component: {fileID: 8941980864057807924}
+  - component: {fileID: -5402059526741440721}
   m_Layer: 0
   m_Name: PressureWasher
   m_TagString: Untagged
@@ -217,3 +218,25 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-5402059526741440721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5540133716103707528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab280c670a24ba849977de69ca734116, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 0
+  Strength: 0.25
+  Player: {fileID: 0}
+  PlayerCameraTransform: {fileID: 0}
+  detectionRange: 10
+  Effects: {fileID: 0}
+  DirtType: 0100
+  CleanMethod: 0100
+  Vacuum_Volume: 0.6
+  Mop_Volume: 1

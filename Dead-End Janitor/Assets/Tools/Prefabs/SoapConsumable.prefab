@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 3263873452766303833}
   - component: {fileID: 7900015892771999055}
   - component: {fileID: 4754507887609668995}
+  - component: {fileID: 495170654781364200}
   m_Layer: 0
   m_Name: SoapConsumable
   m_TagString: Untagged
@@ -247,9 +248,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33cb250fc41c83540973d3d5f1f7a311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CoolDown: 5
-  ThrowStrength: 10
   Player: {fileID: 0}
   PlayerCameraTransform: {fileID: 0}
   Effects: {fileID: 0}
-  ObjectThrown: {fileID: 0}
+  ToolMonobehavior: {fileID: 0}
+--- !u!114 &495170654781364200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5985038780747671758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab280c670a24ba849977de69ca734116, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 0
+  Strength: 0.25
+  Player: {fileID: 0}
+  PlayerCameraTransform: {fileID: 0}
+  detectionRange: 10
+  Effects: {fileID: 0}
+  DirtType: 0100
+  CleanMethod: 0101
+  Vacuum_Volume: 0.6
+  Mop_Volume: 1

@@ -52,7 +52,12 @@ public class Tools : MonoBehaviour
     if(main == null) Debug.LogError("Tool values do not yet exist!");
     else if(main.dirtTypes == null) Debug.Log("Tool Dirt Type values have not yet been initialized!");
     else if(!main.dirtTypes.ContainsKey(t)) Debug.LogError("Tool does not exist!");
-    return(main.dirtTypes[t]);
+    Dirty result;
+    if(!main.dirtTypes.TryGetValue(t, out result)){
+      Debug.LogWarning("Unknown trouble getting tool! Returning none. ");
+      return(Dirty.none);
+    }
+    return(result);
   }
   private void SetUp(){
     tools = new Dictionary<Tool, GameObject>();
@@ -108,6 +113,7 @@ public class Tools : MonoBehaviour
     }
     else{
       tools.Add(t, toolObject);
+      if(t == Tool.featherDuster) Debug.LogWarning("Duster: " + cleaner.GetDirtType());
       dirtTypes.Add(t, cleaner.GetDirtType());
     }
   }

@@ -228,6 +228,7 @@ GameObject:
   - component: {fileID: 1821683154294166097}
   - component: {fileID: 4615886064614251348}
   - component: {fileID: 5997255774610902710}
+  - component: {fileID: -6914409499870551370}
   m_Layer: 0
   m_Name: Electricfier
   m_TagString: Untagged
@@ -326,3 +327,25 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-6914409499870551370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8241022384506458605}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab280c670a24ba849977de69ca734116, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 0.1
+  Strength: 0.25
+  Player: {fileID: 0}
+  PlayerCameraTransform: {fileID: 0}
+  detectionRange: 10
+  Effects: {fileID: 0}
+  DirtType: 0000
+  CleanMethod: 0000
+  Vacuum_Volume: 0.6
+  Mop_Volume: 1

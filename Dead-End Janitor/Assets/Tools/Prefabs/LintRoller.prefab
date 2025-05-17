@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7352803134324472635}
   - component: {fileID: 500773598090658019}
   - component: {fileID: 2202862100502610850}
+  - component: {fileID: -1622340870886077878}
   m_Layer: 0
   m_Name: LintRoller
   m_TagString: Untagged
@@ -112,6 +113,28 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &-1622340870886077878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 846750906568646989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab280c670a24ba849977de69ca734116, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Speed: 0.1
+  Strength: 0.25
+  Player: {fileID: 0}
+  PlayerCameraTransform: {fileID: 0}
+  detectionRange: 10
+  Effects: {fileID: 0}
+  DirtType: 0001
+  CleanMethod: 0001
+  Vacuum_Volume: 0.6
+  Mop_Volume: 1
 --- !u!1 &2565735239399100307
 GameObject:
   m_ObjectHideFlags: 0
