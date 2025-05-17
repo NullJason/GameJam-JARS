@@ -6,13 +6,30 @@ public class WeaponSystem : MonoBehaviour
   //TODO!!!
 
   private protected HashSet<Weapon> running; //A set that contains all weapons that are currently running on this system. 
+  [SerializeField] private protected List<Weapon> toAdd;
+  //[SerializeField] private protected Hunter mc; //The Main Character that attacks using this WeaponSystem. 
   private protected List<Weapon> superRanged;
   private protected List<Weapon> ranged;
   private protected List<Weapon> mid;
   private protected List<Weapon> near;
   private protected List<Weapon> all;//The category with the lowest minimum range. It contains all weapons, since a weapon that can hit a farther target can automatically hit a nearer target. 
   private protected Weapon attacking; //The weapon that is currently attacking. 
-  private protected Humanoid target; //The target that the attacking weapon is attacking. 
+  [SerializeField] private protected Humanoid target; //The target that the attacking weapon is attacking. 
+
+  private protected void Awake(){
+    superRanged = new List<Weapon>();
+    ranged = new List<Weapon>();
+    mid = new List<Weapon>();
+    near = new List<Weapon>();
+    all = new List<Weapon>();
+    running = new HashSet<Weapon>();
+
+    foreach(Weapon weapon in toAdd){
+      AddWeapon(weapon);
+      Debug.Log(this);
+      weapon.SetSystem(this);
+    }
+  }
 
 
   //Let the WeaponSystem know it should run continuous updates on a particular weapon. 
@@ -24,6 +41,7 @@ public class WeaponSystem : MonoBehaviour
   private void Update(){
     foreach(Weapon weapon in running) weapon.OnUpdate();
     if(attacking == null && target != null) StartNewAttack();
+    PrintDebugInfo();
   }
 
   //Ends the weapon that is currently attacking. 
@@ -39,7 +57,7 @@ public class WeaponSystem : MonoBehaviour
   //Lets the WeaponSystem know that it should no longer run continuous updates on a particular weapon. 
   //Usually called by a Weapon that has completed everything related to attacking. 
   public void End(Weapon weapon){
-    running.Remove(weapon);
+    //running.Remove(weapon);
   }
 
   //Decreases the cooldown of all weapons by time. 
@@ -83,6 +101,17 @@ public class WeaponSystem : MonoBehaviour
     Debug.LogError("No valid weapon! Returning null.");
     return null;
   }
+
+  private protected void PrintDebugInfo(){
+    Debug.Log("$ Weapons, farthest to nearest: ");
+    DebugPrintCollection(superRanged, "$   ");
+    DebugPrintCollection(ranged, "$   ");
+    DebugPrintCollection(mid, "$   ");
+    DebugPrintCollection(near, "$   ");
+    DebugPrintCollection(all, "$   ");
+    Debug.Log("$ Loaded weapons: ");
+    Debug.Log("$   " + attacking);
+  }
   
 
 //  public void Attack(Humanoid target){
@@ -107,7 +136,14 @@ public class WeaponSystem : MonoBehaviour
     if(target == null) Debug.LogError("Could not start attacking, as target was null!");
     RangeCategory targetCategory = GetCategory(target.gameObject.transform);
     attacking = GetBestWeaponByCategory(targetCategory);
+    if(attacking == null) Debug.LogError("Could not start attacking, as no valid weapons were found!");
     bool b = attacking.TryStartAttack(target);
     if(!b) Debug.LogError("Attacking weapon " + attacking + " failed to start attacking!");
+  }
+
+  //Meant to print a collection. 
+  //TODO: Make generic?
+  public void DebugPrintCollection(ICollection<Weapon> c, string prefix = "", string postfix = ""){
+    foreach(Object o in c) Debug.Log(prefix + o + postfix);
   }
 }

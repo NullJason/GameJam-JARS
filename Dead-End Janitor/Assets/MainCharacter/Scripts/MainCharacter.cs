@@ -194,6 +194,13 @@ public class Hunter : MonoBehaviour
     damageTimer-=1;
     return false;
   }
+/*
+ * TODO!
+  private protected void Attack(){
+    Weapon weaponToUse = FindWeaponToUse();
+    damageTimer = weaponToUse.FindWeapon();
+  }
+*/
 
   public Player GetPlayer(){
     return player.GetComponent<Player>();
