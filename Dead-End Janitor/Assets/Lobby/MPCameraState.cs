@@ -8,9 +8,10 @@ public class MPCameraState : NetworkBehaviour
     {
         if (!isLocalPlayer)
         {
-            transform.GetComponent<Camera>().enabled = false;
-            transform.GetComponent<AudioListener>().enabled = false;
-            transform.GetComponent<UniversalAdditionalCameraData>().enabled = false;
+            Debug.Log("Detected as non-local player.");
+            // transform.GetComponent<Camera>().enabled = false;
+            // transform.GetComponent<AudioListener>().enabled = false;
+            // transform.GetComponent<UniversalAdditionalCameraData>().enabled = false;
         }
     }
 }

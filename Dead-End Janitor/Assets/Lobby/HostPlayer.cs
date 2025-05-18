@@ -13,5 +13,9 @@ public class HostPlayer : NetworkBehaviour
         Debug.Log("New player joined! Connection ID: " + connToClient.connectionId);
     }
 }
+    private void OnDisable()
+    {
+        Debug.LogWarning("plr was disabled! use this trace. Player object shouldnt be disabled.", this);
+    }
 
 }
